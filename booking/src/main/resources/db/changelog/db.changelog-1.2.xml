@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="01">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nastia" id="02">
+        <addForeignKeyConstraint
+                constraintName="fk_user2user_role" referencedTableName="user"
+                referencedColumnNames="us_id" baseColumnNames="user_id"
+                baseTableName="user_role" />
+        <addForeignKeyConstraint
+                constraintName="fk_role2user_role" referencedTableName="role"
+                referencedColumnNames="rol_id" baseColumnNames="role_id"
+                baseTableName="user_role" />
+    </changeSet>
+    <changeSet author="nastia" id="03">
+        <insert tableName="role">
+            <column name="name" type="varchar(255)" value="ROLE_ADMIN" />
+        </insert>
+        <insert tableName="role">
+            <column name="name" type="varchar(255)" value="ROLE_USER" />
+        </insert>
+        <insert tableName="role">
+            <column name="name" type="varchar(255)" value="ROLE_HR" />
+        </insert>
+        <insert tableName="role">
+            <column name="name" type="varchar(255)" value="ROLE_OFFICE_MANAGER" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>
