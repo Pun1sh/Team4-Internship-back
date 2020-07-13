@@ -26,7 +26,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping("{id}/edit")
+    @PutMapping("edit")
     public UserDto editUsersRole(@PathVariable("id") Long userId, RoleDto roleDto) {
         return userService.editUsersRole(userId, roleDto);
     }

@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="nastia" id="01">
+    <changeSet author="nastia" id="20200713.add-role-column">
         <createTable tableName="user_role">
             <column name="user_id" type="bigint">
                 <constraints nullable="false" primaryKey="true" />
@@ -14,7 +14,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nastia" id="02">
+    <changeSet author="nastia" id="20200713.add-fk-user-role">
         <addForeignKeyConstraint
                 constraintName="fk_user2user_role" referencedTableName="user"
                 referencedColumnNames="us_id" baseColumnNames="user_id"
@@ -24,7 +24,7 @@
                 referencedColumnNames="rol_id" baseColumnNames="role_id"
                 baseTableName="user_role" />
     </changeSet>
-    <changeSet author="nastia" id="03">
+    <changeSet author="nastia" id="20200713.add-role-examples">
         <insert tableName="role">
             <column name="name" type="varchar(255)" value="ROLE_ADMIN" />
         </insert>

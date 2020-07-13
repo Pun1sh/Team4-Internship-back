@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class AMapper <E, D> {
+public abstract class AMapper <E, D> {
+
     @Autowired
     protected ModelMapper mapper;
 

@@ -1,6 +1,7 @@
 package com.exadel.booking.user.role;
 
 import com.exadel.booking.modelmapper.AMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,20 +11,18 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class RoleService {
 
-    @Autowired
-    private RoleRepository roleDao;
-
-    @Autowired
-    private AMapper<Role, RoleDto> roleMapper;
+    private final RoleRepository roleDao;
+    private final AMapper<Role, RoleDto> roleMapper;
 
     public List<RoleDto> getAllRoles() {
         return roleMapper.toListDto(roleDao.findAll());
     }
 
     public RoleDto createRole(RoleDto roleDto) {
-        Role role = new Role();
+        Role role = new Role("");
         role.setName(roleDto.getName());
         return roleMapper.toDto(roleDao.save(role));
     }
@@ -41,9 +40,8 @@ public class RoleService {
     }
 
     public RoleDto updateRole(Long id, RoleDto roleDto) {
-        Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role());
-        Optional.ofNullable(roleDto.getName()).ifPresent(existingRole::setName);
-        roleDao.save(existingRole);
-        return roleMapper.toDto(existingRole);
+        Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role(""));
+        existingRole.setName(roleDto.getName());
+        return roleMapper.toDto(roleDao.save(existingRole));
     }
 }
