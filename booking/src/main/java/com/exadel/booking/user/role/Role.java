@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "role")
 public class Role {
 
-        @GeneratedValue(strategy = GenerationType.IDENTITY) //or SEQUENCE
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "rol_id")
         private Long id;
 

@@ -47,7 +47,7 @@ public class AMapper <E, D> {
         return context -> {
             D source = context.getSource();
             E destination = context.getDestination();
-            mapSpecificFields(source, destination);
+            mapSpecificFieldsToEntityConverter(source, destination);
             return context.getDestination();
         };
     }
@@ -56,14 +56,14 @@ public class AMapper <E, D> {
         return context -> {
             E source = context.getSource();
             D destination = context.getDestination();
-            mapSpecificFields(source, destination);
+            mapSpecificFieldsToDtoConverter(source, destination);
             return context.getDestination();
         };
     }
 
-    void mapSpecificFields(E source, D destination) {
+    void mapSpecificFieldsToDtoConverter(E source, D destination) {
     }
 
-    void mapSpecificFields(D source, E destination) {
+    void mapSpecificFieldsToEntityConverter(D source, E destination) {
     }
 }
