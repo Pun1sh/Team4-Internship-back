@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class User {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "us_id", unique = true)
-    private Long id;
+    private UUID id;
 
     @Column(name = "us_email")
     private String email;
