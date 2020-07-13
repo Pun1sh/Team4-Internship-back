@@ -37,5 +37,26 @@
         <insert tableName="role">
             <column name="rol_name" type="varchar(255)" value="ROLE_OFFICE_MANAGER" />
         </insert>
+    <changeSet author="nastia" id="20200713.add-user-examples">
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="admin@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="admin" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="user@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="user" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="hr@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="hr" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="om@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="om" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
     </changeSet>
 </databaseChangeLog>
