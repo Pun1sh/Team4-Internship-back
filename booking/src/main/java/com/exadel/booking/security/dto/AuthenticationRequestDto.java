@@ -1,4 +1,4 @@
-package com.exadel.booking.dto;
+package com.exadel.booking.security.dto;
 
 import lombok.Data;
 

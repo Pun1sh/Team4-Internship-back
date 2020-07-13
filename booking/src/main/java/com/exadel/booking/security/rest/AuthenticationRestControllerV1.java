@@ -1,9 +1,9 @@
-package com.exadel.booking.rest;
+package com.exadel.booking.security.rest;
 
-import com.exadel.booking.dto.AuthenticationRequestDto;
-import com.exadel.booking.model.User;
+import com.exadel.booking.security.dto.AuthenticationRequestDto;
 import com.exadel.booking.security.jwt.JwtTokenProvider;
-import com.exadel.booking.service.UserService;
+import com.exadel.booking.user.User;
+import com.exadel.booking.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -6,9 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 
 public class JwtUser implements UserDetails {
-    private final Long id;
+    private final UUID id;
     private final String username;
     private final String firstName;
     private final String lastName;
@@ -18,20 +19,22 @@ public class JwtUser implements UserDetails {
     private final Date lastPasswordResetDate;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUser(Long id, String username, String firstName, String lastName, String password, String email, boolean enabled, Date lastPasswordResetDate, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(UUID id, String username, String firstName, String lastName, String password, String email, Collection<? extends GrantedAuthority> authorities, boolean enabled,
+                   Date lastPasswordResetDate) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
+        this.authorities = authorities;
         this.enabled = enabled;
         this.lastPasswordResetDate = lastPasswordResetDate;
-        this.authorities = authorities;
     }
 
+
     @JsonIgnore
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -80,6 +83,7 @@ public class JwtUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+
 
     @Override
     public boolean isEnabled() {
