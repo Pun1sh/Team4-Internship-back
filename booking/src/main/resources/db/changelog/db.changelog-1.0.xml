@@ -16,6 +16,9 @@
             <column name="us_password" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="us_is_active" type="boolean">
+                <constraints nullable="false" />
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -26,8 +27,8 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping("/{id}")
-    public UserDto editUsersRole(@PathVariable("id") UUID userId, RoleDto roleDto) {
+    @PutMapping("/{id}/role")
+    public UserDto editUsersRole(@PathVariable("id") UUID userId, @Valid @RequestBody RoleDto roleDto) {
         return userService.editUsersRole(userId, roleDto);
     }
 }

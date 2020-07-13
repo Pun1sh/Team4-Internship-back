@@ -26,16 +26,16 @@
     </changeSet>
     <changeSet author="nastia" id="20200713.add-role-examples">
         <insert tableName="role">
-            <column name="name" type="varchar(255)" value="ROLE_ADMIN" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_ADMIN" />
         </insert>
         <insert tableName="role">
-            <column name="name" type="varchar(255)" value="ROLE_USER" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_USER" />
         </insert>
         <insert tableName="role">
-            <column name="name" type="varchar(255)" value="ROLE_HR" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_HR" />
         </insert>
         <insert tableName="role">
-            <column name="name" type="varchar(255)" value="ROLE_OFFICE_MANAGER" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_OFFICE_MANAGER" />
         </insert>
     </changeSet>
 </databaseChangeLog>
