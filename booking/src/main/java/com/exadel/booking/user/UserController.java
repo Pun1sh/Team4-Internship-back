@@ -2,19 +2,19 @@ package com.exadel.booking.user;
 
 import com.exadel.booking.modelmapper.AMapper;
 import com.exadel.booking.user.role.RoleDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "users/")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private AMapper<User, UserDto> userMapper;
+    private final UserService userService;
+    private final AMapper<User, UserDto> userMapper;
 
     @GetMapping(value = "/{id}")
     public UserDto getUserById(@PathVariable Long id) {
