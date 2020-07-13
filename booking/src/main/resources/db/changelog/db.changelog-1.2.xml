@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="20200713.add-role-column">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nastia" id="20200713.add-fk-user-role">
+        <addForeignKeyConstraint
+                constraintName="fk_user2user_role" referencedTableName="user"
+                referencedColumnNames="us_id" baseColumnNames="user_id"
+                baseTableName="user_role" />
+        <addForeignKeyConstraint
+                constraintName="fk_role2user_role" referencedTableName="role"
+                referencedColumnNames="rol_id" baseColumnNames="role_id"
+                baseTableName="user_role" />
+    </changeSet>
+    <changeSet author="nastia" id="20200713.add-role-examples">
+        <insert tableName="role">
+            <column name="rol_name" type="varchar(255)" value="ROLE_ADMIN" />
+        </insert>
+        <insert tableName="role">
+            <column name="rol_name" type="varchar(255)" value="ROLE_USER" />
+        </insert>
+        <insert tableName="role">
+            <column name="rol_name" type="varchar(255)" value="ROLE_HR" />
+        </insert>
+        <insert tableName="role">
+            <column name="rol_name" type="varchar(255)" value="ROLE_OFFICE_MANAGER" />
+        </insert>
+    <changeSet author="nastia" id="20200713.add-user-examples">
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="admin@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="admin" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="user@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="user" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="hr@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="hr" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+        <insert tableName="role">
+            <column name="us_email" type="varchar(255)" value="om@mail.ru" />
+            <column name="us_password" type="varchar(255)" value="om" />
+            <column name="us_is_active" type="varchar(255)" value="true" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>
