@@ -14,8 +14,7 @@ import java.util.Collection;
 public class UserController {
 
     private final UserService userService;
-    private final AMapper<User, UserDto> userMapper;
-
+    
     @GetMapping(value = "/{id}")
     public UserDto getUserById(@PathVariable Long id) {
           return userService.getUserById(id);
