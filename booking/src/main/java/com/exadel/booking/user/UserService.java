@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -25,7 +26,7 @@ public class UserService {
     private final AMapper<User, UserDto> userMapper;
     private final AMapper<Role, RoleDto> roleMapper;
 
-    public UserDto getUserById(Long id) {
+    public UserDto getUserById(UUID id) {
         return userMapper.toDto(findUserById(id));
     }
 
@@ -33,7 +34,7 @@ public class UserService {
         return userMapper.toListDto(userDao.findAll());
     }
 
-    public UserDto updateUser(Long id, UserDto userDto) {
+    public UserDto updateUser(UUID id, UserDto userDto) {
         User userInDB = findUserById(id);
         if (StringUtils.isNotBlank(userDto.getEmail())) {
             userInDB.setEmail(userDto.getEmail());
@@ -42,7 +43,7 @@ public class UserService {
     }
 
 
-    public UserDto editUsersRole(Long id, RoleDto roleDto) {
+    public UserDto editUsersRole(UUID id, RoleDto roleDto) {
         User userInBD = findUserById(id);
         if (StringUtils.isNotBlank(roleDto.getName())) {
             userInBD.setRoles(
@@ -51,7 +52,7 @@ public class UserService {
         return userMapper.toDto(userDao.save(userInBD));
     }
 
-        private User findUserById(Long id) {
+        private User findUserById(UUID id) {
         return Optional.ofNullable(userDao.findUserById(id))
                 .orElseThrow(()-> new EntityNotFoundException("there is no such user"));
     }

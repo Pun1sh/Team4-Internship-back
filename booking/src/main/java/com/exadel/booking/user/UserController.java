@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "users/")
+@RequestMapping(value = "users")
 public class UserController {
 
     private final UserService userService;
-    
+
     @GetMapping(value = "/{id}")
-    public UserDto getUserById(@PathVariable Long id) {
+    public UserDto getUserById(@PathVariable UUID id) {
           return userService.getUserById(id);
     }
 
@@ -25,8 +26,8 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping("edit")
-    public UserDto editUsersRole(@PathVariable("id") Long userId, RoleDto roleDto) {
+    @PutMapping("/{id}")
+    public UserDto editUsersRole(@PathVariable("id") UUID userId, RoleDto roleDto) {
         return userService.editUsersRole(userId, roleDto);
     }
 }

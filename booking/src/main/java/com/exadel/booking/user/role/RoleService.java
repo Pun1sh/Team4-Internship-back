@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -27,7 +28,7 @@ public class RoleService {
         return roleMapper.toDto(roleDao.save(role));
     }
 
-    public RoleDto getRoleById(Long id) {
+    public RoleDto getRoleById(UUID id) {
         return roleMapper.toDto(roleDao.getOne(id));
     }
 
@@ -35,11 +36,11 @@ public class RoleService {
         return roleMapper.toDto(roleDao.findRoleByName(name));
     }
 
-    public void deleteRoleById(Long id) {
+    public void deleteRoleById(UUID id) {
         roleDao.delete(roleDao.getOne(id));
     }
 
-    public RoleDto updateRole(Long id, RoleDto roleDto) {
+    public RoleDto updateRole(UUID id, RoleDto roleDto) {
         Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role(""));
         existingRole.setName(roleDto.getName());
         return roleMapper.toDto(roleDao.save(existingRole));
