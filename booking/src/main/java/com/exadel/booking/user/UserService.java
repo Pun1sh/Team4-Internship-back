@@ -54,6 +54,6 @@ public class UserService {
 
         private User findUserById(UUID id) {
         return Optional.ofNullable(userDao.findUserById(id))
-                .orElseThrow(()-> new EntityNotFoundException("there is no such user"));
+                .orElseThrow(()-> new EntityNotFoundException("there is no such user with id:"+ id));
     }
 }
