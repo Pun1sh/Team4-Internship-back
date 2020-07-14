@@ -6,14 +6,17 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="nastia" id="20200713.add-user-table">
         <createTable tableName="user">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="us_id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" unique="true"
                              primaryKey="true"/>
             </column>
             <column name="us_email" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="us_password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="us_is_active" type="tinyint(2)">
                 <constraints nullable="false"/>
             </column>
             <column name="us_username" type="VARCHAR(100)">
@@ -25,13 +28,10 @@
             <column name="us_last_name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+            <column name="us_created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
-                <constraints nullable="false"/>
-            </column>
-            <column name="status" type="VARCHAR(25)" defaultValue="ACTIVE">
+            <column name="us_updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
                 <constraints nullable="false"/>
             </column>
         </createTable>

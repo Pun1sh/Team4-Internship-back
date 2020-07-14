@@ -7,56 +7,75 @@
     <changeSet author="nastia" id="20200713.add-role-column">
         <createTable tableName="user_role">
             <column name="user_id" type="bigint">
-                <constraints nullable="false" primaryKey="true" />
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="role_id" type="bigint">
-                <constraints nullable="false" primaryKey="true" />
+                <constraints nullable="false" primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="nastia" id="20200713.add-fk-user-role">
         <addForeignKeyConstraint
                 constraintName="fk_user2user_role" referencedTableName="user"
-                referencedColumnNames="id" baseColumnNames="user_id"
-                baseTableName="user_role" />
+                referencedColumnNames="us_id" baseColumnNames="user_id"
+                baseTableName="user_role"/>
         <addForeignKeyConstraint
                 constraintName="fk_role2user_role" referencedTableName="role"
-                referencedColumnNames="id" baseColumnNames="role_id"
-                baseTableName="user_role" />
+                referencedColumnNames="rol_id" baseColumnNames="role_id"
+                baseTableName="user_role"/>
     </changeSet>
-    <changeSet author="nastia" id="20200713.add-role-examples">
+    <changeSet author="nastia" id="20200713.add-real-role">
         <insert tableName="role">
-            <column name="rol_name" type="varchar(255)" value="ROLE_ADMIN" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_ADMIN"/>
         </insert>
         <insert tableName="role">
-            <column name="rol_name" type="varchar(255)" value="ROLE_USER" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_USER"/>
         </insert>
         <insert tableName="role">
-            <column name="rol_name" type="varchar(255)" value="ROLE_HR" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_HR"/>
         </insert>
         <insert tableName="role">
-            <column name="rol_name" type="varchar(255)" value="ROLE_OFFICE_MANAGER" />
+            <column name="rol_name" type="varchar(255)" value="ROLE_OFFICE_MANAGER"/>
         </insert>
-    <changeSet author="nastia" id="20200713.add-user-examples">
-        <insert tableName="role">
-            <column name="us_email" type="varchar(255)" value="admin@mail.ru" />
-            <column name="us_password" type="varchar(255)" value="admin" />
-            <column name="status" type="varchar(255)" value="active" />
+    </changeSet>
+    <changeSet author="nastia" id="20200713.add-real-user">
+        <insert tableName="user">
+            <column name="us_email" type="varchar(255)" value="admin@mail.ru"/>
+            <column name="us_password" type="varchar(255)" value="admin"/>
+            <column name="us_is_active" type="varchar(255)" value="1"/>
         </insert>
-        <insert tableName="role">
-            <column name="us_email" type="varchar(255)" value="user@mail.ru" />
-            <column name="us_password" type="varchar(255)" value="user" />
-            <column name="status" type="varchar(255)" value="active" />
+        <insert tableName="user">
+            <column name="us_email" type="varchar(255)" value="user@mail.ru"/>
+            <column name="us_password" type="varchar(255)" value="user"/>
+            <column name="us_is_active" type="varchar(255)" value="1"/>
         </insert>
-        <insert tableName="role">
-            <column name="us_email" type="varchar(255)" value="hr@mail.ru" />
-            <column name="us_password" type="varchar(255)" value="hr" />
-            <column name="status" type="varchar(255)" value="active" />
+        <insert tableName="user">
+            <column name="us_email" type="varchar(255)" value="hr@mail.ru"/>
+            <column name="us_password" type="varchar(255)" value="hr"/>
+            <column name="us_is_active" type="varchar(255)" value="1"/>
         </insert>
-        <insert tableName="role">
-            <column name="us_email" type="varchar(255)" value="om@mail.ru" />
-            <column name="us_password" type="varchar(255)" value="om" />
-            <column name="status" type="varchar(255)" value="active" />
+        <insert tableName="user">
+            <column name="us_email" type="varchar(255)" value="om@mail.ru"/>
+            <column name="us_password" type="varchar(255)" value="om"/>
+            <column name="us_is_active" type="varchar(255)" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="nastia" id="20200713.add-user-role">
+        <insert tableName="user_role">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="3"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="4"/>
+            <column name="role_id" value="4"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

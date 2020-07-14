@@ -1,4 +1,4 @@
-package com.exadel.booking.model.user.role;
+package com.exadel.booking.user.role;
 
 import lombok.Data;
 import lombok.NonNull;

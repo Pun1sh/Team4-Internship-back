@@ -1,7 +1,7 @@
 package com.exadel.booking.security.jwt;
 
 
-import com.exadel.booking.model.user.role.Role;
+import com.exadel.booking.user.role.Role;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

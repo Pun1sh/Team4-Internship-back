@@ -6,20 +6,11 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="nastia" id="20200713.add-role-table">
         <createTable tableName="role">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="rol_id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" unique="true"
                              primaryKey="true"/>
             </column>
             <column name="rol_name" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updated" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
-                <constraints nullable="false"/>
-            </column>
-            <column name="status" type="VARCHAR(25)" defaultValue="ACTIVE">
                 <constraints nullable="false"/>
             </column>
         </createTable>

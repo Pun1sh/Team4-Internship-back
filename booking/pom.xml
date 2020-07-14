@@ -15,14 +15,14 @@
     <name>booking</name>
     <description>Demo project for Spring Boot</description>
 
-
     <properties>
         <java.version>1.8</java.version>
         <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
         <version.javax.persistence-api>2.2</version.javax.persistence-api>
-        <version.org.springframework.boot>2.2.5.RELEASE</version.org.springframework.boot>
+        <version.org.springframework.boot>2.3.1.RELEASE</version.org.springframework.boot>
         <version.org.projectlombok>1.18.10</version.org.projectlombok>
         <version.org.modelmapper>2.3.2</version.org.modelmapper>
+        <version.org.liquibase>3.8.5</version.org.liquibase>
     </properties>
 
     <dependencies>
@@ -44,18 +44,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${version.org.springframework.boot}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+            <version>${version.org.liquibase}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -71,6 +69,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+            <version>42.2.14</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -85,7 +84,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <version>${version.org.springframework.boot}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -106,7 +105,6 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>2.0.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -118,10 +116,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

@@ -1,4 +1,4 @@
-package com.exadel.booking.model.user;
+package com.exadel.booking.user;
 
 import lombok.Data;
 

@@ -1,9 +1,8 @@
 package com.exadel.booking.security.jwt;
 
 
-import com.exadel.booking.model.Status;
-import com.exadel.booking.model.user.User;
-import com.exadel.booking.model.user.role.Role;
+import com.exadel.booking.user.User;
+import com.exadel.booking.user.role.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -25,7 +24,7 @@ public final class JwtUserFactory {
                 user.getEmail(),
                 user.getPassword(),
                 mapToGrantedAuthorities(new ArrayList<>(user.getRoles())),
-                user.getStatus().equals(Status.ACTIVE),
+                user.getIsActive().equals(true),
                 user.getUpdated()
         );
     }

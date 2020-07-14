@@ -1,6 +1,6 @@
-package com.exadel.booking.model.user;
+package com.exadel.booking.user;
 
-import com.exadel.booking.model.user.role.RoleDto;
+import com.exadel.booking.user.role.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
