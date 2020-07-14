@@ -17,11 +17,11 @@
     <changeSet author="nastia" id="20200713.add-fk-user-role">
         <addForeignKeyConstraint
                 constraintName="fk_user2user_role" referencedTableName="user"
-                referencedColumnNames="us_id" baseColumnNames="user_id"
+                referencedColumnNames="id" baseColumnNames="user_id"
                 baseTableName="user_role" />
         <addForeignKeyConstraint
                 constraintName="fk_role2user_role" referencedTableName="role"
-                referencedColumnNames="rol_id" baseColumnNames="role_id"
+                referencedColumnNames="id" baseColumnNames="role_id"
                 baseTableName="user_role" />
     </changeSet>
     <changeSet author="nastia" id="20200713.add-role-examples">
@@ -41,22 +41,22 @@
         <insert tableName="role">
             <column name="us_email" type="varchar(255)" value="admin@mail.ru" />
             <column name="us_password" type="varchar(255)" value="admin" />
-            <column name="us_is_active" type="varchar(255)" value="true" />
+            <column name="status" type="varchar(255)" value="active" />
         </insert>
         <insert tableName="role">
             <column name="us_email" type="varchar(255)" value="user@mail.ru" />
             <column name="us_password" type="varchar(255)" value="user" />
-            <column name="us_is_active" type="varchar(255)" value="true" />
+            <column name="status" type="varchar(255)" value="active" />
         </insert>
         <insert tableName="role">
             <column name="us_email" type="varchar(255)" value="hr@mail.ru" />
             <column name="us_password" type="varchar(255)" value="hr" />
-            <column name="us_is_active" type="varchar(255)" value="true" />
+            <column name="status" type="varchar(255)" value="active" />
         </insert>
         <insert tableName="role">
             <column name="us_email" type="varchar(255)" value="om@mail.ru" />
             <column name="us_password" type="varchar(255)" value="om" />
-            <column name="us_is_active" type="varchar(255)" value="true" />
+            <column name="status" type="varchar(255)" value="active" />
         </insert>
     </changeSet>
 </databaseChangeLog>
