@@ -1,4 +1,4 @@
-package com.exadel.booking.user.role;
+package com.exadel.booking.model.user.role;
 
 import com.exadel.booking.modelmapper.AMapper;
 import org.springframework.stereotype.Component;

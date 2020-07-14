@@ -1,6 +1,7 @@
-package com.exadel.booking.user.role;
+package com.exadel.booking.model.user.role;
 
-import com.exadel.booking.user.User;
+import com.exadel.booking.model.BaseEntity;
+import com.exadel.booking.model.user.User;
 import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,13 +13,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "role")
-public class Role {
-
-        @Id
-        @GeneratedValue(generator="system-uuid")
-        @GenericGenerator(name="system-uuid", strategy = "uuid")
-        @Column(name = "rol_id", unique = true)
-        private UUID id;
+public class Role extends BaseEntity {
 
         @Column(name = "rol_name")
         @NonNull

@@ -1,4 +1,4 @@
-package com.exadel.booking.user.role;
+package com.exadel.booking.model.user.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
