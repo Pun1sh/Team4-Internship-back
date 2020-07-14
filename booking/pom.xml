@@ -21,7 +21,8 @@
 		<version.org.springframework.boot>2.2.5.RELEASE</version.org.springframework.boot>
 		<version.org.projectlombok>1.18.10</version.org.projectlombok>
 		<version.org.modelmapper>2.3.2</version.org.modelmapper>
-		</properties>
+		<version.org.liquibase>3.8.5</version.org.liquibase>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -42,6 +43,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${version.org.liquibase}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
