@@ -6,7 +6,6 @@ import com.exadel.booking.user.role.RoleDto;
 import com.exadel.booking.user.role.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.junit.platform.commons.util.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -45,15 +44,13 @@ public class UserService {
 
     public UserDto editUsersRole(UUID id, RoleDto roleDto) {
         User userInBD = findUserById(id);
-        if (StringUtils.isNotBlank(roleDto.getName())) {
-            userInBD.setRoles(
-                    Collections.singletonList(roleMapper.toEntity(roleService.getRoleByName(roleDto.getName()))));
-        }
+        userInBD.setRoles(
+                Collections.singletonList(roleMapper.toEntity(roleService.getRoleByName(roleDto.getName()))));
         return userMapper.toDto(userDao.save(userInBD));
     }
 
-        private User findUserById(UUID id) {
+    private User findUserById(UUID id) {
         return Optional.ofNullable(userDao.findUserById(id))
-                .orElseThrow(()-> new EntityNotFoundException("there is no such user with id:"+ id));
+                .orElseThrow(() -> new EntityNotFoundException("there is no such user with id:" + id));
     }
 }

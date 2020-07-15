@@ -16,7 +16,7 @@ public class Role {
 
         @Id
         @GeneratedValue(generator="system-uuid")
-        @GenericGenerator(name="system-uuid", strategy = "uuid")
+        @GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator")
         @Column(name = "rol_id", unique = true)
         private UUID id;
 
