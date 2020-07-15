@@ -1,9 +1,9 @@
 package com.exadel.booking.user;
 
+import com.exadel.booking.modelmapper.AMapper;
 import com.exadel.booking.user.role.Role;
 import com.exadel.booking.user.role.RoleDto;
 import com.exadel.booking.user.role.RoleService;
-import com.exadel.booking.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +31,7 @@ public class UserService {
     public List<UserDto> getAllUsers() {
         return userMapper.toListDto(userDao.findAll());
     }
+
 
     public User findByUsername(String username) {
         return userDao.findByUsername(username);

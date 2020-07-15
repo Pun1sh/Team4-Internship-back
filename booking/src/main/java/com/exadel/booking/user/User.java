@@ -15,10 +15,10 @@ import java.util.UUID;
 @Entity
 @Data
 @Accessors(fluent = false, chain = true)
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(generator = "system-uuid")
+    @GeneratedValue
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "us_id", unique = true)
     private UUID id;

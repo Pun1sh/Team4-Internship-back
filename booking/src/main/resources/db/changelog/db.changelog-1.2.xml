@@ -6,17 +6,17 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="nastia" id="20200713.add-role-column">
         <createTable tableName="user_role">
-            <column name="user_id" type="bigint">
+            <column name="user_id" type="UUID">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="role_id" type="bigint">
+            <column name="role_id" type="UUID">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="nastia" id="20200713.add-fk-user-role">
         <addForeignKeyConstraint
-                constraintName="fk_user2user_role" referencedTableName="user"
+                constraintName="fk_user2user_role" referencedTableName="users"
                 referencedColumnNames="us_id" baseColumnNames="user_id"
                 baseTableName="user_role"/>
         <addForeignKeyConstraint
@@ -26,56 +26,76 @@
     </changeSet>
     <changeSet author="nastia" id="20200713.add-real-role">
         <insert tableName="role">
+            <column name="rol_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="rol_name" type="varchar(255)" value="ROLE_ADMIN"/>
         </insert>
         <insert tableName="role">
+            <column name="rol_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="rol_name" type="varchar(255)" value="ROLE_USER"/>
         </insert>
         <insert tableName="role">
+            <column name="rol_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="rol_name" type="varchar(255)" value="ROLE_HR"/>
         </insert>
         <insert tableName="role">
+            <column name="rol_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="rol_name" type="varchar(255)" value="ROLE_OFFICE_MANAGER"/>
         </insert>
     </changeSet>
     <changeSet author="nastia" id="20200713.add-real-user">
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="admin@mail.ru"/>
-            <column name="us_password" type="varchar(255)" value="admin"/>
+            <column name="us_password" type="varchar(255)" value="$2a$04$dA3rcs08Btx2K/27T.onPuGPpgGY13/n.aNJOQw/P0WArU.RH9UeC"/>
             <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_username" type="varchar(255)" value="admin"/>
+            <column name="us_first_name" type="varchar(255)" value="Sergey"/>
+            <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="user@mail.ru"/>
-            <column name="us_password" type="varchar(255)" value="user"/>
+            <column name="us_password" type="varchar(255)" value="$2a$04$eHTwQm6PlA5zhoW58yidIuP3epgZ5hGXpAImLABGBLhFpT4./pn46"/>
             <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_username" type="varchar(255)" value="user"/>
+            <column name="us_first_name" type="varchar(255)" value="Petr"/>
+            <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="hr@mail.ru"/>
-            <column name="us_password" type="varchar(255)" value="hr"/>
+            <column name="us_password" type="varchar(255)" value="$2a$04$nY4K5rxabUVzAd8rHQjwF.Ds6u.A4cLFXntOHec0gEdTQLMINKfRS"/>
             <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_username" type="varchar(255)" value="hr"/>
+            <column name="us_first_name" type="varchar(255)" value="Vanya"/>
+            <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
         </insert>
-        <insert tableName="user">
+        <insert tableName="users">
+            <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="om@mail.ru"/>
-            <column name="us_password" type="varchar(255)" value="om"/>
+            <column name="us_password" type="varchar(255)" value="$2a$04$EfINff8OF849dXA3iqjIxO.9N7oDJ4AajcKiWHI8WtmeEXZfnSXXq"/>
             <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_username" type="varchar(255)" value="om"/>
+            <column name="us_first_name" type="varchar(255)" value="Viktor"/>
+            <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
         </insert>
     </changeSet>
     <changeSet author="nastia" id="20200713.add-user-role">
         <insert tableName="user_role">
-            <column name="user_id" value="1"/>
-            <column name="role_id" value="1"/>
+            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1)"/>
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1)"/>
         </insert>
         <insert tableName="user_role">
-            <column name="user_id" value="2"/>
-            <column name="role_id" value="2"/>
+            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1 OFFSET 1)"/>
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 1)"/>
         </insert>
         <insert tableName="user_role">
-            <column name="user_id" value="3"/>
-            <column name="role_id" value="3"/>
+            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1 OFFSET 2)"/>
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 2)"/>
         </insert>
         <insert tableName="user_role">
-            <column name="user_id" value="4"/>
-            <column name="role_id" value="4"/>
+            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1 OFFSET 3)"/>
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 3)"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

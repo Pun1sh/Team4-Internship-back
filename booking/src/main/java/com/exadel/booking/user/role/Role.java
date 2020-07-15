@@ -2,6 +2,7 @@ package com.exadel.booking.user.role;
 
 import com.exadel.booking.user.User;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "role")
+@NoArgsConstructor
 public class Role {
 
     @Id

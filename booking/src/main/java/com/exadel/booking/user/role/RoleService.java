@@ -22,7 +22,7 @@ public class RoleService {
     }
 
     public RoleDto createRole(RoleDto roleDto) {
-        Role role = new Role("");
+        Role role = new Role();
         role.setName(roleDto.getName());
         return roleMapper.toDto(roleDao.save(role));
     }
@@ -40,7 +40,7 @@ public class RoleService {
     }
 
     public RoleDto updateRole(UUID id, RoleDto roleDto) {
-        Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role(""));
+        Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role());
         existingRole.setName(roleDto.getName());
         return roleMapper.toDto(roleDao.save(existingRole));
     }

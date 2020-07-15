@@ -4,7 +4,7 @@ import com.exadel.booking.security.dto.AuthenticationRequestDto;
 import com.exadel.booking.security.jwt.JwtTokenProvider;
 import com.exadel.booking.user.User;
 import com.exadel.booking.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
+@RequiredArgsConstructor
 public class AuthenticationRestControllerV1 {
 
     private final AuthenticationManager authenticationManager;
@@ -29,18 +30,13 @@ public class AuthenticationRestControllerV1 {
 
     private final UserService userService;
 
-    @Autowired
-    public AuthenticationRestControllerV1(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.userService = userService;
-    }
 
     @PostMapping("login")
     public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
+            String password = requestDto.getPassword();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             User user = userService.findByUsername(username);
 
             if (user == null) {
