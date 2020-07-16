@@ -4,6 +4,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="sql">
+        <sql dbms="postgresql"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
     <changeSet author="nastia" id="20200713.add-user-table">
         <createTable tableName="users">
             <column name="us_id" type="UUID">
@@ -16,7 +23,7 @@
             <column name="us_password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="us_is_active" type="bigint">
+            <column name="us_is_active" type="boolean">
                 <constraints nullable="false"/>
             </column>
             <column name="us_username" type="VARCHAR(100)">

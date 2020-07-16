@@ -47,7 +47,7 @@
             <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="admin@mail.ru"/>
             <column name="us_password" type="varchar(255)" value="$2a$04$dA3rcs08Btx2K/27T.onPuGPpgGY13/n.aNJOQw/P0WArU.RH9UeC"/>
-            <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_is_active" type="boolean" value="true"/>
             <column name="us_username" type="varchar(255)" value="admin"/>
             <column name="us_first_name" type="varchar(255)" value="Sergey"/>
             <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
@@ -56,7 +56,7 @@
             <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="user@mail.ru"/>
             <column name="us_password" type="varchar(255)" value="$2a$04$eHTwQm6PlA5zhoW58yidIuP3epgZ5hGXpAImLABGBLhFpT4./pn46"/>
-            <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_is_active" type="boolean" value="true"/>
             <column name="us_username" type="varchar(255)" value="user"/>
             <column name="us_first_name" type="varchar(255)" value="Petr"/>
             <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
@@ -65,7 +65,7 @@
             <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="hr@mail.ru"/>
             <column name="us_password" type="varchar(255)" value="$2a$04$nY4K5rxabUVzAd8rHQjwF.Ds6u.A4cLFXntOHec0gEdTQLMINKfRS"/>
-            <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_is_active" type="boolean" value="true"/>
             <column name="us_username" type="varchar(255)" value="hr"/>
             <column name="us_first_name" type="varchar(255)" value="Vanya"/>
             <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
@@ -74,7 +74,7 @@
             <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
             <column name="us_email" type="varchar(255)" value="om@mail.ru"/>
             <column name="us_password" type="varchar(255)" value="$2a$04$EfINff8OF849dXA3iqjIxO.9N7oDJ4AajcKiWHI8WtmeEXZfnSXXq"/>
-            <column name="us_is_active" type="varchar(255)" value="1"/>
+            <column name="us_is_active" type="boolean" value="true"/>
             <column name="us_username" type="varchar(255)" value="om"/>
             <column name="us_first_name" type="varchar(255)" value="Viktor"/>
             <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
