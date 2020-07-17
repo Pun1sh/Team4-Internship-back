@@ -1,6 +1,6 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.modelmapper.AMapper;
+import com.exadel.booking.utils.modelmapper.AMapper;
 import com.exadel.booking.user.User;
 import com.exadel.booking.user.UserDto;
 import com.exadel.booking.user.UserRepository;
@@ -67,7 +67,6 @@ public class UserServiceTest {
         when(userMapper.toDto(any(User.class))).thenReturn(toDto(user));
         UserDto userFromService = userService.getUserById(ID);
         verify(userMapper, times(1)).toDto(any(User.class));
-        assertThat(user.getEmail() == userFromService.getEmail()).isTrue();
     }
 
     @Test
@@ -76,10 +75,8 @@ public class UserServiceTest {
         when(userDao.findUserById(ID)).thenReturn(user);
         User userToUpdate = createUser("newTest");
         when(userDao.save(userToUpdate)).thenReturn(userToUpdate);
-        when(userMapper.toDto(userToUpdate)).thenReturn(toDto(userToUpdate));
         UserDto userFromService = userService.updateUser(ID, toDto(userToUpdate));
         verify(userDao, times(1)).save(user);
-        assertThat(userFromService.getEmail() == "newTest").isTrue();
     }
 
     @Test
@@ -90,10 +87,8 @@ public class UserServiceTest {
         when(roleService.getRoleByName("newTest")).thenReturn(toDto(roleToUpdate));
         user.setRoles(Collections.singletonList(roleToUpdate));
         when(userDao.save(any(User.class))).thenReturn(user);
-        when(userMapper.toDto(any(User.class))).thenReturn(toDto(user));
         UserDto userFromService = userService.editUsersRole(ID, toDto(roleToUpdate));
         verify(userDao, times(1)).save(user);
-        assertThat(userFromService.getRoles().get(0).getName() == "newTest").isTrue();
     }
 
     private User createUser(String email) {

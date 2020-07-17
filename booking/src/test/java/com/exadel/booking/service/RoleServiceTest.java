@@ -1,6 +1,5 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.modelmapper.AMapper;
 import com.exadel.booking.user.role.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;

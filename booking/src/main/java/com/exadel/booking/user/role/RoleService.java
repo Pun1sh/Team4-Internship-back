@@ -1,6 +1,6 @@
 package com.exadel.booking.user.role;
 
-import com.exadel.booking.modelmapper.AMapper;
+import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +22,7 @@ public class RoleService {
     }
 
     public RoleDto createRole(RoleDto roleDto) {
-        Role role = new Role();
-        role.setName(roleDto.getName());
+        Role role = new Role(roleDto.getName());
         return roleMapper.toDto(roleDao.save(role));
     }
 
@@ -40,7 +39,7 @@ public class RoleService {
     }
 
     public RoleDto updateRole(UUID id, RoleDto roleDto) {
-        Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role());
+        Role existingRole = Optional.ofNullable(roleDao.getOne(id)).orElse(new Role(roleDto.getName()));
         existingRole.setName(roleDto.getName());
         return roleMapper.toDto(roleDao.save(existingRole));
     }
