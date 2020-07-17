@@ -6,12 +6,12 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="nastia" id="20200713.add-role-table">
         <createTable tableName="role">
-            <column name="rol_id" type="bigint" autoIncrement="true">
+            <column name="rol_id" type="UUID" >
                 <constraints nullable="false" unique="true"
-                             primaryKey="true" />
+                             primaryKey="true"/>
             </column>
             <column name="rol_name" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>

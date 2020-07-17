@@ -2,7 +2,6 @@ package com.exadel.booking.user;
 
 import com.exadel.booking.user.role.Role;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 

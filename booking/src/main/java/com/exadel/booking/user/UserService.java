@@ -5,7 +5,6 @@ import com.exadel.booking.user.role.Role;
 import com.exadel.booking.user.role.RoleDto;
 import com.exadel.booking.user.role.RoleService;
 import lombok.RequiredArgsConstructor;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -49,8 +48,8 @@ public class UserService {
         return userMapper.toDto(userDao.save(userInBD));
     }
 
-    private User findUserById(UUID id) {
+        private User findUserById(UUID id) {
         return Optional.ofNullable(userDao.findUserById(id))
-                .orElseThrow(() -> new EntityNotFoundException("there is no such user with id:" + id));
+                .orElseThrow(()-> new EntityNotFoundException("there is no such user with id:"+ id));
     }
 }
