@@ -1,9 +1,7 @@
 package com.exadel.booking.user;
 
-import com.exadel.booking.modelmapper.AMapper;
 import com.exadel.booking.user.role.RoleDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

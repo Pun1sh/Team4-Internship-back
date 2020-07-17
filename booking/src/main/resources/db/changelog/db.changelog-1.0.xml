@@ -4,20 +4,42 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200716.create-functions-for-uuid-in-database">
+        <sql dbms="postgresql"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
     <changeSet author="nastia" id="20200713.add-user-table">
-        <createTable tableName="user">
-            <column name="us_id" type="bigint" autoIncrement="true">
+        <createTable tableName="users">
+            <column name="us_id" type="UUID">
                 <constraints nullable="false" unique="true"
-                             primaryKey="true" />
+                             primaryKey="true"/>
             </column>
             <column name="us_email" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="us_password" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
-            <column name="us_is_active" type="tinyint(2)">
-                <constraints nullable="false" />
+            <column name="us_is_active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="us_username" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="us_first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="us_last_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="us_created" type="TIMESTAMP" defaultValue="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="us_updated" type="TIMESTAMP" defaultValue="NOW()">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>

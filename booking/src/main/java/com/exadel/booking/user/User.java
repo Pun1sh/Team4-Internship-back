@@ -4,20 +4,22 @@ import com.exadel.booking.user.role.Role;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @Accessors(fluent = false, chain = true)
-@Table(name = "user")
+@Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "us_id", unique = true)
     private UUID id;
 
@@ -29,6 +31,23 @@ public class User {
 
     @Column(name = "us_is_active")
     private Boolean isActive;
+
+    @Column(name = "us_username")
+    private String username;
+
+    @Column(name = "us_first_name")
+    private String firstName;
+
+    @Column(name = "us_last_name")
+    private String lastName;
+
+    @CreatedDate
+    @Column(name = "us_created")
+    private Date created;
+
+    @LastModifiedDate
+    @Column(name = "us_updated")
+    private Date updated;
 
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
