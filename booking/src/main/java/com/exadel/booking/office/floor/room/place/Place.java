@@ -1,6 +1,6 @@
-package com.exadel.booking.room.place;
+package com.exadel.booking.office.floor.room.place;
 
-import com.exadel.booking.room.Room;
+import com.exadel.booking.office.floor.room.Room;
 import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.annotations.GenericGenerator;

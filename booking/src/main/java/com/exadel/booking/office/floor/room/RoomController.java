@@ -1,21 +1,20 @@
-package com.exadel.booking.room;
+package com.exadel.booking.office.floor.room;
 
-import com.exadel.booking.room.place.PlaceDto;
-import com.exadel.booking.room.place.PlaceService;
+import com.exadel.booking.office.floor.room.place.PlaceDto;
+import com.exadel.booking.office.floor.room.place.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "rooms")
+@RequestMapping(value = "/rooms")
 public class RoomController {
-
     private final RoomService roomService;
     private final PlaceService placeService;
 
@@ -24,13 +23,8 @@ public class RoomController {
         return roomService.getRoomById(id);
     }
 
-    @GetMapping
-    public Collection<RoomDto> getAllRooms() {
-        return roomService.getAllRooms();
-    }
-
-    @GetMapping(value = "/{id}/allPlaces")
-    public Collection<PlaceDto> getAllPlacesByRoomId(@PathVariable UUID id) {
+    @GetMapping(value = "/{id}/places")
+    public List<PlaceDto> getAllPlacesByRoomId(@PathVariable UUID id) {
         return placeService.getAllPlacesByRoomId(id);
     }
 }

@@ -1,11 +1,13 @@
-package com.exadel.booking.room.place;
+package com.exadel.booking.office.floor.room;
 
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-public class PlaceDto {
+public class RoomDto {
+
     private UUID id;
     private Integer number;
+
 }

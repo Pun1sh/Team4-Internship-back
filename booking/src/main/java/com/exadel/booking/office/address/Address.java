@@ -1,31 +1,36 @@
-package com.exadel.booking.room;
+package com.exadel.booking.office.address;
 
-import com.exadel.booking.room.place.Place;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @Accessors(fluent = false, chain = true)
-@Table(name = "room")
-public class Room {
+@Table(name = "address")
+public class Address {
 
     @Id
     @GeneratedValue
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(name = "rm_id", unique = true)
+    @Column(name = "ad_id", unique = true)
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
-    private List<Place> place;
-
-    @Column(name = "rm_number")
+    @Column(name = "ad_country_code")
     @NonNull
-    private Integer number;
+    private String countryCode;
+
+    @Column(name = "ad_city")
+    @NonNull
+    private String city;
+
+    @Column(name = "ad_street")
+    @NonNull
+    private String street;
+
+
 }

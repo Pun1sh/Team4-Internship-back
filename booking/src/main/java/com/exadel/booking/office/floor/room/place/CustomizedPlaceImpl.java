@@ -1,4 +1,4 @@
-package com.exadel.booking.room.place;
+package com.exadel.booking.office.floor.room.place;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,4 +1,4 @@
-package com.exadel.booking.room;
+package com.exadel.booking.office.floor.room;
 
 import com.exadel.booking.modelmapper.AMapper;
 import org.springframework.stereotype.Component;

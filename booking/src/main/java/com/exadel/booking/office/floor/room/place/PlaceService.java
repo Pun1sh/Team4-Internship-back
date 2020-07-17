@@ -1,4 +1,4 @@
-package com.exadel.booking.room.place;
+package com.exadel.booking.office.floor.room.place;
 
 import com.exadel.booking.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;

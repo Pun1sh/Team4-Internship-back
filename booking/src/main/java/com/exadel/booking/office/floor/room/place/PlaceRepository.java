@@ -1,4 +1,4 @@
-package com.exadel.booking.room.place;
+package com.exadel.booking.office.floor.room.place;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

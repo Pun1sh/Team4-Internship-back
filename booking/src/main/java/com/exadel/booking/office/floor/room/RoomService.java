@@ -1,4 +1,4 @@
-package com.exadel.booking.room;
+package com.exadel.booking.office.floor.room;
 
 import com.exadel.booking.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +27,9 @@ public class RoomService {
         return roomMapper.toListDto(roomRepository.findAll());
     }
 
-    public RoomDto getRoomByNumber(Integer number) {
-        return roomMapper.toDto(Optional.ofNullable(roomRepository.findRoomByNumber(number)).orElseThrow(() ->
-                new EntityNotFoundException("no room with number" + number)));
+    public List<RoomDto> getAllRoomsByFloorId(UUID id) {
+        return roomMapper.toListDto(roomRepository.findAllRoomsByFloorId(id));
     }
-
 
 }
 
