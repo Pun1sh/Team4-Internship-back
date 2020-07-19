@@ -90,7 +90,8 @@ public class RoleServiceTest {
     }
 
     private Role createRole(String name) {
-        Role role = new Role(name);
+        Role role = new Role();
+        role.setName(name);
         role.setId(ID);
         return role;
     }

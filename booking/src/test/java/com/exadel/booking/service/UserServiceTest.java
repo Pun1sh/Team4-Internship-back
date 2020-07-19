@@ -1,6 +1,5 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.utils.modelmapper.AMapper;
 import com.exadel.booking.user.User;
 import com.exadel.booking.user.UserDto;
 import com.exadel.booking.user.UserRepository;
@@ -8,6 +7,7 @@ import com.exadel.booking.user.UserService;
 import com.exadel.booking.user.role.Role;
 import com.exadel.booking.user.role.RoleDto;
 import com.exadel.booking.user.role.RoleService;
+import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -60,6 +60,7 @@ public class UserServiceTest {
         assertThat(users.size() == listUser.size()).isTrue();
     }
 
+
     @Test
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
@@ -83,7 +84,7 @@ public class UserServiceTest {
     public void editUsersRole() throws EntityNotFoundException {
         User user = createUser("testName");
         when(userDao.findUserById(ID)).thenReturn(user);
-        Role roleToUpdate = new Role("newTest");
+        Role roleToUpdate = createRole("newTest");
         when(roleService.getRoleByName("newTest")).thenReturn(toDto(roleToUpdate));
         user.setRoles(Collections.singletonList(roleToUpdate));
         when(userDao.save(any(User.class))).thenReturn(user);
@@ -99,21 +100,27 @@ public class UserServiceTest {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
-        dto.setRoles(user.getRoles());
         return dto;
     }
 
-    private List<UserDto> toListDto(List<User> users) {
+    private List toListDto(List<User> listUser) {
         List<UserDto> listDto = new ArrayList<>();
-        for (User user : users) {
+        for (User user : listUser) {
             listDto.add(toDto(user));
         }
         return listDto;
     }
 
+
     private RoleDto toDto(Role role) {
         RoleDto dto = new RoleDto(role.getName());
         dto.setId(role.getId());
         return dto;
+    }
+
+    private Role createRole(String name) {
+        Role role = new Role();
+        role.setName(name);
+        return role;
     }
 }

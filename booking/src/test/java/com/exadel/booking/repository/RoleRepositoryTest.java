@@ -24,7 +24,8 @@ public class RoleRepositoryTest {
     }
 
     private Role createRole() {
-        Role role = new Role("testRole");
+        Role role = new Role();
+        role.setName("testName");
         return roleDao.save(role);
     }
 }
