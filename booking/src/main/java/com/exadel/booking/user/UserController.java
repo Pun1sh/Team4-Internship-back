@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public UserDto getUserById(@PathVariable UUID id) {
-          return userService.getUserById(id);
+        return userService.getUserById(id);
     }
 
     @GetMapping
@@ -30,8 +31,8 @@ public class UserController {
         return userService.editUsersRole(userId, roleDto);
     }
 
-    @GetMapping(value = "/{lastName}")
-    public UserDto findUserByLastName(@PathVariable String lastName) {
-        return userService.findUserByLastName(lastName);
+    @GetMapping(value = "/search")
+    public List<UserDto> findUserByWord(String word) {
+        return userService.findUserByWord(word);
     }
 }

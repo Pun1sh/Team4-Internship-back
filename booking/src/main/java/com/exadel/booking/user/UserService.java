@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -33,8 +30,13 @@ public class UserService {
         return userDao.findUserByUsername(username);
     }
 
-    public UserDto findUserByLastName(String lastName) {
-        return userMapper.toDto(userDao.findUserByLastName(lastName));
+    public List<UserDto> findUserByWord(String word) {
+        List<User> usersFromDB = new ArrayList<>();
+        usersFromDB.add(userDao.findUserByEmail(word));
+        usersFromDB.add(userDao.findUserByUsername(word));
+        usersFromDB.addAll(userDao.findUserByLastName(word));
+        usersFromDB.addAll(userDao.findUserByFirstName(word));
+        return userMapper.toListDto(usersFromDB);
     }
 
     public List<UserDto> getAllUsers() {
