@@ -2,7 +2,9 @@ package com.exadel.booking.security.jwt;
 
 
 import com.exadel.booking.user.User;
+import com.exadel.booking.user.authority.Authority;
 import com.exadel.booking.user.role.Role;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -10,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public final class JwtUserFactory {
-    public JwtUserFactory() {
-
-    }
 
     public static JwtUser create(User user) {
         return new JwtUser(
@@ -23,16 +23,20 @@ public final class JwtUserFactory {
                 user.getLastName(),
                 user.getEmail(),
                 user.getPassword(),
-                mapToGrantedAuthorities(new ArrayList<>(user.getRoles())),
+                getGrantedAuthorities(user),
                 user.getIsActive().equals(true),
                 user.getUpdated()
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
-        return userRoles.stream()
-                .map(role ->
-                        new SimpleGrantedAuthority(role.getName())
-                ).collect(Collectors.toList());
+
+    private static List<GrantedAuthority> getGrantedAuthorities(User user) {
+        List<Role> userRoles = user.getRoles();
+        List<Authority> authoritiesOfUser = new ArrayList<>();
+        for (int i = 0; i < userRoles.size(); i++) {
+            authoritiesOfUser.addAll(userRoles.get(i).getAuthorities());
+        }
+        List<String> authoritiesNames = authoritiesOfUser.stream().map(authority -> authority.getName()).collect(Collectors.toList());
+        return authoritiesNames.stream().map(s -> new SimpleGrantedAuthority(s)).collect(Collectors.toList());
     }
 }

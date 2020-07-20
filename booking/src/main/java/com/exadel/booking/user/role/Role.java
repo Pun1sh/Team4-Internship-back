@@ -31,10 +31,10 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_authority", joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
-    private Collection<Authority> authorities;
+    private List<Authority> authorities;
 
 
 }

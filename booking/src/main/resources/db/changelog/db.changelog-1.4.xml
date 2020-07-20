@@ -27,19 +27,19 @@
     <changeSet author="gleb" id="20200720.add-real-authority">
         <insert tableName="authority">
             <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="ADMIN_READ_AUTHORITY"/>
+            <column name="au_name" type="varchar(255)" value="ROLE_READ"/>
         </insert>
         <insert tableName="authority">
             <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="ADMIN_WRITE_AUTHORITY"/>
+            <column name="au_name" type="varchar(255)" value="ROLE_WRITE"/>
         </insert>
         <insert tableName="authority">
             <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="USER_READ_AUTHORITY"/>
+            <column name="au_name" type="varchar(255)" value="ROLE_DELETE"/>
         </insert>
         <insert tableName="authority">
             <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="HR_READ_AUTHORITY"/>
+            <column name="au_name" type="varchar(255)" value="USER_READ"/>
         </insert>
     </changeSet>
     <changeSet author="gleb" id="20200720.add-role-authority">
@@ -52,11 +52,11 @@
             <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 1)"/>
         </insert>
         <insert tableName="role_authority">
-            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 1)"/>
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1)"/>
             <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 2)"/>
         </insert>
         <insert tableName="role_authority">
-            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 2)"/>
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 1)"/>
             <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 3)"/>
         </insert>
     </changeSet>
