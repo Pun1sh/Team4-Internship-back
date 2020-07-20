@@ -3,7 +3,6 @@ package com.exadel.booking.user;
 import com.exadel.booking.user.role.Role;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -17,9 +16,9 @@ import java.util.UUID;
 @Accessors(fluent = false, chain = true)
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "us_id", unique = true)
     private UUID id;
 
@@ -49,7 +48,7 @@ public class User {
     @Column(name = "us_updated")
     private Date updated;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 }

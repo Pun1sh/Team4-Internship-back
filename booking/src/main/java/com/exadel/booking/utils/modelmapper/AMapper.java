@@ -1,4 +1,4 @@
-package com.exadel.booking.modelmapper;
+package com.exadel.booking.utils.modelmapper;
 
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
