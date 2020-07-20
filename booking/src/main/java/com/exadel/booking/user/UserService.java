@@ -33,6 +33,10 @@ public class UserService {
         return userDao.findUserByUsername(username);
     }
 
+    public UserDto findUserByLastName(String lastName) {
+        return userMapper.toDto(userDao.findUserByLastName(lastName));
+    }
+
     public List<UserDto> getAllUsers() {
         return userMapper.toListDto(userDao.findAll());
     }

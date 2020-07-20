@@ -29,4 +29,9 @@ public class UserController {
     public UserDto editUsersRole(@PathVariable("id") UUID userId, @Valid @RequestBody RoleDto roleDto) {
         return userService.editUsersRole(userId, roleDto);
     }
+
+    @GetMapping(value = "/{lastName}")
+    public UserDto findUserByLastName(@PathVariable String lastName) {
+        return userService.findUserByLastName(lastName);
+    }
 }
