@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200720.create-role-authority-table">
+        <createTable tableName="role_authority">
+            <column name="role_id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="authority_id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gleb" id="20200720.add-fk-role-authority">
+        <addForeignKeyConstraint
+                constraintName="fk_role2role_authority" referencedTableName="role"
+                referencedColumnNames="rol_id" baseColumnNames="role_id"
+                baseTableName="role_authority"/>
+        <addForeignKeyConstraint
+                constraintName="fk_authority2role_authority" referencedTableName="authority"
+                referencedColumnNames="au_id" baseColumnNames="authority_id"
+                baseTableName="role_authority"/>
+    </changeSet>
+    <changeSet author="gleb" id="20200720.add-real-authority">
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ADMIN_READ_AUTHORITY"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ADMIN_WRITE_AUTHORITY"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="USER_READ_AUTHORITY"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="HR_READ_AUTHORITY"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gleb" id="20200720.add-role-authority">
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 1)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 1)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 2)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 2)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 3)"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
