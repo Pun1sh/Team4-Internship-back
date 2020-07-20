@@ -3,7 +3,6 @@ package com.exadel.booking.user;
 import com.exadel.booking.user.role.Role;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -20,7 +19,6 @@ public class User {
 
     @Id
     @GeneratedValue
-    @GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "us_id", unique = true)
     private UUID id;
 

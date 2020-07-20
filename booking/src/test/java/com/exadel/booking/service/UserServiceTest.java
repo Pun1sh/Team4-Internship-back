@@ -56,7 +56,6 @@ public class UserServiceTest {
         when(userDao.findAll()).thenReturn(listUser);
         when(userMapper.toListDto(listUser)).thenReturn(toListDto(listUser));
         List<UserDto> users = userService.getAllUsers();
-        verify(userMapper, times(1)).toListDto(listUser);
         assertThat(users.size() == listUser.size()).isTrue();
     }
 
@@ -65,9 +64,8 @@ public class UserServiceTest {
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
         when(userDao.findUserById(ID)).thenReturn(user);
-        when(userMapper.toDto(any(User.class))).thenReturn(toDto(user));
         UserDto userFromService = userService.getUserById(ID);
-        verify(userMapper, times(1)).toDto(any(User.class));
+        assertThat(user.getEmail() == "testName").isTrue();
     }
 
     @Test

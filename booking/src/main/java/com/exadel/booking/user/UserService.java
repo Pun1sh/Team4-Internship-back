@@ -51,7 +51,6 @@ public class UserService {
         return userMapper.toDto(userDao.save(userInDB));
     }
 
-
     public UserDto editUsersRole(UUID id, RoleDto roleDto) {
         User userInBD = findUserById(id);
         userInBD.setRoles(
