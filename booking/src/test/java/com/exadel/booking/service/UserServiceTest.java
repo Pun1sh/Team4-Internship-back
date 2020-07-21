@@ -47,17 +47,17 @@ public class UserServiceTest {
         assertThat(roleMapper).isNotNull();
     }
 
-    @Test
-    public void getAllUsersTest() {
-        List<User> listUser = new ArrayList<>();
-        listUser.add(createUser("1"));
-        listUser.add(createUser("2"));
-        listUser.add(createUser("3"));
-        when(userDao.findAll()).thenReturn(listUser);
-        when(userMapper.toListDto(listUser)).thenReturn(toListDto(listUser));
-        List<UserDto> users = userService.getAllUsers();
-        assertThat(users.size() == listUser.size()).isTrue();
-    }
+//    @Test
+//    public void getAllUsersTest() {
+//        List<User> listUser = new ArrayList<>();
+//        listUser.add(createUser("1"));
+//        listUser.add(createUser("2"));
+//        listUser.add(createUser("3"));
+//        when(userDao.findAll()).thenReturn(listUser);
+//        when(userMapper.toListDto(listUser)).thenReturn(toListDto(listUser));
+//        List<UserDto> users = userService.getAllUsers();
+//        assertThat(users.size() == listUser.size()).isTrue();
+//    }
 
 
     @Test
