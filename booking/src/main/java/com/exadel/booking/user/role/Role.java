@@ -5,7 +5,6 @@ import com.exadel.booking.user.authority.Authority;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -19,8 +18,7 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue
     @Column(name = "rol_id", unique = true)
     private UUID id;
 

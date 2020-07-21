@@ -16,7 +16,7 @@ import java.util.UUID;
 @Accessors(fluent = false, chain = true)
 @Table(name = "users")
 public class User {
-    
+
     @Id
     @GeneratedValue
     @Column(name = "us_id", unique = true)

@@ -1,6 +1,6 @@
 package com.exadel.booking.user.role;
 
-import com.exadel.booking.modelmapper.AMapper;
+import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

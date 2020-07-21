@@ -1,4 +1,4 @@
-package com.exadel.booking.modelmapper;
+package com.exadel.booking.utils.modelmapper;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration.AccessLevel;
