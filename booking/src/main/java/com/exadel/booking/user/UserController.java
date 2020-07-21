@@ -24,8 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<UserDto> getAllUsers(@PageableDefault(page = 0, size = 10, sort = {"lastName"}, direction = Sort.Direction.ASC)
-                                             Pageable pageable) {
+    public List<UserDto> getAllUsers(@PageableDefault Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
 
