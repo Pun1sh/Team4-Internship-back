@@ -12,12 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -51,6 +46,19 @@ public class UserServiceTest {
         assertThat(userMapper).isNotNull();
         assertThat(roleMapper).isNotNull();
     }
+
+//    @Test
+//    public void getAllUsersTest() {
+//        List<User> listUser = new ArrayList<>();
+//        listUser.add(createUser("1"));
+//        listUser.add(createUser("2"));
+//        listUser.add(createUser("3"));
+//        when(userDao.findAll()).thenReturn(listUser);
+//        when(userMapper.toListDto(listUser)).thenReturn(toListDto(listUser));
+//        List<UserDto> users = userService.getAllUsers();
+//        assertThat(users.size() == listUser.size()).isTrue();
+//    }
+
 
     @Test
     public void getUserByIdTest() throws EntityNotFoundException {

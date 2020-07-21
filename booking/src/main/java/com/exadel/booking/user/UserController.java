@@ -2,6 +2,9 @@ package com.exadel.booking.user;
 
 import com.exadel.booking.user.role.RoleDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,10 +23,10 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/page{page}")
-    public List<UserDto> getAllUsers(
-            @PathVariable("page") int page, int size, String sortDir, String sort) {
-        return userService.getAllUsers(page, size, sortDir, sort);
+    @GetMapping("/")
+    public List<UserDto> getAllUsers(@PageableDefault(page = 0, size = 10, sort = {"lastName"}, direction = Sort.Direction.ASC)
+                                             Pageable pageable) {
+        return userService.getAllUsers(pageable);
     }
 
     @PutMapping("/{id}/role")

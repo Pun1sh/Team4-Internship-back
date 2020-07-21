@@ -7,8 +7,7 @@ import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -42,10 +41,8 @@ public class UserService {
         return userMapper.toListDto(usersFromDB);
     }
 
-    public List<UserDto> getAllUsers(int page, int size, String sortDir, String sort) {
-        PageRequest pageReq
-                = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sort);
-        Page<User> users = userDao.findAll(pageReq);
+    public List<UserDto> getAllUsers(Pageable pageable) {
+        Page<User> users = userDao.findAll(pageable);
         return userMapper.toListDto(users.getContent());
     }
 
