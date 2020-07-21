@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200721.add-address-table">
+        <createTable tableName="address">
+            <column name="ad_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+            <column name="ad_country_code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ad_city" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ad_street" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-office-table">
+        <createTable tableName="office">
+            <column name="of_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+            <column name="of_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="of_number" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ad_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-floor-table">
+        <createTable tableName="floor">
+            <column name="fl_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+            <column name="fl_number" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="of_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-room-table">
+        <createTable tableName="room">
+            <column name="rm_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+            <column name="rm_number" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fl_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-place-table">
+        <createTable tableName="place">
+            <column name="pl_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+            <column name="pl_number" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rm_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
