@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,9 +20,10 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping
-    public Collection<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/page{page}")
+    public List<UserDto> getAllUsers(
+            @PathVariable("page") int page, int size, String sortDir, String sort) {
+        return userService.getAllUsers(page, size, sortDir, sort);
     }
 
     @PutMapping("/{id}/role")
