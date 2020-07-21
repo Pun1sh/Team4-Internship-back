@@ -35,5 +35,6 @@ public class Office {
     private Integer number;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Address.class)
+    @JoinColumn(name = "ad_id", nullable = false)
     private Address address;
 }

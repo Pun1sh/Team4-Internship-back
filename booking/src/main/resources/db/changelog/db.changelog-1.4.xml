@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200721.add-fk-office">
+        <addForeignKeyConstraint
+                constraintName="fk_address2office" referencedTableName="address"
+                referencedColumnNames="ad_id" baseColumnNames="ad_id"
+                baseTableName="office"/>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-fk-floor">
+        <addForeignKeyConstraint
+                constraintName="fk_office2floor" referencedTableName="office"
+                referencedColumnNames="of_id" baseColumnNames="of_id"
+                baseTableName="floor"/>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-fk-room">
+        <addForeignKeyConstraint
+                constraintName="fk_floor2room" referencedTableName="floor"
+                referencedColumnNames="fl_id" baseColumnNames="fl_id"
+                baseTableName="room"/>
+    </changeSet>
+    <changeSet author="gleb" id="20200721.add-fk-place">
+        <addForeignKeyConstraint
+                constraintName="fk_room2place" referencedTableName="room"
+                referencedColumnNames="rm_id" baseColumnNames="rm_id"
+                baseTableName="place"/>
+    </changeSet>
+</databaseChangeLog>
