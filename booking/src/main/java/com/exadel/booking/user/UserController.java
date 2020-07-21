@@ -3,7 +3,6 @@ package com.exadel.booking.user;
 import com.exadel.booking.user.role.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<UserDto> getAllUsers(@PageableDefault Pageable pageable) {
+    public List<UserDto> getAllUsers(@PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
 
