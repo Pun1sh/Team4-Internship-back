@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/test")
-@RequiredArgsConstructor
 public class TestController {
-    @GetMapping(value = "/1")
+
+    @GetMapping
     @PreAuthorize("hasAuthority('USER_READ')")
     public String test() {
         return "Hello";

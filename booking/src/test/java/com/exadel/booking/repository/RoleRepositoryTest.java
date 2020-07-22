@@ -1,7 +1,7 @@
 package com.exadel.booking.repository;
 
-import com.exadel.booking.user.role.Role;
-import com.exadel.booking.user.role.RoleRepository;
+import com.exadel.booking.entities.user.role.Role;
+import com.exadel.booking.entities.user.role.RoleRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

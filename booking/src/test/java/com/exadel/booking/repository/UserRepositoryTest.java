@@ -1,7 +1,7 @@
 package com.exadel.booking.repository;
 
-import com.exadel.booking.user.User;
-import com.exadel.booking.user.UserRepository;
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
