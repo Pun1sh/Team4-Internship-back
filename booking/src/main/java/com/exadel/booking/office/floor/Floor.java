@@ -3,10 +3,13 @@ package com.exadel.booking.office.floor;
 
 import com.exadel.booking.office.Office;
 import com.exadel.booking.office.floor.room.Room;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +19,10 @@ import java.util.UUID;
 @Data
 @Accessors(fluent = false, chain = true)
 @Table(name = "floor")
+@TypeDef(
+        name = "jsonb",
+        typeClass = JsonBinaryType.class
+)
 public class Floor {
 
     @Id
@@ -34,4 +41,9 @@ public class Floor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "of_id", nullable = false)
     private Office office;
+
+    @Type(type = "jsonb")
+    @Column(name = "map", columnDefinition = "jsonb")
+    @NonNull
+    private String map;
 }
