@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('USER_READ_ALL')")
-    @GetMapping("/")
+    @GetMapping
     public List<UserDto> getAllUsers(@PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
