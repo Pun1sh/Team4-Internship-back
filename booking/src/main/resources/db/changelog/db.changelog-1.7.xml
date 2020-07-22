@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="20200722.add-authority">
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="USER_WRITE"/>
+        </insert>
+    </changeSet>
+    <changeSet author="nastia" id="20200722.add-role-authority">
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 )"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 3)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 2)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 3)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 3)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 3)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 4)"/>
+        </insert>
+        <insert tableName="role_authority">
+            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 2)"/>
+            <column name="authority_id" valueComputed="(SELECT au_id FROM authority LIMIT 1 OFFSET 4)"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
