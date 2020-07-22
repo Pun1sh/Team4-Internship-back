@@ -24,7 +24,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PreAuthorize("hasAuthority('USER_WRITE')")
+    @PreAuthorize("hasAuthority('USER_READ_ALL')")
     @GetMapping("/")
     public List<UserDto> getAllUsers(@PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return userService.getAllUsers(pageable);
@@ -36,7 +36,7 @@ public class UserController {
         return userService.editUsersRole(userId, roleDto);
     }
 
-    @PreAuthorize("hasAuthority('USER_WRITE')")
+    @PreAuthorize("hasAuthority('USER_READ_ALL')")
     @GetMapping(value = "/search")
     public List<UserDto> findUserByWord(String word) {
         return userService.findUserByWord(word);
