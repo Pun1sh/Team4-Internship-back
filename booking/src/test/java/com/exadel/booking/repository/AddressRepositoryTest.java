@@ -15,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 public class AddressRepositoryTest extends AbstractTest {
 
-
     @Autowired
     private AddressRepository addressRepository;
 
@@ -26,8 +25,4 @@ public class AddressRepositoryTest extends AbstractTest {
         assertThat(found.getId()).isEqualTo(address.getId());
     }
 
-    private Address createAddress() {
-        Address address = new Address(getRandomPrefix(), getRandomPrefix(), getRandomPrefix());
-        return addressRepository.save(address);
-    }
 }

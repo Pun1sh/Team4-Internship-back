@@ -3,8 +3,6 @@ package com.exadel.booking.repository;
 import com.exadel.booking.AbstractTest;
 import com.exadel.booking.office.Office;
 import com.exadel.booking.office.OfficeRepository;
-import com.exadel.booking.office.address.Address;
-import com.exadel.booking.office.address.AddressRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OfficeRepositoryTest extends AbstractTest {
     @Autowired
     private OfficeRepository officeRepository;
-    @Autowired
-    private AddressRepository addressRepository;
 
     @Test
     public void whenFindById_thenReturnOffice() {
@@ -42,10 +38,5 @@ public class OfficeRepositoryTest extends AbstractTest {
         assertThat(found.getNumber()).isEqualTo(office.getNumber());
     }
 
-    private Office createOffice() {
-        Office office = new Office(getRandomPrefix(), getRandomObjectsCount());
-        Address address = addressRepository.save(new Address(getRandomPrefix(), getRandomPrefix(), getRandomPrefix()));
-        office.setAddress(address);
-        return officeRepository.save(office);
-    }
+
 }
