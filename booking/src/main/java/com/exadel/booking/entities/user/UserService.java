@@ -24,8 +24,12 @@ public class UserService {
     private final AMapper<User, UserDto> userMapper;
     private final AMapper<Role, RoleDto> roleMapper;
 
-    public UserDto getUserById(UUID id) {
+    public UserDto getUserDtoById(UUID id) {
         return userMapper.toDto(findUserById(id));
+    }
+
+    public User getUserById(UUID id) {
+        return findUserById(id);
     }
 
     public User findUserByUsername(String username) {

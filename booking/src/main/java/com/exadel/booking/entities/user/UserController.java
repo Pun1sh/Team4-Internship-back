@@ -21,7 +21,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER_READ')")
     @GetMapping(value = "/{id}")
     public UserDto getUserById(@PathVariable UUID id) {
-        return userService.getUserById(id);
+        return userService.getUserDtoById(id);
     }
 
     @PreAuthorize("hasAuthority('USER_READ_ALL')")

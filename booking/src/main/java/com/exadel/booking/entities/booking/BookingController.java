@@ -4,13 +4,13 @@ import com.exadel.booking.entities.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/bookings/")
+@RequestMapping("/booking/")
 @RequiredArgsConstructor
 public class BookingController {
 
@@ -18,18 +18,24 @@ public class BookingController {
 
     private final UserService userService;
 
-    @GetMapping("my")
+    @GetMapping()
     public List<BookingDto> getMyBookings(UUID userId) {
         return bookingService.getAllBookingsByUserId(userId);
     }
 
-    @GetMapping("{id}")
-    public BookingDto getBookingById(@PathVariable UUID bookindId) {
-        return bookingService.getBookingById(bookindId);
+    @GetMapping("fromNow")
+    public List<BookingDto> getMyBookingsFromNow(UUID userId,LocalDateTime now) {
+        return bookingService.getAllBookingsByUserIdFromNow(userId,now);
     }
 
-    @PostMapping(value = "addbooking")
-    public BookingDto addBooking(UUID placeId, UUID userId, LocalDate bookingDate, LocalDate dueDate) {
+
+    @GetMapping("{id}")
+    public BookingDto getBookingById(@PathVariable UUID bookindId) {
+        return bookingService.getBookingDtoById(bookindId);
+    }
+
+    @PostMapping
+    public BookingDto addBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
     }
 

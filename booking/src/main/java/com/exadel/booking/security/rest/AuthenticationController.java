@@ -1,9 +1,9 @@
 package com.exadel.booking.security.rest;
 
-import com.exadel.booking.security.dto.AuthenticationRequestDto;
-import com.exadel.booking.security.jwt.JwtTokenProvider;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
+import com.exadel.booking.security.dto.AuthenticationRequestDto;
+import com.exadel.booking.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

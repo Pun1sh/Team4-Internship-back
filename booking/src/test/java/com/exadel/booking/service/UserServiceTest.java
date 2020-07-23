@@ -64,7 +64,7 @@ public class UserServiceTest {
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
         when(userDao.findUserById(ID)).thenReturn(user);
-        UserDto userFromService = userService.getUserById(ID);
+        UserDto userFromService = userService.getUserDtoById(ID);
         assertThat(user.getEmail() == "testName").isTrue();
     }
 

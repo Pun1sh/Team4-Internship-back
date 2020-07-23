@@ -16,10 +16,10 @@
             <column name="b_user_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
-            <column name="b_start_date" type="date">
+            <column name="b_start_date" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="b_due_date" type="date">
+            <column name="b_due_date" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
         </createTable>

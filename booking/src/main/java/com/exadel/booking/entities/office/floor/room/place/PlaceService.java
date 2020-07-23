@@ -18,9 +18,14 @@ public class PlaceService {
     private final AMapper<Place, PlaceDto> placeMapper;
 
 
-    public PlaceDto getPlaceById(UUID id) {
+    public PlaceDto getPlaceDtoById(UUID id) {
         return placeMapper.toDto(Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
                 new EntityNotFoundException("no place with id" + id)));
+    }
+
+    public Place getPlaceById(UUID id) {
+        return Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
+                new EntityNotFoundException("no place with id" + id));
     }
 
     public List<PlaceDto> getAllPlaces() {
