@@ -15,5 +15,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private Boolean isActive;
-    private List<Role> roles;
+    private List<String> roleNames;
 }
