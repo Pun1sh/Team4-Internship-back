@@ -8,6 +8,8 @@ import com.exadel.booking.office.floor.Floor;
 import com.exadel.booking.office.floor.FloorRepository;
 import com.exadel.booking.office.floor.room.Room;
 import com.exadel.booking.office.floor.room.RoomRepository;
+import com.exadel.booking.office.floor.room.place.Place;
+import com.exadel.booking.office.floor.room.place.PlaceRepository;
 import com.exadel.booking.user.User;
 import com.exadel.booking.user.UserRepository;
 import com.exadel.booking.user.role.Role;
@@ -30,6 +32,8 @@ public abstract class AbstractTest {
     private UserRepository userRepository;
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private PlaceRepository placeRepository;
 
     private static final Random RANDOM = new Random();
 
@@ -75,6 +79,12 @@ public abstract class AbstractTest {
         Room room = new Room(5);
         room.setFloor(createFloor());
         return roomRepository.save(room);
+    }
+
+    protected Place createPlace() {
+        Place place = new Place(5);
+        place.setRoom(createRoom());
+        return placeRepository.save(place);
     }
 
 

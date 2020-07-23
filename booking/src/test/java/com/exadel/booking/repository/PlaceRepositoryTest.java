@@ -1,9 +1,9 @@
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.office.Office;
-import com.exadel.booking.office.floor.Floor;
-import com.exadel.booking.office.floor.FloorRepository;
+import com.exadel.booking.office.floor.room.Room;
+import com.exadel.booking.office.floor.room.place.Place;
+import com.exadel.booking.office.floor.room.place.PlaceRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,33 +18,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-public class FloorRepositoryTest extends AbstractTest {
+public class PlaceRepositoryTest extends AbstractTest {
     public static final UUID ID = UUID.randomUUID();
-
     @Autowired
-    private FloorRepository floorRepository;
+    private PlaceRepository placeRepository;
 
     @Test
-    public void whenFindById_thenReturnFloor() {
-        Floor floor = createFloor();
-        Floor found = floorRepository.findFloorById(floor.getId());
-        assertThat(found.getId()).isEqualTo(floor.getId());
+    public void whenFindById_thenReturnPlace() {
+        Place place = createPlace();
+        Place found = placeRepository.findPlaceById(place.getId());
+        assertThat(found.getId()).isEqualTo(place.getId());
     }
 
     @Test
-    public void whenFindByOfficeId_thenReturnFloors() {
-        List<Floor> list = new ArrayList<>();
-        Office office = createOffice();
+    public void whenFindByRoomId_thenReturnPlaces() {
+        List<Place> list = new ArrayList<>();
+        Room room = createRoom();
         for (int i = 0; i < 3; i++) {
-            Floor floor = createFloor();
-            floor.setOffice(office);
-            list.add(floor);
+            Place place = createPlace();
+            place.setRoom(room);
+            list.add(place);
         }
-        List<Floor> found = floorRepository.findAllFloorsByOfficeId(office.getId());
+        List<Place> found = placeRepository.findAllPlacesByRoomId(room.getId());
         assertThat(list.size()).isEqualTo(found.size());
         assertThat(found.contains(list.get(0))).isTrue();
         assertThat(found.contains(list.get(1))).isTrue();
         assertThat(found.contains(list.get(2))).isTrue();
     }
-
 }
