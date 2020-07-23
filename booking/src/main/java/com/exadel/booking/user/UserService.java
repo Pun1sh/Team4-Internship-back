@@ -1,5 +1,6 @@
 package com.exadel.booking.user;
 
+import com.exadel.booking.security.dto.AuthenticationRequestDto;
 import com.exadel.booking.user.role.Role;
 import com.exadel.booking.user.role.RoleDto;
 import com.exadel.booking.user.role.RoleService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,6 +25,7 @@ public class UserService {
     private final RoleService roleService;
     private final AMapper<User, UserDto> userMapper;
     private final AMapper<Role, RoleDto> roleMapper;
+
 
     public UserDto getUserById(UUID id) {
         return userMapper.toDto(findUserById(id));
@@ -71,4 +74,16 @@ public class UserService {
         return Optional.ofNullable(userDao.findUserByUsername(username))
                 .orElseThrow(() -> new EntityNotFoundException("there is no such user with username:" + username));
     }
+
+    public UserDto checkUserCredentialsAndGetInfo(AuthenticationRequestDto requestDto) {
+        String email = requestDto.getEmail();
+        User user = userDao.findUserByEmail(email);
+        if (user != null) {
+            UserDto userDto = getUserById(user.getId());
+            userDto.setRoleNames(user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList()));
+            return userDto;
+        }
+        return null;
+    }
+
 }
