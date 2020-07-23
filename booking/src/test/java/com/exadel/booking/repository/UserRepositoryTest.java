@@ -1,5 +1,6 @@
 package com.exadel.booking.repository;
 
+import com.exadel.booking.AbstractTest;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserRepository;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-public class UserRepositoryTest {
+public class UserRepositoryTest extends AbstractTest {
 
     @Autowired
     private UserRepository userDao;
@@ -29,12 +30,5 @@ public class UserRepositoryTest {
         User user = createUser();
         User found = userDao.findUserById(user.getId());
         assertThat(found.getId()).isEqualTo(user.getId());
-    }
-
-    private User createUser() {
-        User user = new User();
-        user.setEmail("user@mail.ru");
-        userDao.save(user);
-        return user;
     }
 }
