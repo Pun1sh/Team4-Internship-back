@@ -80,22 +80,4 @@
             <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
         </insert>
     </changeSet>
-    <changeSet author="nastia" id="20200713.add-user-role">
-        <insert tableName="user_role">
-            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1)"/>
-            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1)"/>
-        </insert>
-        <insert tableName="user_role">
-            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1 OFFSET 1)"/>
-            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 1)"/>
-        </insert>
-        <insert tableName="user_role">
-            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1 OFFSET 2)"/>
-            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 2)"/>
-        </insert>
-        <insert tableName="user_role">
-            <column name="user_id" valueComputed="(SELECT us_id FROM users LIMIT 1 OFFSET 3)"/>
-            <column name="role_id" valueComputed="(SELECT rol_id FROM role LIMIT 1 OFFSET 3)"/>
-        </insert>
-    </changeSet>
 </databaseChangeLog>

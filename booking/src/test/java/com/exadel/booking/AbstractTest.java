@@ -1,19 +1,19 @@
 package com.exadel.booking;
 
-import com.exadel.booking.office.Office;
-import com.exadel.booking.office.OfficeRepository;
-import com.exadel.booking.office.address.Address;
-import com.exadel.booking.office.address.AddressRepository;
-import com.exadel.booking.office.floor.Floor;
-import com.exadel.booking.office.floor.FloorRepository;
-import com.exadel.booking.office.floor.room.Room;
-import com.exadel.booking.office.floor.room.RoomRepository;
-import com.exadel.booking.office.floor.room.place.Place;
-import com.exadel.booking.office.floor.room.place.PlaceRepository;
-import com.exadel.booking.user.User;
-import com.exadel.booking.user.UserRepository;
-import com.exadel.booking.user.role.Role;
-import com.exadel.booking.user.role.RoleRepository;
+import com.exadel.booking.entities.office.Office;
+import com.exadel.booking.entities.office.OfficeRepository;
+import com.exadel.booking.entities.office.address.Address;
+import com.exadel.booking.entities.office.address.AddressRepository;
+import com.exadel.booking.entities.office.floor.Floor;
+import com.exadel.booking.entities.office.floor.FloorRepository;
+import com.exadel.booking.entities.office.floor.room.Room;
+import com.exadel.booking.entities.office.floor.room.RoomRepository;
+import com.exadel.booking.entities.office.floor.room.place.Place;
+import com.exadel.booking.entities.office.floor.room.place.PlaceRepository;
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.UserRepository;
+import com.exadel.booking.entities.user.role.Role;
+import com.exadel.booking.entities.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Random;

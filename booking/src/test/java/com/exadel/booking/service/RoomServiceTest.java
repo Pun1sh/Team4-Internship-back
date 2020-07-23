@@ -1,10 +1,10 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.office.floor.Floor;
-import com.exadel.booking.office.floor.room.Room;
-import com.exadel.booking.office.floor.room.RoomDto;
-import com.exadel.booking.office.floor.room.RoomRepository;
-import com.exadel.booking.office.floor.room.RoomService;
+import com.exadel.booking.entities.office.floor.Floor;
+import com.exadel.booking.entities.office.floor.room.Room;
+import com.exadel.booking.entities.office.floor.room.RoomDto;
+import com.exadel.booking.entities.office.floor.room.RoomRepository;
+import com.exadel.booking.entities.office.floor.room.RoomService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

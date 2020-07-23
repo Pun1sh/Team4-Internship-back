@@ -1,10 +1,10 @@
 package com.exadel.booking.service;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.office.Office;
-import com.exadel.booking.office.OfficeDto;
-import com.exadel.booking.office.OfficeRepository;
-import com.exadel.booking.office.OfficeService;
+import com.exadel.booking.entities.office.Office;
+import com.exadel.booking.entities.office.OfficeDto;
+import com.exadel.booking.entities.office.OfficeRepository;
+import com.exadel.booking.entities.office.OfficeService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

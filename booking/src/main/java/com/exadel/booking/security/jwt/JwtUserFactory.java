@@ -1,9 +1,9 @@
 package com.exadel.booking.security.jwt;
 
 
-import com.exadel.booking.user.User;
-import com.exadel.booking.user.authority.Authority;
-import com.exadel.booking.user.role.Role;
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.authority.Authority;
+import com.exadel.booking.entities.user.role.Role;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

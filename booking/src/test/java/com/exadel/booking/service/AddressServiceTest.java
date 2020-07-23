@@ -2,10 +2,10 @@ package com.exadel.booking.service;
 
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.office.address.Address;
-import com.exadel.booking.office.address.AddressDto;
-import com.exadel.booking.office.address.AddressRepository;
-import com.exadel.booking.office.address.AddressService;
+import com.exadel.booking.entities.office.address.Address;
+import com.exadel.booking.entities.office.address.AddressDto;
+import com.exadel.booking.entities.office.address.AddressRepository;
+import com.exadel.booking.entities.office.address.AddressService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

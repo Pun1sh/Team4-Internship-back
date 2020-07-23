@@ -1,9 +1,9 @@
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.office.Office;
-import com.exadel.booking.office.floor.Floor;
-import com.exadel.booking.office.floor.FloorRepository;
+import com.exadel.booking.entities.office.Office;
+import com.exadel.booking.entities.office.floor.Floor;
+import com.exadel.booking.entities.office.floor.FloorRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
