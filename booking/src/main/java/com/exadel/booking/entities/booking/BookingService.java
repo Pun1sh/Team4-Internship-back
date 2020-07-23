@@ -24,8 +24,8 @@ public class BookingService {
     private final UserService userService;
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        return bookingMapper.toDto(bookingDao.save(
-                Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build()));
+        Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
+        return bookingMapper.toDto(bookingDao.save(booking));
     }
 
     public BookingDto getBookingDtoById(UUID id) {
@@ -38,7 +38,7 @@ public class BookingService {
                 .orElseThrow(() -> new EntityNotFoundException("user with such id" + id + "has no orders")));
     }
 
-    public List<BookingDto> getAllBookingsByUserIdFromNow(UUID id, LocalDateTime now) throws EntityNotFoundException {
+    public List<BookingDto> getAllActiveBookingsByUserId(UUID id, LocalDateTime now) throws EntityNotFoundException {
         return bookingMapper.toListDto(Optional.ofNullable(bookingDao.findListBookingsByUserIdAndBYDueDateFromNow(id, now))
                 .orElseThrow(() -> new EntityNotFoundException("user with such id" + id + "has no orders")));
     }

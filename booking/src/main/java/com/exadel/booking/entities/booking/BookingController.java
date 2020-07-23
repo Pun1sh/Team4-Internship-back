@@ -23,9 +23,9 @@ public class BookingController {
         return bookingService.getAllBookingsByUserId(userId);
     }
 
-    @GetMapping("fromNow")
-    public List<BookingDto> getMyBookingsFromNow(UUID userId,LocalDateTime now) {
-        return bookingService.getAllBookingsByUserIdFromNow(userId,now);
+    @GetMapping("active")
+    public List<BookingDto> getAllActiveBookingsByUserId(UUID userId,LocalDateTime now) {
+        return bookingService.getAllActiveBookingsByUserId(userId,now);
     }
 
 
