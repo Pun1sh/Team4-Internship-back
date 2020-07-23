@@ -28,10 +28,6 @@ public class UserService {
         return userMapper.toDto(findUserById(id));
     }
 
-    public User findUserByUsername(String username) {
-        return userDao.findUserByUsername(username);
-    }
-
     public List<UserDto> findUserByWord(String word) {
         List<User> usersFromDB = new ArrayList<>();
         usersFromDB.add(userDao.findUserByEmail(word));
@@ -61,8 +57,18 @@ public class UserService {
         return userMapper.toDto(userDao.save(userInBD));
     }
 
-    private User findUserById(UUID id) {
+    public User findUserById(UUID id) {
         return Optional.ofNullable(userDao.findUserById(id))
                 .orElseThrow(() -> new EntityNotFoundException("there is no such user with id:" + id));
+    }
+
+    public User findUserByEmail(String email) {
+        return Optional.ofNullable(userDao.findUserByEmail(email))
+                .orElseThrow(() -> new EntityNotFoundException("there is no such user with email:" + email));
+    }
+
+    public User findUserByUsername(String username) {
+        return Optional.ofNullable(userDao.findUserByUsername(username))
+                .orElseThrow(() -> new EntityNotFoundException("there is no such user with username:" + username));
     }
 }
