@@ -50,9 +50,6 @@
             <column name="of_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
-            <column name="map" type="jsonb">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
     <changeSet author="gleb" id="20200721.add-room-table">

@@ -43,7 +43,7 @@ public class Floor {
     private Office office;
 
     @Type(type = "jsonb")
-    @Column(name = "map", columnDefinition = "jsonb")
+    @Column(name = "fl_map", columnDefinition = "jsonb")
     @NonNull
     private String map;
 }
