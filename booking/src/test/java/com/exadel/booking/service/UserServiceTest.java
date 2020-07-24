@@ -8,11 +8,12 @@ import com.exadel.booking.entities.user.role.Role;
 import com.exadel.booking.entities.user.role.RoleDto;
 import com.exadel.booking.entities.user.role.RoleService;
 import com.exadel.booking.utils.modelmapper.AMapper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     public static final UUID ID = UUID.randomUUID();
@@ -48,24 +49,34 @@ public class UserServiceTest {
     }
 
 //    @Test
-//    public void getAllUsersTest() {
-//        List<User> listUser = new ArrayList<>();
-//        listUser.add(createUser("1"));
-//        listUser.add(createUser("2"));
-//        listUser.add(createUser("3"));
-//        when(userDao.findAll()).thenReturn(listUser);
-//        when(userMapper.toListDto(listUser)).thenReturn(toListDto(listUser));
-//        List<UserDto> users = userService.getAllUsers();
-//        assertThat(users.size() == listUser.size()).isTrue();
+//    void getAllUsersTest() {
+//        List<User> users = Arrays.asList(
+//                createUser("TestEmail"),
+//                createUser("TestEmail2"),
+//                createUser("TestEmail 3"));
+//        Page<User> pages = new PageImpl<User>(users, PageRequest.of(0, 4), users.size());
+//        when(userDao.findAll(any(Pageable.class))).thenReturn(pages);
+//        when(userMapper.toListDto(pages.getContent())).thenReturn(toListDto(pages));
+//        List<UserDto> userFromService = userService.getAllUsers(PageRequest.of(0, 3));
+//        assertThat(userFromService.size() == (3)).isTrue();
 //    }
 
+
+//    @Test
+//    public void getUserDtoByIdTest() throws EntityNotFoundException {
+//        User user = createUser("testName");
+//        when(userDao.findUserById(ID)).thenReturn(user);
+//        when(userMapper.toDto(user)).thenReturn(toDto(user));
+//        UserDto userFromService = userService.getUserDtoById(ID);
+//        assertThat(userFromService.getEmail() == "testName").isTrue();
+//    }
 
     @Test
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
         when(userDao.findUserById(ID)).thenReturn(user);
-        UserDto userFromService = userService.getUserDtoById(ID);
-        assertThat(user.getEmail() == "testName").isTrue();
+        User userFromService = userService.getUserById(ID);
+        assertThat(userFromService.getEmail() == "testName").isTrue();
     }
 
     @Test
@@ -101,9 +112,9 @@ public class UserServiceTest {
         return dto;
     }
 
-    private List toListDto(List<User> listUser) {
+    private List toListDto(Page<User> listUser) {
         List<UserDto> listDto = new ArrayList<>();
-        for (User user : listUser) {
+        for (User user : listUser.getContent()) {
             listDto.add(toDto(user));
         }
         return listDto;

@@ -43,8 +43,9 @@ public class RoomServiceTest {
     public void getRoomByIdTest() throws EntityNotFoundException {
         Room room = createRoom(5);
         when(roomRepository.findRoomById(ID)).thenReturn(room);
-        roomService.getRoomById(ID);
-        assertThat(room.getNumber() == 5).isTrue();
+        when(roomMapper.toDto(room)).thenReturn(toDto(room));
+        RoomDto dto=roomService.getRoomById(ID);
+        assertThat(dto.getNumber() == 5).isTrue();
     }
 
 
@@ -83,6 +84,7 @@ public class RoomServiceTest {
     private RoomDto toDto(Room room) {
         RoomDto dto = new RoomDto();
         dto.setId(room.getId());
+        dto.setNumber(room.getNumber());
         return dto;
     }
 

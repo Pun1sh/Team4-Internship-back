@@ -45,8 +45,9 @@ public class FloorServiceTest extends AbstractTest {
     public void getFloorByIdTest() throws EntityNotFoundException {
         Floor floor = createFloor(5);
         when(floorRepository.findFloorById(ID)).thenReturn(floor);
-        floorService.getFloorById(ID);
-        assertThat(floor.getNumber() == 5).isTrue();
+        when(floorMapper.toDto(floor)).thenReturn(toDto(floor));
+        FloorDto fl=floorService.getFloorById(ID);
+        assertThat(fl.getNumber() == 5).isTrue();
     }
 
 
@@ -85,6 +86,7 @@ public class FloorServiceTest extends AbstractTest {
     private FloorDto toDto(Floor floor) {
         FloorDto dto = new FloorDto();
         dto.setId(floor.getId());
+        dto.setNumber(floor.getNumber());
         return dto;
     }
 

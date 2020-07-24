@@ -1,5 +1,7 @@
 package com.exadel.booking;
 
+import com.exadel.booking.entities.booking.Booking;
+import com.exadel.booking.entities.booking.BookingRepository;
 import com.exadel.booking.entities.office.Office;
 import com.exadel.booking.entities.office.OfficeRepository;
 import com.exadel.booking.entities.office.address.Address;
@@ -16,6 +18,7 @@ import com.exadel.booking.entities.user.role.Role;
 import com.exadel.booking.entities.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public abstract class AbstractTest {
@@ -34,6 +37,8 @@ public abstract class AbstractTest {
     private RoomRepository roomRepository;
     @Autowired
     private PlaceRepository placeRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
     private static final Random RANDOM = new Random();
 
@@ -53,7 +58,7 @@ public abstract class AbstractTest {
 
     protected User createUser() {
         User user = new User();
-        user.setEmail("user@mail.ru");
+        user.setEmail("user@mail.ru").setUsername("user").setFirstName("fname").setLastName("lname");
         userRepository.save(user);
         return user;
     }
@@ -85,6 +90,12 @@ public abstract class AbstractTest {
         Place place = new Place(5);
         place.setRoom(createRoom());
         return placeRepository.save(place);
+    }
+
+    protected Booking createBooking(LocalDateTime now, User user) {
+        Place place = createPlace();
+        Booking booking = Booking.builder().place(place).user(user).bookingDate(now).dueDate(now.plusDays(2)).build();
+        return bookingRepository.save(booking);
     }
 
 

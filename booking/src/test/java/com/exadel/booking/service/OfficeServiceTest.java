@@ -41,16 +41,18 @@ public class OfficeServiceTest extends AbstractTest {
     public void getOfficeByIdTest() throws EntityNotFoundException {
         Office office = createOffice("US");
         when(officeRepository.findOfficeById(ID)).thenReturn(office);
-        officeService.getOfficeById(ID);
-        assertThat(office.getName() == "US").isTrue();
+        when(officeMapper.toDto(office)).thenReturn(toDto(office));
+        OfficeDto off=officeService.getOfficeById(ID);
+        assertThat(off.getName() == "US").isTrue();
     }
 
     @Test
     public void getOfficeByNameTest() throws EntityNotFoundException {
         Office office = createOffice("US");
         when(officeRepository.findOfficeByName("US")).thenReturn(office);
-        officeService.getOfficeByName("US");
-        assertThat(office.getName() == "US").isTrue();
+        when(officeMapper.toDto(office)).thenReturn(toDto(office));
+        OfficeDto off=officeService.getOfficeByName("US");
+        assertThat(off.getName() == "US").isTrue();
     }
 
 
@@ -75,6 +77,7 @@ public class OfficeServiceTest extends AbstractTest {
     private OfficeDto toDto(Office office) {
         OfficeDto dto = new OfficeDto();
         dto.setId(office.getId());
+        dto.setName(office.getName());
         return dto;
     }
 
