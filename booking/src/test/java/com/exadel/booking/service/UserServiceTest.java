@@ -1,12 +1,12 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.user.User;
-import com.exadel.booking.user.UserDto;
-import com.exadel.booking.user.UserRepository;
-import com.exadel.booking.user.UserService;
-import com.exadel.booking.user.role.Role;
-import com.exadel.booking.user.role.RoleDto;
-import com.exadel.booking.user.role.RoleService;
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.UserDto;
+import com.exadel.booking.entities.user.UserRepository;
+import com.exadel.booking.entities.user.UserService;
+import com.exadel.booking.entities.user.role.Role;
+import com.exadel.booking.entities.user.role.RoleDto;
+import com.exadel.booking.entities.user.role.RoleService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,7 +64,7 @@ public class UserServiceTest {
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
         when(userDao.findUserById(ID)).thenReturn(user);
-        UserDto userFromService = userService.getUserById(ID);
+        UserDto userFromService = userService.getUserDtoById(ID);
         assertThat(user.getEmail() == "testName").isTrue();
     }
 

@@ -1,6 +1,6 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.user.role.*;
+import com.exadel.booking.entities.user.role.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
