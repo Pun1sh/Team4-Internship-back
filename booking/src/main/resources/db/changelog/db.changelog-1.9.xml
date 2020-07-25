@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="20200722.booking-table">
+        <createTable tableName="booking">
+            <column name="b_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+            <column name="b_place_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="b_user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="b_start_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="b_due_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nastia" id="20200722.add-fk-booking-user-place">
+        <addForeignKeyConstraint
+                constraintName="fk_user2booking" referencedTableName="users"
+                referencedColumnNames="us_id" baseColumnNames="b_user_id"
+                baseTableName="booking" />
+        <addForeignKeyConstraint
+                constraintName="fk_place2booking" referencedTableName="place"
+                referencedColumnNames="pl_id" baseColumnNames="b_place_id"
+                baseTableName="booking" />
+    </changeSet>
+</databaseChangeLog>
