@@ -1,10 +1,10 @@
 package com.exadel.booking.security;
 
 
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.security.jwt.JwtUser;
 import com.exadel.booking.security.jwt.JwtUserFactory;
-import com.exadel.booking.user.User;
-import com.exadel.booking.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

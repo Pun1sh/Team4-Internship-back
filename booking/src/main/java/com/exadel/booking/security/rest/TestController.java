@@ -1,29 +1,28 @@
 package com.exadel.booking.security.rest;
 
-import com.exadel.booking.office.Office;
-import com.exadel.booking.office.OfficeRepository;
-import com.exadel.booking.office.address.Address;
-import com.exadel.booking.office.address.AddressRepository;
-import com.exadel.booking.office.floor.Floor;
-import com.exadel.booking.office.floor.FloorRepository;
-import lombok.RequiredArgsConstructor;
+
+import com.exadel.booking.entities.office.Office;
+import com.exadel.booking.entities.office.OfficeRepository;
+import com.exadel.booking.entities.office.address.Address;
+import com.exadel.booking.entities.office.address.AddressRepository;
+import com.exadel.booking.entities.office.floor.Floor;
+import com.exadel.booking.entities.office.floor.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/test")
-@RequiredArgsConstructor
 public class TestController {
 
     @Autowired
     private FloorRepository floorRepository;
     @Autowired
-    OfficeRepository officeRepository;
+    private OfficeRepository officeRepository;
     @Autowired
-    AddressRepository addressRepository;
+    private AddressRepository addressRepository;
 
-    @GetMapping(value = "/1")
+    @GetMapping
     @PreAuthorize("hasAuthority('USER_READ')")
     public String test() {
         return "Hello";
@@ -32,7 +31,8 @@ public class TestController {
     @PostMapping(value = "/2")
     @PreAuthorize("hasAuthority('USER_READ')")
     public void json(@RequestBody String data) {
-        Floor floor = new Floor(5, data);
+        Floor floor = new Floor(5);
+        floor.setMap(data);
         Address address = new Address("Hi", "Hi", "Hi");
         addressRepository.save(address);
         Office office = new Office("Hello", 5);

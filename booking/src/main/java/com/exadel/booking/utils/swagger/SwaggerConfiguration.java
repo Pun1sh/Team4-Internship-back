@@ -1,35 +1,52 @@
 package com.exadel.booking.utils.swagger;
 
 
+import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.Authentication;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @EnableSwagger2
 @Configuration
 public class SwaggerConfiguration {
+
     @Bean
     public Docket api() {
-        List<SecurityScheme> schemeList = new ArrayList<>();
-        schemeList.add(new ApiKey(HttpHeaders.AUTHORIZATION, "JWT", "header"));
         return new Docket(DocumentationType.SWAGGER_2)
-                .ignoredParameterTypes(Authentication.class)
-                .securitySchemes(schemeList)
-                .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.exadel.booking"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Lists.newArrayList(apiKey()))
+                .securityContexts(Lists.newArrayList(securityContext()));
+    }
+
+    @Bean
+    SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.any())
                 .build();
+    }
+
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = new AuthorizationScope("global", "accessEverything");
+        return Lists.newArrayList(
+                new SecurityReference("JWT", authorizationScopes));
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("JWT", "Authorization", "header");
     }
 }
