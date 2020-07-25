@@ -44,8 +44,8 @@ public class PlaceServiceTest extends AbstractTest {
     public void getPlaceByIdTest() throws EntityNotFoundException {
         Place place = createPlace(5);
         when(placeRepository.findPlaceById(ID)).thenReturn(place);
-        placeService.getPlaceById(ID);
-        assertThat(place.getNumber() == 5).isTrue();
+        Place found =placeService.getPlaceById(ID);
+        assertThat(found.getNumber() == 5).isTrue();
     }
 
 

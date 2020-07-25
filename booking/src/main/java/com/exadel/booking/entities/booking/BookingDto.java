@@ -5,9 +5,12 @@ import com.exadel.booking.entities.user.UserDto;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 public class BookingDto {
+
+    private UUID id;
     private UserDto userDto;
     private PlaceDto bookDto;
     private LocalDate bookingDate;

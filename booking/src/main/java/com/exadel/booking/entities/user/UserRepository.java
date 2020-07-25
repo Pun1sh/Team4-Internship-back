@@ -21,7 +21,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     public List<User> findUserByFirstName(String firstName);
 
-    Page<User> findAll(Pageable pageReq);
-
+    public Page<User> findAll(Pageable pageReq);
     }
 
