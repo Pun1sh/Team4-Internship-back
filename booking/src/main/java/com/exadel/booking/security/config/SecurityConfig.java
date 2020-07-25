@@ -17,6 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
 
     private static final String LOGIN_ENDPOINT = "/login";
+    private static final String LOGOUT_ENDPOINT = "/logout";
 
     @Bean
     @Override
@@ -32,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers( LOGIN_ENDPOINT, "/**").permitAll()
+                .antMatchers(LOGIN_ENDPOINT, "/**").permitAll()
+                .antMatchers(LOGOUT_ENDPOINT).authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
