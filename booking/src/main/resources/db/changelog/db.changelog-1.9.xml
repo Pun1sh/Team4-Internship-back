@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200726.add-real-authority">
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="OFFICE_READ"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="OFFICE_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="OFFICE_DELETE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="FLOOR_READ"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="FLOOR_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="FLOOR_DELETE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ROOM_READ"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ROOM_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ROOM_DELETE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="PLACE_READ"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="PLACE_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="PLACE_DELETE"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
