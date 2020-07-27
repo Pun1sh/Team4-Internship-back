@@ -1,7 +1,5 @@
 package com.exadel.booking.utils.modelmapper;
 
-import com.exadel.booking.entities.user.User;
-import com.exadel.booking.entities.user.UserDto;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

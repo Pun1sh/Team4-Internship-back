@@ -71,8 +71,16 @@ public class RoleServiceTest {
     public void getRoleByNameTest() throws EntityNotFoundException {
         Role role = createRole("testName");
         when(roleDao.findRoleByName("testName")).thenReturn(role);
+        Role roleFromService = roleService.getRoleByName("testName");
+        assertThat(role.getName() == roleFromService.getName()).isTrue();
+    }
+
+    @Test
+    public void getRoleDtoByNameTest() throws EntityNotFoundException {
+        Role role = createRole("testName");
+        when(roleDao.findRoleByName("testName")).thenReturn(role);
         when( roleMapper.toDto(role)).thenReturn(toDto(role));
-        RoleDto roleFromService = roleService.getRoleByName("testName");
+        RoleDto roleFromService = roleService.getRoleDtoByName("testName");
         verify(roleMapper, times(1)).toDto(any(Role.class));
         assertThat(role.getName() == roleFromService.getName()).isTrue();
     }

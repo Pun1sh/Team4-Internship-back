@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -66,7 +65,7 @@ public class UserService {
     public UserDto editUsersRole(UUID id, RoleDto roleDto) {
         User userInBD = findUserById(id);
         userInBD.setRoles(
-                Collections.singletonList(roleMapper.toEntity(roleService.getRoleByName(roleDto.getName()))));
+                Collections.singletonList(roleService.getRoleByName(roleDto.getName())));
         return userMapper.toDto(userDao.save(userInBD));
     }
 
@@ -84,11 +83,8 @@ public class UserService {
         String email = requestDto.getEmail();
         User user = userDao.findUserByEmail(email);
         if (user != null) {
-            UserDto userDto = getUserDtoById(user.getId());
-            userDto.setRoleNames(user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList()));
-            return userDto;
+            return userMapper.toDto(user);
         }
         return null;
     }
-
 }
