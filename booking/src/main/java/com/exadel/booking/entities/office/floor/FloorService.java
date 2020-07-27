@@ -30,4 +30,17 @@ public class FloorService {
         return floorMapper.toListDto(floorRepository.findAllFloorsByOfficeId(id));
     }
 
+    public Floor findFloorById(UUID id) {
+        return floorRepository.findFloorById(id);
+    }
+
+    public Floor saveFloor(Floor floor) {
+        return floorRepository.save(floor);
+    }
+
+    public void deleteFloorById(UUID id) {
+        floorRepository.deleteById(id);
+    }
+
+
 }

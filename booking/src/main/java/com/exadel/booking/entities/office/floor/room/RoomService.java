@@ -31,5 +31,17 @@ public class RoomService {
         return roomMapper.toListDto(roomRepository.findAllRoomsByFloorId(id));
     }
 
+    public Room findRoomById(UUID id) {
+        return roomRepository.findRoomById(id);
+    }
+
+    public Room saveRoom(Room room) {
+        return roomRepository.save(room);
+    }
+
+    public void deleteRoomById(UUID id) {
+        roomRepository.deleteById(id);
+    }
+
 }
 

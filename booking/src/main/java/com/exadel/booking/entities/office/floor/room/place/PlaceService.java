@@ -36,4 +36,16 @@ public class PlaceService {
         return placeMapper.toListDto(placeRepository.findAllPlacesByRoomId(id));
     }
 
+    public Place findPlaceById(UUID id) {
+        return placeRepository.findPlaceById(id);
+    }
+
+    public Place savePlace(Place place) {
+        return placeRepository.save(place);
+    }
+
+    public void deletePlaceById(UUID id) {
+        placeRepository.deleteById(id);
+    }
+
 }

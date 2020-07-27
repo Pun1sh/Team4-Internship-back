@@ -26,4 +26,16 @@ public class AddressService {
     public List<AddressDto> getAllAddresses() {
         return addressMapper.toListDto(addressRepository.findAll());
     }
+
+    public Address saveAddress(Address address) {
+        return addressRepository.save(address);
+    }
+
+    public void deleteAddressById(UUID id) {
+        addressRepository.deleteById(id);
+    }
+
+    public Address findAddressById(UUID id) {
+        return addressRepository.findAddressById(id);
+    }
 }

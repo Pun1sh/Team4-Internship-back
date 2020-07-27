@@ -37,4 +37,17 @@ public class OfficeService {
                 new EntityNotFoundException("no office with name" + name)));
     }
 
+    public Office saveOffice(Office office) {
+        return officeRepository.save(office);
+    }
+
+    public void deleteOfficeById(UUID id) {
+        officeRepository.deleteById(id);
+    }
+
+    public Office findOfficeById(UUID id) {
+        return officeRepository.findOfficeById(id);
+    }
+
+
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200727.add-real-authority">
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ADDRESS_READ"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ADDRESS_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="ADDRESS_DELETE"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
