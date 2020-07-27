@@ -1,5 +1,7 @@
 package com.exadel.booking.utils.modelmapper;
 
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.UserDto;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +64,9 @@ public abstract class AMapper <E, D> {
         };
     }
 
-    void mapSpecificFieldsToDtoConverter(E source, D destination) {
+    public void mapSpecificFieldsToDtoConverter(E source, D destination) {
     }
 
-    void mapSpecificFieldsToEntityConverter(D source, E destination) {
+    public void mapSpecificFieldsToEntityConverter(D source, E destination) {
     }
 }
