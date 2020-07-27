@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class AbstractTest {
 
@@ -39,6 +40,8 @@ public abstract class AbstractTest {
     private PlaceRepository placeRepository;
     @Autowired
     private BookingRepository bookingRepository;
+
+    public static final UUID ID = UUID.randomUUID();
 
     private static final Random RANDOM = new Random();
 
@@ -69,26 +72,22 @@ public abstract class AbstractTest {
     }
 
     protected Office createOffice() {
-        Office office = new Office(getRandomPrefix(), getRandomObjectsCount());
-        office.setAddress(createAddress());
+        Office office = new Office(getRandomPrefix(), getRandomObjectsCount(), ID);
         return officeRepository.save(office);
     }
 
     protected Floor createFloor() {
-        Floor floor = new Floor(getRandomObjectsCount());
-        floor.setOffice(createOffice());
+        Floor floor = new Floor(getRandomObjectsCount(), ID);
         return floorRepository.save(floor);
     }
 
     protected Room createRoom() {
-        Room room = new Room(5);
-        room.setFloor(createFloor());
+        Room room = new Room(5, ID);
         return roomRepository.save(room);
     }
 
     protected Place createPlace() {
-        Place place = new Place(5);
-        place.setRoom(createRoom());
+        Place place = new Place(5, ID);
         return placeRepository.save(place);
     }
 

@@ -1,6 +1,5 @@
 package com.exadel.booking.service;
 
-import com.exadel.booking.entities.office.floor.Floor;
 import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.RoomDto;
 import com.exadel.booking.entities.office.floor.room.RoomRepository;
@@ -29,8 +28,6 @@ public class RoomServiceTest {
     RoomRepository roomRepository;
     @Mock
     AMapper roomMapper;
-    @Mock
-    Floor floor;
 
 
     @Test
@@ -44,7 +41,7 @@ public class RoomServiceTest {
         Room room = createRoom(5);
         when(roomRepository.findRoomById(ID)).thenReturn(room);
         when(roomMapper.toDto(room)).thenReturn(toDto(room));
-        RoomDto dto=roomService.getRoomById(ID);
+        RoomDto dto = roomService.getRoomById(ID);
         assertThat(dto.getNumber() == 5).isTrue();
     }
 
@@ -64,20 +61,20 @@ public class RoomServiceTest {
     @Test
     public void getAllRoomsByFloorIdTest() {
         List<Room> roomList = new ArrayList<>();
+
         for (int i = 0; i < 3; i++) {
             Room room = createRoom(5);
-            room.setFloor(floor);
+            room.setFloorId(ID);
             roomList.add(room);
         }
-        when(roomRepository.findAllRoomsByFloorId(floor.getId())).thenReturn(roomList);
+        when(roomRepository.findAllRoomsByFloorId(ID)).thenReturn(roomList);
         when(roomMapper.toListDto(roomList)).thenReturn(toListDto(roomList));
-        List<RoomDto> roomDtos = roomService.getAllRoomsByFloorId(floor.getId());
+        List<RoomDto> roomDtos = roomService.getAllRoomsByFloorId(ID);
         assertThat(roomDtos.size() == roomList.size()).isTrue();
     }
 
     private Room createRoom(Integer number) {
-        Room room = new Room(number);
-        room.setId(ID);
+        Room room = new Room(number, ID);
         return room;
     }
 

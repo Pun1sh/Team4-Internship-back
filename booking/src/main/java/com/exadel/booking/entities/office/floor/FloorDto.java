@@ -9,4 +9,5 @@ public class FloorDto {
 
     private UUID id;
     private Integer number;
+    private UUID officeId;
 }

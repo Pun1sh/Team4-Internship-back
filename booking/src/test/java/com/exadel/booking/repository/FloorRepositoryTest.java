@@ -37,7 +37,7 @@ public class FloorRepositoryTest extends AbstractTest {
         Office office = createOffice();
         for (int i = 0; i < 3; i++) {
             Floor floor = createFloor();
-            floor.setOffice(office);
+            floor.setOfficeId(office.getId());
             list.add(floor);
         }
         List<Floor> found = floorRepository.findAllFloorsByOfficeId(office.getId());

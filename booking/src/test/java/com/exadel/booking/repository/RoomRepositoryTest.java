@@ -37,7 +37,7 @@ public class RoomRepositoryTest extends AbstractTest {
         Floor floor = createFloor();
         for (int i = 0; i < 3; i++) {
             Room room = createRoom();
-            room.setFloor(floor);
+            room.setFloorId(floor.getId());
             list.add(room);
         }
         List<Room> found = roomRepository.findAllRoomsByFloorId(floor.getId());

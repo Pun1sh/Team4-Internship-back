@@ -9,5 +9,6 @@ public class RoomDto {
 
     private UUID id;
     private Integer number;
+    private UUID floorId;
 
 }

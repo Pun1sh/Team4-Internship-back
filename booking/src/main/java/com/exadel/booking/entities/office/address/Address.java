@@ -1,7 +1,6 @@
 package com.exadel.booking.entities.office.address;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +11,8 @@ import java.util.UUID;
 @Data
 @Accessors(fluent = false, chain = true)
 @Table(name = "address")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Address {
 
     @Id

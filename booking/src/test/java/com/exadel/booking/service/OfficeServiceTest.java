@@ -42,7 +42,7 @@ public class OfficeServiceTest extends AbstractTest {
         Office office = createOffice("US");
         when(officeRepository.findOfficeById(ID)).thenReturn(office);
         when(officeMapper.toDto(office)).thenReturn(toDto(office));
-        OfficeDto off=officeService.getOfficeById(ID);
+        OfficeDto off = officeService.getOfficeById(ID);
         assertThat(off.getName() == "US").isTrue();
     }
 
@@ -51,7 +51,7 @@ public class OfficeServiceTest extends AbstractTest {
         Office office = createOffice("US");
         when(officeRepository.findOfficeByName("US")).thenReturn(office);
         when(officeMapper.toDto(office)).thenReturn(toDto(office));
-        OfficeDto off=officeService.getOfficeByName("US");
+        OfficeDto off = officeService.getOfficeByName("US");
         assertThat(off.getName() == "US").isTrue();
     }
 
@@ -69,8 +69,7 @@ public class OfficeServiceTest extends AbstractTest {
     }
 
     private Office createOffice(String name) {
-        Office office = new Office(name, getRandomObjectsCount());
-        office.setId(ID);
+        Office office = new Office(name, getRandomObjectsCount(), ID);
         return office;
     }
 

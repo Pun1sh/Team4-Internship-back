@@ -1,11 +1,11 @@
 package com.exadel.booking.entities.office;
 
-import com.exadel.booking.entities.office.address.Address;
 import com.exadel.booking.entities.office.floor.Floor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,15 +15,16 @@ import java.util.UUID;
 @Data
 @Accessors(fluent = false, chain = true)
 @Table(name = "office")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Office {
 
     @Id
     @GeneratedValue
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "of_id", unique = true)
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "office")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Floor> floor;
 
     @Column(name = "of_name")
@@ -34,7 +35,7 @@ public class Office {
     @NonNull
     private Integer number;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Address.class)
-    @JoinColumn(name = "ad_id", nullable = false)
-    private Address address;
+    @Column(name = "ad_id")
+    @NonNull
+    private UUID addressId;
 }

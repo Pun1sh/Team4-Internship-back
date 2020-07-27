@@ -34,8 +34,8 @@ public class FloorService {
         return floorRepository.findFloorById(id);
     }
 
-    public Floor saveFloor(Floor floor) {
-        return floorRepository.save(floor);
+    public Floor saveFloorFromDto(FloorDto floorDto) {
+        return floorRepository.save(floorMapper.toEntity(floorDto));
     }
 
     public void deleteFloorById(UUID id) {

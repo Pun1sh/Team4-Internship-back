@@ -21,7 +21,7 @@ public class OfficeController {
 
     @PreAuthorize("hasAuthority('OFFICE_READ')")
     @GetMapping
-    public Collection<OfficeDto> getAllOffices() {
+    public List<OfficeDto> getAllOffices() {
         return officeService.getAllOffices();
     }
 
@@ -42,14 +42,14 @@ public class OfficeController {
 
     @PreAuthorize("hasAuthority('OFFICE_WRITE')")
     @PostMapping
-    public Office saveOffice(@RequestBody Office office) {
-        return officeService.saveOffice(office);
+    public Office saveOffice(@RequestBody OfficeDto officeDto) {
+        return officeService.saveOfficeFromDto(officeDto);
     }
 
     @PreAuthorize("hasAuthority('OFFICE_WRITE')")
     @PutMapping
-    public Office updateOffice(@RequestBody Office office) {
-        return officeService.saveOffice(office);
+    public Office updateOffice(@RequestBody OfficeDto officeDto) {
+        return officeService.saveOfficeFromDto(officeDto);
     }
 
     @PreAuthorize("hasAuthority('OFFICE_DELETE')")

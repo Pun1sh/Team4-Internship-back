@@ -24,14 +24,14 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PostMapping
-    public Place savePlace(@RequestBody Place place) {
-        return placeService.savePlace(place);
+    public Place savePlace(@RequestBody PlaceDto placeDto) {
+        return placeService.savePlaceFromDto(placeDto);
     }
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PutMapping
-    public Place updatePlace(@RequestBody Place place) {
-        return placeService.savePlace(place);
+    public Place updatePlace(@RequestBody PlaceDto placeDto) {
+        return placeService.savePlaceFromDto(placeDto);
     }
 
     @PreAuthorize("hasAuthority('PLACE_DELETE')")

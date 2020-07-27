@@ -34,14 +34,14 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ROOM_WRITE')")
     @PostMapping
-    public Room saveRoom(@RequestBody Room room) {
-        return roomService.saveRoom(room);
+    public Room saveRoom(@RequestBody RoomDto roomDto) {
+        return roomService.saveRoomFromDto(roomDto);
     }
 
     @PreAuthorize("hasAuthority('ROOM_WRITE')")
     @PutMapping
-    public Room updateRoom(@RequestBody Room room) {
-        return roomService.saveRoom(room);
+    public Room updateRoom(@RequestBody RoomDto roomDto) {
+        return roomService.saveRoomFromDto(roomDto);
     }
 
     @PreAuthorize("hasAuthority('ROOM_DELETE')")

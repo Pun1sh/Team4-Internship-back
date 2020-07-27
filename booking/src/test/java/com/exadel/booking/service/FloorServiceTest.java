@@ -1,7 +1,6 @@
 package com.exadel.booking.service;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.entities.office.Office;
 import com.exadel.booking.entities.office.floor.Floor;
 import com.exadel.booking.entities.office.floor.FloorDto;
 import com.exadel.booking.entities.office.floor.FloorRepository;
@@ -31,8 +30,6 @@ public class FloorServiceTest extends AbstractTest {
     FloorRepository floorRepository;
     @Mock
     AMapper floorMapper;
-    @Mock
-    Office office;
 
 
     @Test
@@ -46,7 +43,7 @@ public class FloorServiceTest extends AbstractTest {
         Floor floor = createFloor(5);
         when(floorRepository.findFloorById(ID)).thenReturn(floor);
         when(floorMapper.toDto(floor)).thenReturn(toDto(floor));
-        FloorDto fl=floorService.getFloorById(ID);
+        FloorDto fl = floorService.getFloorById(ID);
         assertThat(fl.getNumber() == 5).isTrue();
     }
 
@@ -68,18 +65,17 @@ public class FloorServiceTest extends AbstractTest {
         List<Floor> floorList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Floor floor = createFloor(5);
-            floor.setOffice(office);
+            floor.setOfficeId(ID);
             floorList.add(floor);
         }
-        when(floorRepository.findAllFloorsByOfficeId(office.getId())).thenReturn(floorList);
+        when(floorRepository.findAllFloorsByOfficeId(ID)).thenReturn(floorList);
         when(floorMapper.toListDto(floorList)).thenReturn(toListDto(floorList));
-        List<FloorDto> floorDtos = floorService.getAllFloorsByOfficeId(office.getId());
+        List<FloorDto> floorDtos = floorService.getAllFloorsByOfficeId(ID);
         assertThat(floorDtos.size() == floorList.size()).isTrue();
     }
 
     private Floor createFloor(Integer number) {
-        Floor floor = new Floor(number);
-        floor.setId(ID);
+        Floor floor = new Floor(number, ID);
         return floor;
     }
 

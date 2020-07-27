@@ -37,8 +37,8 @@ public class OfficeService {
                 new EntityNotFoundException("no office with name" + name)));
     }
 
-    public Office saveOffice(Office office) {
-        return officeRepository.save(office);
+    public Office saveOfficeFromDto(OfficeDto officeDto) {
+        return officeRepository.save(officeMapper.toEntity(officeDto));
     }
 
     public void deleteOfficeById(UUID id) {

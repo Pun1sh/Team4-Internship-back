@@ -8,4 +8,5 @@ import java.util.UUID;
 public class PlaceDto {
     private UUID id;
     private Integer number;
+    private UUID roomId;
 }

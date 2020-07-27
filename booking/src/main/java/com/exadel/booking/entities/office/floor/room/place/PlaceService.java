@@ -40,8 +40,8 @@ public class PlaceService {
         return placeRepository.findPlaceById(id);
     }
 
-    public Place savePlace(Place place) {
-        return placeRepository.save(place);
+    public Place savePlaceFromDto(PlaceDto placeDto) {
+        return placeRepository.save(placeMapper.toEntity(placeDto));
     }
 
     public void deletePlaceById(UUID id) {

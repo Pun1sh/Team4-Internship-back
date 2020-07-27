@@ -35,8 +35,8 @@ public class RoomService {
         return roomRepository.findRoomById(id);
     }
 
-    public Room saveRoom(Room room) {
-        return roomRepository.save(room);
+    public Room saveRoomFromDto(RoomDto roomDto) {
+        return roomRepository.save(roomMapper.toEntity(roomDto));
     }
 
     public void deleteRoomById(UUID id) {
