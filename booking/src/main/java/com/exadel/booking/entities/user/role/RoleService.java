@@ -31,8 +31,12 @@ public class RoleService {
         return roleMapper.toDto(roleDao.getOne(id));
     }
 
-    public RoleDto getRoleByName(String name) {
+    public RoleDto getRoleDtoByName(String name) {
         return roleMapper.toDto(roleDao.findRoleByName(name));
+    }
+
+    public Role getRoleByName(String name) {
+        return roleDao.findRoleByName(name);
     }
 
     public void deleteRoleById(UUID id) {
