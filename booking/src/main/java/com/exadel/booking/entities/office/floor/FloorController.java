@@ -3,6 +3,7 @@ package com.exadel.booking.entities.office.floor;
 import com.exadel.booking.entities.office.floor.room.RoomDto;
 import com.exadel.booking.entities.office.floor.room.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,13 @@ public class FloorController {
     private final FloorService floorService;
     private final RoomService roomService;
 
+    @PreAuthorize("hasAuthority('FLOOR_READ')")
     @GetMapping(value = "/{id}")
     public FloorDto getFloorById(@PathVariable UUID id) {
         return floorService.getFloorById(id);
     }
 
+    @PreAuthorize("hasAuthority('ROOM_READ')")
     @GetMapping(value = "/{id}/rooms")
     public List<RoomDto> getAllRoomsByFloorId(@PathVariable UUID id) {
         return roomService.getAllRoomsByFloorId(id);
