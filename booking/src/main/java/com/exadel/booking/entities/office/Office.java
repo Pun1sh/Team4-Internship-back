@@ -24,7 +24,7 @@ public class Office {
     @Column(name = "of_id", unique = true)
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Floor> floor;
 
     @Column(name = "of_name")
