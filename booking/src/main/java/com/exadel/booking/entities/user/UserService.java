@@ -54,6 +54,10 @@ public class UserService {
         return userMapper.toListDto(users.getContent());
     }
 
+    public List<UserDto> getAllUsers() {
+        return userMapper.toListDto(userDao.findAll());
+    }
+
     public UserDto updateUser(UUID id, UserDto userDto) {
         User userInDB = findUserById(id);
         if (StringUtils.isNotBlank(userDto.getEmail())) {

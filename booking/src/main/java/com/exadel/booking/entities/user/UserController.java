@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,8 +27,11 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('USER_READ_ALL')")
     @GetMapping
-    public List<UserDto> getAllUsers(@PageableDefault(sort = {"lastName"}) Pageable pageable) {
-        return userService.getAllUsers(pageable);
+    public HashMap<Integer,List<UserDto>> getAllUsers(@PageableDefault(sort = {"lastName"}) Pageable pageable) {
+        List<UserDto> users=userService.getAllUsers(pageable);
+                HashMap<Integer,List<UserDto>> map=new HashMap<>();
+        map.put(userService.getAllUsers().size(),users);
+        return map;
     }
 
     @PreAuthorize("hasAuthority('USER_WRITE')")
