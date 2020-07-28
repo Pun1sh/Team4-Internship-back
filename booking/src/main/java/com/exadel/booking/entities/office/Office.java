@@ -25,6 +25,7 @@ public class Office {
     private UUID id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "fl_id")
     private List<Floor> floor;
 
     @Column(name = "of_name")

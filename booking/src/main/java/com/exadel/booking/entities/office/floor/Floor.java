@@ -26,6 +26,7 @@ public class Floor {
     private UUID id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "rm_id")
     private List<Room> room;
 
     @Column(name = "fl_number")
