@@ -52,8 +52,7 @@ public class UserService {
 
     public Page<UserDto> getAllUsers(Pageable pageable) {
         Page<User> users = userDao.findAll(pageable);
-        Page<UserDto> page = new PageImpl<>(userMapper.toListDto(users.getContent()));
-        return page;
+        return new PageImpl<>(userMapper.toListDto(users.getContent()), pageable, users.getTotalElements());
     }
 
     public UserDto updateUser(UUID id, UserDto userDto) {
