@@ -33,7 +33,7 @@ public class EmailSender {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         String text = prepareActivateRequestEmail(booking, "mailtemplates/newBookingMessage.vm");
-        configureMimeMessageHelper(helper, adminEmail, booking.getUser().getEmail(), text, "New Book in our Library!");
+        configureMimeMessageHelper(helper, adminEmail, booking.getUser().getEmail(), text, "New Booking!");
         mailSender.send(message);
     }
 
