@@ -1,13 +1,15 @@
 package com.exadel.booking.entities.office;
 
+import com.exadel.booking.entities.office.floor.Floor;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
 public class OfficeDto {
     private UUID id;
-    private String name;
     private Integer number;
     private UUID addressId;
+    private List<Floor> floor;
 }

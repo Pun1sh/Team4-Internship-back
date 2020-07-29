@@ -23,7 +23,7 @@ public class PlaceRepositoryTest extends AbstractTest {
     @Autowired
     private PlaceRepository placeRepository;
 
-/*    @Test
+    @Test
     public void whenFindById_thenReturnPlace() {
         Place place = createPlace();
         Place found = placeRepository.findPlaceById(place.getId());
@@ -44,5 +44,5 @@ public class PlaceRepositoryTest extends AbstractTest {
         assertThat(found.contains(list.get(0))).isTrue();
         assertThat(found.contains(list.get(1))).isTrue();
         assertThat(found.contains(list.get(2))).isTrue();
-    }*/
+    }
 }

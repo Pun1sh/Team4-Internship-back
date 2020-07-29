@@ -72,22 +72,26 @@ public abstract class AbstractTest {
     }
 
     protected Office createOffice() {
-        Office office = new Office(getRandomPrefix(), getRandomObjectsCount(), ID);
+        Address address = createAddress();
+        Office office = new Office(getRandomObjectsCount(), address.getId());
         return officeRepository.save(office);
     }
 
     protected Floor createFloor() {
-        Floor floor = new Floor(getRandomObjectsCount(), ID);
+        Office office = createOffice();
+        Floor floor = new Floor(getRandomObjectsCount(), office.getId());
         return floorRepository.save(floor);
     }
 
     protected Room createRoom() {
-        Room room = new Room(5, ID);
+        Floor floor = createFloor();
+        Room room = new Room(5, floor.getId());
         return roomRepository.save(room);
     }
 
     protected Place createPlace() {
-        Place place = new Place(5, ID);
+        Room room = createRoom();
+        Place place = new Place(5, room.getId());
         return placeRepository.save(place);
     }
 

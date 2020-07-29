@@ -24,7 +24,7 @@ public class FloorRepositoryTest extends AbstractTest {
     @Autowired
     private FloorRepository floorRepository;
 
-/*    @Test
+    @Test
     public void whenFindById_thenReturnFloor() {
         Floor floor = createFloor();
         Floor found = floorRepository.findFloorById(floor.getId());
@@ -45,6 +45,6 @@ public class FloorRepositoryTest extends AbstractTest {
         assertThat(found.contains(list.get(0))).isTrue();
         assertThat(found.contains(list.get(1))).isTrue();
         assertThat(found.contains(list.get(2))).isTrue();
-    }*/
+    }
 
 }

@@ -11,5 +11,6 @@ public interface OfficeRepository extends JpaRepository<Office, UUID> {
 
     public Office findOfficeByNumber(Integer number);
 
-    public Office findOfficeByName(String name);
+    public Office findOfficeByAddressId(UUID id);
+
 }

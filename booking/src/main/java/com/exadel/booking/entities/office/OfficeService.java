@@ -23,6 +23,11 @@ public class OfficeService {
                 new EntityNotFoundException("no office with id" + id)));
     }
 
+    public OfficeDto getOfficeByAddressId(UUID id) {
+        return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeByAddressId(id)).orElseThrow(() ->
+                new EntityNotFoundException("no office with address id" + id)));
+    }
+
     public List<OfficeDto> getAllOffices() {
         return officeMapper.toListDto(officeRepository.findAll());
     }
@@ -32,10 +37,6 @@ public class OfficeService {
                 new EntityNotFoundException("no office with number" + number)));
     }
 
-    public OfficeDto getOfficeByName(String name) {
-        return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeByName(name)).orElseThrow(() ->
-                new EntityNotFoundException("no office with name" + name)));
-    }
 
     public Office saveOfficeFromDto(OfficeDto officeDto) {
         return officeRepository.save(officeMapper.toEntity(officeDto));
@@ -47,6 +48,10 @@ public class OfficeService {
 
     public Office findOfficeById(UUID id) {
         return officeRepository.findOfficeById(id);
+    }
+
+    public Office findOfficeByAddressId(UUID id) {
+        return officeRepository.findOfficeByAddressId(id);
     }
 
 

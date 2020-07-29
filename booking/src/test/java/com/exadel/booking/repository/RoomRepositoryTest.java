@@ -23,7 +23,7 @@ public class RoomRepositoryTest extends AbstractTest {
 
     @Autowired
     private RoomRepository roomRepository;
-/*
+
     @Test
     public void whenFindById_thenReturnRoom() {
         Room room = createRoom();
@@ -43,5 +43,5 @@ public class RoomRepositoryTest extends AbstractTest {
         List<Room> found = roomRepository.findAllRoomsByFloorId(floor.getId());
         assertThat(list.size()).isEqualTo(found.size());
         assertThat(found.contains(list.get(0))).isTrue();
-    }*/
+    }
 }

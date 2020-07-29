@@ -8,7 +8,7 @@ import java.util.UUID;
 public class AddressDto {
 
     private UUID id;
-    private String countryCode;
+    private String countryName;
     private String city;
     private String street;
 }

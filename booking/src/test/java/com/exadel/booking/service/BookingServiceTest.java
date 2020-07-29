@@ -101,7 +101,7 @@ public class BookingServiceTest {
         assertThat(bookingDtos.size() == bookinglist.size()).isTrue();
         assertThat(bookingDtos.get(0).getId() == ID).isTrue();
     }
-// need to fix
+
 /*    @Test
     public void createBookingTest() {
         Place place = createPlace();
@@ -154,7 +154,7 @@ public class BookingServiceTest {
     }
 
     private Office createOffice() {
-        Office office = new Office(getRandomPrefix(), getRandomObjectsCount(), ID);
+        Office office = new Office(getRandomObjectsCount(), ID);
         return (office);
     }
 

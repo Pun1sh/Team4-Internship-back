@@ -39,44 +39,34 @@ public class OfficeServiceTest extends AbstractTest {
 
     @Test
     public void getOfficeByIdTest() throws EntityNotFoundException {
-        Office office = createOffice("US");
+        Office office = createOffice(1);
         when(officeRepository.findOfficeById(ID)).thenReturn(office);
         when(officeMapper.toDto(office)).thenReturn(toDto(office));
         OfficeDto off = officeService.getOfficeById(ID);
-        assertThat(off.getName() == "US").isTrue();
+        assertThat(off.getNumber() == 1).isTrue();
     }
-
-    @Test
-    public void getOfficeByNameTest() throws EntityNotFoundException {
-        Office office = createOffice("US");
-        when(officeRepository.findOfficeByName("US")).thenReturn(office);
-        when(officeMapper.toDto(office)).thenReturn(toDto(office));
-        OfficeDto off = officeService.getOfficeByName("US");
-        assertThat(off.getName() == "US").isTrue();
-    }
-
 
     @Test
     public void getAllOfficesTest() {
         List<Office> officeList = new ArrayList<>();
-        officeList.add(createOffice("BY"));
-        officeList.add(createOffice("US"));
-        officeList.add(createOffice("RU"));
+        officeList.add(createOffice(1));
+        officeList.add(createOffice(2));
+        officeList.add(createOffice(3));
         when(officeRepository.findAll()).thenReturn(officeList);
         when(officeMapper.toListDto(officeList)).thenReturn(toListDto(officeList));
         List<OfficeDto> officeDtos = officeService.getAllOffices();
         assertThat(officeDtos.size() == officeList.size()).isTrue();
     }
 
-    private Office createOffice(String name) {
-        Office office = new Office(name, getRandomObjectsCount(), ID);
+    private Office createOffice(Integer number) {
+        Office office = new Office(number, ID);
         return office;
     }
 
     private OfficeDto toDto(Office office) {
         OfficeDto dto = new OfficeDto();
         dto.setId(office.getId());
-        dto.setName(office.getName());
+        dto.setNumber(office.getNumber());
         return dto;
     }
 

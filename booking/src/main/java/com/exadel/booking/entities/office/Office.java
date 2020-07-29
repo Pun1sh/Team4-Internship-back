@@ -24,13 +24,9 @@ public class Office {
     @Column(name = "of_id", unique = true)
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "fl_id")
+    @OneToMany(mappedBy = "officeId", cascade = CascadeType.REMOVE,
+            orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Floor> floor;
-
-    @Column(name = "of_name")
-    @NonNull
-    private String name;
 
     @Column(name = "of_number")
     @NonNull

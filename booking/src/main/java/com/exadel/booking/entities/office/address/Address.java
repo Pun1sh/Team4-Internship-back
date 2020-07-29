@@ -21,9 +21,9 @@ public class Address {
     @Column(name = "ad_id", unique = true)
     private UUID id;
 
-    @Column(name = "ad_country_code")
+    @Column(name = "ad_country_name")
     @NonNull
-    private String countryCode;
+    private String countryName;
 
     @Column(name = "ad_city")
     @NonNull

@@ -43,7 +43,7 @@ public class AddressServiceTest extends AbstractTest {
         Address address = createAddress("US");
         when(addressRepository.findAddressById(ID)).thenReturn(address);
         AddressDto addressDto = addressService.getAddressById(ID);
-        assertThat(address.getCountryCode() == "US").isTrue();
+        assertThat(address.getCountryName() == "US").isTrue();
     }
 
     @Test
@@ -58,7 +58,7 @@ public class AddressServiceTest extends AbstractTest {
         assertThat(addressDtos.size() == addressList.size()).isTrue();
     }
 
-    private Address createAddress(String countryCode) {
+    private Address createAddress(String countryName) {
         Address address = new Address("US", getRandomPrefix(), getRandomPrefix());
         address.setId(ID);
         return address;

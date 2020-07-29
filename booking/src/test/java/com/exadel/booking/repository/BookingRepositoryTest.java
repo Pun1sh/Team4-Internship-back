@@ -23,7 +23,7 @@ public class BookingRepositoryTest extends AbstractTest {
     @Autowired
     private BookingRepository bookingDao;
 
-/*    @Test
+    @Test
     public void whenFindById_thenReturnBooking() {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
@@ -54,9 +54,9 @@ public class BookingRepositoryTest extends AbstractTest {
         list.add(booking);
         list.add(booking2);
         List<Booking> found = bookingDao.findListBookingsByUserIdAndBYDueDateFromNow(user.getId(), LocalDateTime.now());
-        assertThat((found.size()==1));
+        assertThat((found.size() == 1));
         assertThat(found.contains(booking2)).isTrue();
         assertThat(found.contains(booking)).isFalse();
-    }*/
+    }
 
 }

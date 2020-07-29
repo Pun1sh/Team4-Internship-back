@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200729.delete-country-code-add-country-name-from-address-table">
+        <dropColumn
+                columnName="ad_country_code"
+                schemaName="public"
+                tableName="address">
+        </dropColumn>
+        <addColumn
+                schemaName="public"
+                tableName="address">
+            <column name="ad_country_name"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200729.delete-name-from-office-table">
+        <dropColumn
+                columnName="of_name"
+                schemaName="public"
+                tableName="office">
+        </dropColumn>
+    </changeSet>
+</databaseChangeLog>
