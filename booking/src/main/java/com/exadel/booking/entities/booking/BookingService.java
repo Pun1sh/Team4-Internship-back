@@ -2,10 +2,12 @@ package com.exadel.booking.entities.booking;
 
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
 import com.exadel.booking.entities.user.UserService;
+import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -22,9 +24,15 @@ public class BookingService {
     private final AMapper<Booking, BookingDto> bookingMapper;
     private final PlaceService placeService;
     private final UserService userService;
+    private final EmailSender emailSender;
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
+        try {
+            emailSender.sendEmailsFromAdminAboutNewBooking(booking);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         return bookingMapper.toDto(bookingDao.save(booking));
     }
 
