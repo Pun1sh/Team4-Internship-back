@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+        <changeSet author="nastia" id="20200729.add-real-authority">
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="BOOKING_READ"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="BOOKING_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="BOOKING_DELETE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="QUEUE_WRITE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="QUEUE_DELETE"/>
+        </insert>
+        <insert tableName="authority">
+            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
+            <column name="au_name" type="varchar(255)" value="QUEUE_READ"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
