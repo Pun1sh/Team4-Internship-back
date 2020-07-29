@@ -9,7 +9,6 @@ import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +51,7 @@ public class UserService {
 
     public Page<UserDto> getAllUsers(Pageable pageable) {
         Page<User> users = userDao.findAll(pageable);
-        return new PageImpl<>(userMapper.toListDto(users.getContent()), pageable, users.getTotalElements());
+        return users.map(x -> userMapper.toDto(x));
     }
 
     public UserDto updateUser(UUID id, UserDto userDto) {
