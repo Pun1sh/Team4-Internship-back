@@ -51,10 +51,9 @@ public class UserServiceTest {
         Page<User> pages = new PageImpl<User>(users, PageRequest.of(0, 4), users.size());
         when(userDao.findAll(any(Pageable.class))).thenReturn(pages);
         when(userMapper.toListDto(pages.getContent())).thenReturn(toListDto(pages));
-        List<UserDto> userFromService = userService.getAllUsers(PageRequest.of(0, 3));
-        assertThat(userFromService.size() == (3));
+        Page<UserDto> userFromService = userService.getAllUsers(PageRequest.of(0, 3));
+        assertThat(userFromService.getTotalElements() == (3));
     }
-
 
     @Test
     public void getUserDtoByIdTest() throws EntityNotFoundException {
