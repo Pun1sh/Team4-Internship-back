@@ -1,0 +1,9 @@
+<html>
+    <body>
+    	<h4>Hello, ${name}!</h4>
+        <pre>
+        You have reserved seat Number ${number} from ${start} to ${end}
+        Thanks a lot!
+        </pre>
+    </body>
+</html>
