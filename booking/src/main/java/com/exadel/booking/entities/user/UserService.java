@@ -49,9 +49,9 @@ public class UserService {
         return userMapper.toListDto(usersFromDB);
     }
 
-    public List<UserDto> getAllUsers(Pageable pageable) {
+    public Page<UserDto> getAllUsers(Pageable pageable) {
         Page<User> users = userDao.findAll(pageable);
-        return userMapper.toListDto(users.getContent());
+        return users.map(x -> userMapper.toDto(x));
     }
 
     public UserDto updateUser(UUID id, UserDto userDto) {
