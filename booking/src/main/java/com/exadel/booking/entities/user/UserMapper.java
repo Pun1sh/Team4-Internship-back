@@ -3,9 +3,7 @@ package com.exadel.booking.entities.user;
 
 import com.exadel.booking.entities.user.role.RoleRepository;
 import com.exadel.booking.utils.modelmapper.AMapper;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

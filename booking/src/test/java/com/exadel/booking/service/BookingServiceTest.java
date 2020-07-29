@@ -12,6 +12,7 @@ import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
+import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,6 +56,8 @@ public class BookingServiceTest {
     UserService userService;
     @Mock
     AMapper bookingMapper;
+    @Mock
+    EmailSender emailSender;
 
 
     @Test
@@ -62,6 +66,7 @@ public class BookingServiceTest {
         assertThat(bookingMapper).isNotNull();
         assertThat(userService).isNotNull();
         assertThat(placeService).isNotNull();
+        assertThat(emailSender).isNotNull();
     }
 
     @Test
@@ -95,15 +100,15 @@ public class BookingServiceTest {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
         bookinglist.add(booking);
-        when(bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(any(UUID.class),any(LocalDateTime.class))).thenReturn(bookinglist);
+        when(bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(any(UUID.class), any(LocalDateTime.class))).thenReturn(bookinglist);
         when(bookingMapper.toListDto(bookinglist)).thenReturn(toListDto(bookinglist));
         List<BookingDto> bookingDtos = bookingService.getAllActiveBookingsByUserId(user.getId(), LocalDateTime.now());
         assertThat(bookingDtos.size() == bookinglist.size()).isTrue();
-        assertThat(bookingDtos.get(0).getId()==ID).isTrue();
+        assertThat(bookingDtos.get(0).getId() == ID).isTrue();
     }
 
     @Test
-    public void createBookingTest() {
+    public void createBookingTest() throws MessagingException {
         Place place = createPlace();
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
@@ -111,6 +116,7 @@ public class BookingServiceTest {
         when(bookingMapper.toDto(booking)).thenReturn(toDto(booking));
         when(placeService.getPlaceById(any(UUID.class))).thenReturn(place);
         when(userService.getUserById(any(UUID.class))).thenReturn(user);
+        doNothing().when(emailSender).sendEmailsFromAdminAboutNewBooking(any(Booking.class));
         BookingDto bookingDto = bookingService.createBooking(place.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(3));
         assertThat(bookingDto.getId() == booking.getId()).isTrue();
     }
