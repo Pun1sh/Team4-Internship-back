@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Collection;
+import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -16,38 +16,31 @@ public class AddressController {
 
     @PreAuthorize("hasAuthority('ADDRESS_READ')")
     @GetMapping
-    public Collection<AddressDto> getAllAddresses() {
+    public List<AddressDto> getAllAddresses() {
         return addressService.getAllAddresses();
     }
 
     @PreAuthorize("hasAuthority('ADDRESS_READ')")
     @GetMapping(value = "/{id}")
     public AddressDto getAddressById(@PathVariable UUID id) {
-        if (addressService.findAddressById(id) == null) {
-            throw new EntityNotFoundException("Address with id " + id + " not found");
-        }
         return addressService.getAddressById(id);
     }
 
-
     @PreAuthorize("hasAuthority('ADDRESS_WRITE')")
     @PostMapping
-    public Address saveAddress(@RequestBody Address address) {
-        return addressService.saveAddress(address);
+    public AddressDto saveAddress(@RequestBody @Valid AddressDto addressDto) {
+        return addressService.saveAddressFromDto(addressDto);
     }
 
     @PreAuthorize("hasAuthority('ADDRESS_WRITE')")
     @PutMapping
-    public Address updateAddress(@RequestBody Address address) {
-        return addressService.saveAddress(address);
+    public AddressDto updateAddress(@RequestBody AddressDto address) {
+        return addressService.saveAddressFromDto(address);
     }
 
     @PreAuthorize("hasAuthority('ADDRESS_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deleteAddress(@PathVariable UUID id) {
-        if (addressService.findAddressById(id) == null) {
-            throw new EntityNotFoundException("Address with id " + id + " not found");
-        }
+    public void deleteAddressById(@PathVariable UUID id) {
         addressService.deleteAddressById(id);
     }
 }
