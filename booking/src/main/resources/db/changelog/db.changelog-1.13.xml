@@ -11,21 +11,28 @@
                 tableName="address">
         </dropColumn>
     </changeSet>
-    <changeSet author="gleb" id="20200730.add-country-name-to-address-table">
-        <addColumn
-                schemaName="public"
-                tableName="address">
-            <column name="ad_country_name"
-                    type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-    </changeSet>
     <changeSet author="gleb" id="20200729.delete-name-from-office-table">
         <dropColumn
                 columnName="of_name"
                 schemaName="public"
                 tableName="office">
         </dropColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200730.add-country-name-to-address-table">
+        <addColumn
+                schemaName="public"
+                tableName="address">
+            <column name="ad_country_name"
+                    type="varchar(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200730.add-not-null-constraint-to-country-name">
+        <addNotNullConstraint
+                              columnDataType="varchar"
+                              columnName="ad_country_name"
+                              defaultNullValue="Belarus"
+                              schemaName="public"
+                              tableName="address"/>
     </changeSet>
 </databaseChangeLog>
