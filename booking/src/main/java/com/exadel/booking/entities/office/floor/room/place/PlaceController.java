@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PostMapping
-    public Place savePlace(@RequestBody PlaceDto placeDto) {
+    public Place savePlace(@RequestBody @Valid PlaceDto placeDto) {
         return placeService.savePlaceFromDto(placeDto);
     }
 

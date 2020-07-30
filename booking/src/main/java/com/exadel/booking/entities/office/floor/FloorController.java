@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class FloorController {
 
     @PreAuthorize("hasAuthority('FLOOR_WRITE')")
     @PostMapping
-    public Floor saveFloor(@RequestBody FloorDto floorDto) {
+    public Floor saveFloor(@RequestBody @Valid FloorDto floorDto) {
         return floorService.saveFloorFromDto(floorDto);
     }
 
