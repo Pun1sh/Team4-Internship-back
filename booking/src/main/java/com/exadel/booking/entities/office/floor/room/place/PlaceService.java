@@ -1,8 +1,6 @@
 package com.exadel.booking.entities.office.floor.room.place;
 
-import com.exadel.booking.entities.queue.Queue;
 import com.exadel.booking.entities.queue.QueueService;
-import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;

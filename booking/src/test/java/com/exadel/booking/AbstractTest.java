@@ -21,7 +21,9 @@ import com.exadel.booking.entities.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public abstract class AbstractTest {
 

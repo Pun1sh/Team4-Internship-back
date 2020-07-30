@@ -3,13 +3,10 @@ package com.exadel.booking.entities.queue;
 import com.exadel.booking.entities.user.User;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity

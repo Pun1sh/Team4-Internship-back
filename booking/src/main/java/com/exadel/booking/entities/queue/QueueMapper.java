@@ -1,7 +1,5 @@
 package com.exadel.booking.entities.queue;
 
-import com.exadel.booking.entities.user.User;
-import com.exadel.booking.entities.user.UserDto;
 import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.modelmapper.ModelMapper;
