@@ -21,20 +21,8 @@ public class Controller {
 
     private final EmailSender emailSender;
 
-
     @GetMapping(value = "/letterToAdmin")
     public void letterToAdmin(String email, String text) throws MessagingException {
         emailSender.sendEmailToAdmin(email, text);
-    }
-
-    @SneakyThrows
-    @GetMapping
-    public String test() {
-        Place pl = new Place(2);
-        pl.setId(UUID.randomUUID());
-        User us = new User().setUsername("Nastia").setId(UUID.randomUUID()).setEmail("exadelbooking@gmail.com");
-        Booking booking = Booking.builder().place(pl).user(us).bookingDate(LocalDateTime.now()).dueDate(LocalDateTime.now().plusDays(4)).build();
-        emailSender.sendEmailsFromAdminAboutNewBooking(booking);
-        return "Hello";
     }
 }

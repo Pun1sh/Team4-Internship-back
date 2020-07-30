@@ -50,7 +50,6 @@ public class UserServiceTest {
                 createUser("TestEmail 3"));
         Page<User> pages = new PageImpl<User>(users, PageRequest.of(0, 4), users.size());
         when(userDao.findAll(any(Pageable.class))).thenReturn(pages);
-        when(userMapper.toListDto(pages.getContent())).thenReturn(toListDto(pages));
         Page<UserDto> userFromService = userService.getAllUsers(PageRequest.of(0, 3));
         assertThat(userFromService.getTotalElements() == (3));
     }

@@ -12,6 +12,8 @@ import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.RoomRepository;
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.office.floor.room.place.PlaceRepository;
+import com.exadel.booking.entities.queue.Queue;
+import com.exadel.booking.entities.queue.QueueRepository;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserRepository;
 import com.exadel.booking.entities.user.role.Role;
@@ -19,7 +21,7 @@ import com.exadel.booking.entities.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.Random;
+import java.util.*;
 
 public abstract class AbstractTest {
 
@@ -39,6 +41,9 @@ public abstract class AbstractTest {
     private PlaceRepository placeRepository;
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private QueueRepository queueRepository;
+
 
     private static final Random RANDOM = new Random();
 
@@ -96,6 +101,12 @@ public abstract class AbstractTest {
         Place place = createPlace();
         Booking booking = Booking.builder().place(place).user(user).bookingDate(now).dueDate(now.plusDays(2)).build();
         return bookingRepository.save(booking);
+    }
+
+    protected Queue createQueue() {
+        User us=createUser();
+        Queue queue = Queue.builder().users(new ArrayList<>(Arrays.asList(us))).build();
+        return queueRepository.save(queue);
     }
 
 

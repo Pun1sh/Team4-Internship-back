@@ -56,4 +56,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
+
+    @ManyToMany
+    @JoinTable(name = "user_queue", joinColumns =
+    @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "queue_id"))
+    private List<User> queues;
 }

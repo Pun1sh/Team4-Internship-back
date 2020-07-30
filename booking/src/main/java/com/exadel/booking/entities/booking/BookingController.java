@@ -19,7 +19,7 @@ public class BookingController {
     private final UserService userService;
 
     @GetMapping()
-    public List<BookingDto> getMyBookings(UUID userId) {
+    public List<BookingDto> getAllBookingsByUserId(UUID userId) {
         return bookingService.getAllBookingsByUserId(userId);
     }
 
@@ -30,12 +30,12 @@ public class BookingController {
 
 
     @GetMapping("{id}")
-    public BookingDto getBookingById(@PathVariable UUID bookindId) {
+    public BookingDto getBookingDtoById(@PathVariable UUID bookindId) {
         return bookingService.getBookingDtoById(bookindId);
     }
 
     @PostMapping
-    public BookingDto addBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
     }
 
