@@ -64,7 +64,7 @@ public class OfficeServiceTest extends AbstractTest {
     }
 
     private OfficeDto toDto(Office office) {
-        OfficeDto dto = new OfficeDto();
+        OfficeDto dto = new OfficeDto(getRandomObjectsCount(), ID);
         dto.setId(office.getId());
         dto.setNumber(office.getNumber());
         return dto;

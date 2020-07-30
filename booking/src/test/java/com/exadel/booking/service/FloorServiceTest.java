@@ -60,7 +60,7 @@ public class FloorServiceTest extends AbstractTest {
         assertThat(floorDtos.size() == floorList.size()).isTrue();
     }
 
-    @Test
+/*    @Test
     public void getAllFloorsByOfficeIdTest() {
         List<Floor> floorList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -72,7 +72,7 @@ public class FloorServiceTest extends AbstractTest {
         when(floorMapper.toListDto(floorList)).thenReturn(toListDto(floorList));
         List<FloorDto> floorDtos = floorService.getAllFloorsByOfficeId(ID);
         assertThat(floorDtos.size() == floorList.size()).isTrue();
-    }
+    }*/
 
     private Floor createFloor(Integer number) {
         Floor floor = new Floor(number, ID);
@@ -80,7 +80,7 @@ public class FloorServiceTest extends AbstractTest {
     }
 
     private FloorDto toDto(Floor floor) {
-        FloorDto dto = new FloorDto();
+        FloorDto dto = new FloorDto(getRandomObjectsCount(), ID);
         dto.setId(floor.getId());
         dto.setNumber(floor.getNumber());
         return dto;

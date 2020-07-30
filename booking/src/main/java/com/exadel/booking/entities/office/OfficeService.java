@@ -20,12 +20,12 @@ public class OfficeService {
 
     public OfficeDto getOfficeById(UUID id) {
         return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with id" + id)));
+                new EntityNotFoundException("no office with id " + id)));
     }
 
     public OfficeDto getOfficeByAddressId(UUID id) {
         return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeByAddressId(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with address id" + id)));
+                new EntityNotFoundException("no office with address id " + id)));
     }
 
     public List<OfficeDto> getAllOffices() {
@@ -34,7 +34,7 @@ public class OfficeService {
 
     public OfficeDto getOfficeByNumber(Integer number) {
         return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeByNumber(number)).orElseThrow(() ->
-                new EntityNotFoundException("no office with number" + number)));
+                new EntityNotFoundException("no office with number " + number)));
     }
 
 
@@ -44,7 +44,7 @@ public class OfficeService {
 
     public void deleteOfficeById(UUID id) {
         Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with id" + id));
+                new EntityNotFoundException("no office with id " + id));
         officeRepository.deleteById(id);
     }
 

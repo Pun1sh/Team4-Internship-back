@@ -22,12 +22,12 @@ public class PlaceService {
 
     public PlaceDto getPlaceDtoById(UUID id) {
         return placeMapper.toDto(Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no place with id" + id)));
+                new EntityNotFoundException("no place with id " + id)));
     }
 
     public Place getPlaceById(UUID id) {
         return Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no place with id" + id));
+                new EntityNotFoundException("no place with id " + id));
     }
 
     public List<PlaceDto> getAllPlaces() {
@@ -36,7 +36,7 @@ public class PlaceService {
 
     public List<PlaceDto> getAllPlacesByRoomId(UUID id) {
         Optional.ofNullable(roomRepository.findRoomById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no room with id" + id));
+                new EntityNotFoundException("no room with id " + id));
         return placeMapper.toListDto(placeRepository.findAllPlacesByRoomId(id));
     }
 
@@ -50,7 +50,7 @@ public class PlaceService {
 
     public void deletePlaceById(UUID id) {
         Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no place with id" + id));
+                new EntityNotFoundException("no place with id " + id));
         placeRepository.deleteById(id);
     }
 

@@ -22,7 +22,7 @@ public class RoomService {
 
     public RoomDto getRoomById(UUID id) {
         return roomMapper.toDto(Optional.ofNullable(roomRepository.findRoomById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no room with id" + id)));
+                new EntityNotFoundException("no room with id " + id)));
     }
 
     public List<RoomDto> getAllRooms() {
@@ -31,7 +31,7 @@ public class RoomService {
 
     public List<RoomDto> getAllRoomsByFloorId(UUID id) {
         Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no floor with id" + id));
+                new EntityNotFoundException("no floor with id " + id));
         return roomMapper.toListDto(roomRepository.findAllRoomsByFloorId(id));
     }
 
@@ -45,7 +45,7 @@ public class RoomService {
 
     public void deleteRoomById(UUID id) {
         Optional.ofNullable(roomRepository.findRoomById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no room with id" + id));
+                new EntityNotFoundException("no room with id " + id));
         roomRepository.deleteById(id);
     }
 }

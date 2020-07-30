@@ -21,7 +21,7 @@ public class FloorService {
 
     public FloorDto getFloorById(UUID id) {
         return floorMapper.toDto(Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no floor with id" + id)));
+                new EntityNotFoundException("no floor with id " + id)));
     }
 
     public List<FloorDto> getAllFloors() {
@@ -30,7 +30,7 @@ public class FloorService {
 
     public List<FloorDto> getAllFloorsByOfficeId(UUID id) {
         Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with id" + id));
+                new EntityNotFoundException("no office with id " + id));
         return floorMapper.toListDto(floorRepository.findAllFloorsByOfficeId(id));
     }
 
@@ -44,7 +44,7 @@ public class FloorService {
 
     public void deleteFloorById(UUID id) {
         Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no floor with id" + id));
+                new EntityNotFoundException("no floor with id " + id));
         floorRepository.deleteById(id);
     }
 
