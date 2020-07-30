@@ -38,7 +38,7 @@ public class FloorController {
 
     @PreAuthorize("hasAuthority('FLOOR_WRITE')")
     @PutMapping
-    public FloorDto updateFloor(@RequestBody FloorDto floorDto) {
+    public FloorDto updateFloor(@RequestBody @Valid FloorDto floorDto) {
         return floorService.saveFloorFromDto(floorDto);
     }
 

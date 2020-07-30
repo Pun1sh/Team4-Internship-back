@@ -27,7 +27,7 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PutMapping
-    public PlaceDto updatePlace(@RequestBody PlaceDto placeDto) {
+    public PlaceDto updatePlace(@RequestBody @Valid PlaceDto placeDto) {
         return placeService.savePlaceFromDto(placeDto);
     }
 

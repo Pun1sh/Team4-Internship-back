@@ -34,7 +34,7 @@ public class AddressController {
 
     @PreAuthorize("hasAuthority('ADDRESS_WRITE')")
     @PutMapping
-    public AddressDto updateAddress(@RequestBody AddressDto address) {
+    public AddressDto updateAddress(@RequestBody @Valid AddressDto address) {
         return addressService.saveAddressFromDto(address);
     }
 

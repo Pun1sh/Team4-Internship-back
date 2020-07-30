@@ -50,7 +50,7 @@ public class OfficeController {
 
     @PreAuthorize("hasAuthority('OFFICE_WRITE')")
     @PutMapping
-    public OfficeDto updateOffice(@RequestBody OfficeDto officeDto) {
+    public OfficeDto updateOffice(@RequestBody @Valid OfficeDto officeDto) {
         return officeService.saveOfficeFromDto(officeDto);
     }
 

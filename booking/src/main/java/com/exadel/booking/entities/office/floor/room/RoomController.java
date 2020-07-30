@@ -37,7 +37,7 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ROOM_WRITE')")
     @PutMapping
-    public RoomDto updateRoom(@RequestBody RoomDto roomDto) {
+    public RoomDto updateRoom(@RequestBody @Valid RoomDto roomDto) {
         return roomService.saveRoomFromDto(roomDto);
     }
 
