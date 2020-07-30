@@ -27,7 +27,7 @@ public class FloorRepositoryTest extends AbstractTest {
     @Test
     public void whenFindById_thenReturnFloor() {
         Floor floor = createFloor();
-        Floor found = floorRepository.findFloorById(floor.getId());
+        Floor found = floorRepository.findById(floor.getId()).get();
         assertThat(found.getId()).isEqualTo(floor.getId());
     }
 

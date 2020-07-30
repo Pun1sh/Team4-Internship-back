@@ -27,7 +27,7 @@ public class RoomRepositoryTest extends AbstractTest {
     @Test
     public void whenFindById_thenReturnRoom() {
         Room room = createRoom();
-        Room found = roomRepository.findRoomById(room.getId());
+        Room found = roomRepository.findById(room.getId()).get();
         assertThat(found.getId()).isEqualTo(room.getId());
     }
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,13 +18,11 @@ public class OfficeService {
 
 
     public OfficeDto getOfficeById(UUID id) {
-        return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with id " + id)));
+        return officeMapper.toDto(findOfficeById(id));
     }
 
     public OfficeDto getOfficeByAddressId(UUID id) {
-        return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeByAddressId(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with address id " + id)));
+        return officeMapper.toDto(findOfficeByAddressId(id));
     }
 
     public List<OfficeDto> getAllOffices() {
@@ -33,28 +30,31 @@ public class OfficeService {
     }
 
     public OfficeDto getOfficeByNumber(Integer number) {
-        return officeMapper.toDto(Optional.ofNullable(officeRepository.findOfficeByNumber(number)).orElseThrow(() ->
-                new EntityNotFoundException("no office with number " + number)));
+        return officeMapper.toDto(findOfficeByNumber(number));
     }
 
+    public OfficeDto saveOfficeFromDto(OfficeDto officeDto) {
+        return officeMapper.toDto(officeRepository.save(officeMapper.toEntity(officeDto)));
 
-    public Office saveOfficeFromDto(OfficeDto officeDto) {
-        return officeRepository.save(officeMapper.toEntity(officeDto));
     }
 
     public void deleteOfficeById(UUID id) {
-        Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with id " + id));
+        findOfficeById(id);
         officeRepository.deleteById(id);
     }
 
     public Office findOfficeById(UUID id) {
-        return officeRepository.findOfficeById(id);
+        return officeRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("no office with id " + id));
     }
 
     public Office findOfficeByAddressId(UUID id) {
-        return officeRepository.findOfficeByAddressId(id);
+        return officeRepository.findOfficeByAddressId(id).
+                orElseThrow(() -> new EntityNotFoundException("no office with address id " + id));
     }
 
-
+    public Office findOfficeByNumber(Integer number) {
+        return officeRepository.findOfficeByNumber(number).
+                orElseThrow(() -> new EntityNotFoundException("no office with number " + number));
+    }
 }

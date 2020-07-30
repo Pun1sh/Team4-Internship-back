@@ -8,7 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface FloorRepository extends JpaRepository<Floor, UUID> {
-    public Floor findFloorById(UUID id);
-
     public List<Floor> findAllFloorsByOfficeId(UUID id);
 }

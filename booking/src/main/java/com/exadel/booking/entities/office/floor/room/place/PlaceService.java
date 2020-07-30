@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,15 +18,8 @@ public class PlaceService {
     private final AMapper<Place, PlaceDto> placeMapper;
     private final RoomRepository roomRepository;
 
-
-    public PlaceDto getPlaceDtoById(UUID id) {
-        return placeMapper.toDto(Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no place with id " + id)));
-    }
-
-    public Place getPlaceById(UUID id) {
-        return Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no place with id " + id));
+    public PlaceDto getPlaceById(UUID id) {
+        return placeMapper.toDto(findPlaceById(id));
     }
 
     public List<PlaceDto> getAllPlaces() {
@@ -35,22 +27,21 @@ public class PlaceService {
     }
 
     public List<PlaceDto> getAllPlacesByRoomId(UUID id) {
-        Optional.ofNullable(roomRepository.findRoomById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no room with id " + id));
+        roomRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("no room with id " + id));
         return placeMapper.toListDto(placeRepository.findAllPlacesByRoomId(id));
     }
 
     public Place findPlaceById(UUID id) {
-        return placeRepository.findPlaceById(id);
+        return placeRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("no place with id " + id));
     }
 
-    public Place savePlaceFromDto(PlaceDto placeDto) {
-        return placeRepository.save(placeMapper.toEntity(placeDto));
+    public PlaceDto savePlaceFromDto(PlaceDto placeDto) {
+        return placeMapper.toDto(placeRepository.save(placeMapper.toEntity(placeDto)));
     }
 
     public void deletePlaceById(UUID id) {
-        Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no place with id " + id));
+        findPlaceById(id);
         placeRepository.deleteById(id);
     }
 

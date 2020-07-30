@@ -44,13 +44,13 @@ public class OfficeController {
 
     @PreAuthorize("hasAuthority('OFFICE_WRITE')")
     @PostMapping
-    public Office saveOffice(@RequestBody @Valid OfficeDto officeDto) {
+    public OfficeDto saveOffice(@RequestBody @Valid OfficeDto officeDto) {
         return officeService.saveOfficeFromDto(officeDto);
     }
 
     @PreAuthorize("hasAuthority('OFFICE_WRITE')")
     @PutMapping
-    public Office updateOffice(@RequestBody OfficeDto officeDto) {
+    public OfficeDto updateOffice(@RequestBody OfficeDto officeDto) {
         return officeService.saveOfficeFromDto(officeDto);
     }
 

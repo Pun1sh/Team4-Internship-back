@@ -32,13 +32,13 @@ public class FloorController {
 
     @PreAuthorize("hasAuthority('FLOOR_WRITE')")
     @PostMapping
-    public Floor saveFloor(@RequestBody @Valid FloorDto floorDto) {
+    public FloorDto saveFloor(@RequestBody @Valid FloorDto floorDto) {
         return floorService.saveFloorFromDto(floorDto);
     }
 
     @PreAuthorize("hasAuthority('FLOOR_WRITE')")
     @PutMapping
-    public Floor updateFloor(@RequestBody FloorDto floorDto) {
+    public FloorDto updateFloor(@RequestBody FloorDto floorDto) {
         return floorService.saveFloorFromDto(floorDto);
     }
 

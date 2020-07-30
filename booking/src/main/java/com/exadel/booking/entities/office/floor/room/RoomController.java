@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -32,13 +31,13 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ROOM_WRITE')")
     @PostMapping
-    public Room saveRoom(@RequestBody @Valid RoomDto roomDto) {
+    public RoomDto saveRoom(@RequestBody @Valid RoomDto roomDto) {
         return roomService.saveRoomFromDto(roomDto);
     }
 
     @PreAuthorize("hasAuthority('ROOM_WRITE')")
     @PutMapping
-    public Room updateRoom(@RequestBody RoomDto roomDto) {
+    public RoomDto updateRoom(@RequestBody RoomDto roomDto) {
         return roomService.saveRoomFromDto(roomDto);
     }
 

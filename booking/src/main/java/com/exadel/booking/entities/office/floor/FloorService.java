@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,8 +19,7 @@ public class FloorService {
     private final OfficeRepository officeRepository;
 
     public FloorDto getFloorById(UUID id) {
-        return floorMapper.toDto(Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no floor with id " + id)));
+        return floorMapper.toDto(findFloorById(id));
     }
 
     public List<FloorDto> getAllFloors() {
@@ -29,22 +27,22 @@ public class FloorService {
     }
 
     public List<FloorDto> getAllFloorsByOfficeId(UUID id) {
-        Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no office with id " + id));
+        officeRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("no office with id " + id));
         return floorMapper.toListDto(floorRepository.findAllFloorsByOfficeId(id));
     }
 
     public Floor findFloorById(UUID id) {
-        return floorRepository.findFloorById(id);
+        return floorRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("no floor with id " + id));
     }
 
-    public Floor saveFloorFromDto(FloorDto floorDto) {
-        return floorRepository.save(floorMapper.toEntity(floorDto));
+    public FloorDto saveFloorFromDto(FloorDto floorDto) {
+        return floorMapper.toDto(floorRepository.save(floorMapper.toEntity(floorDto)));
     }
 
     public void deleteFloorById(UUID id) {
-        Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no floor with id " + id));
+        findFloorById(id);
         floorRepository.deleteById(id);
     }
 
