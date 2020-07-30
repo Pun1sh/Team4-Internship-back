@@ -12,7 +12,7 @@ public class BookingDto {
 
     private UUID id;
     private UserDto userDto;
-    private PlaceDto bookDto;
+    private PlaceDto placeDto;
     private LocalDate bookingDate;
     private LocalDate dueDate;
     private boolean isFinished;
