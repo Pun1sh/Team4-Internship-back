@@ -22,14 +22,4 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nastia" id="20200729.add-fk-queue-user">
-        <addForeignKeyConstraint
-                constraintName="fk_user2user_queue" referencedTableName="users"
-                referencedColumnNames="us_id" baseColumnNames="user_id"
-                baseTableName="user_queue"/>
-        <addForeignKeyConstraint
-                constraintName="fk_queue2user_queue" referencedTableName="queue"
-                referencedColumnNames="q_id" baseColumnNames="queue_id"
-                baseTableName="user_queue"/>
-    </changeSet>
 </databaseChangeLog>
