@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,9 +19,6 @@ public class FloorController {
     @PreAuthorize("hasAuthority('FLOOR_READ')")
     @GetMapping(value = "/{id}")
     public FloorDto getFloorById(@PathVariable UUID id) {
-        if (floorService.findFloorById(id) == null) {
-            throw new EntityNotFoundException("Floor with id " + id + " not found");
-        }
         return floorService.getFloorById(id);
     }
 
@@ -47,10 +43,7 @@ public class FloorController {
 
     @PreAuthorize("hasAuthority('FLOOR_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deleteFloor(@PathVariable UUID id) {
-        if (floorService.findFloorById(id) == null) {
-            throw new EntityNotFoundException("Floor with id " + id + " not found");
-        }
+    public void deleteFloorById(@PathVariable UUID id) {
         floorService.deleteFloorById(id);
     }
 }

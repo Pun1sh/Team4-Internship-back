@@ -43,6 +43,8 @@ public class OfficeService {
     }
 
     public void deleteOfficeById(UUID id) {
+        Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
+                new EntityNotFoundException("no office with id" + id));
         officeRepository.deleteById(id);
     }
 

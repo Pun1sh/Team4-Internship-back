@@ -20,9 +20,6 @@ public class RoomController {
     @PreAuthorize("hasAuthority('ROOM_READ')")
     @GetMapping(value = "/{id}")
     public RoomDto getRoomById(@PathVariable UUID id) {
-        if (roomService.findRoomById(id) == null) {
-            throw new EntityNotFoundException("Room with id " + id + " not found");
-        }
         return roomService.getRoomById(id);
     }
 
@@ -46,10 +43,7 @@ public class RoomController {
 
     @PreAuthorize("hasAuthority('ROOM_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deleteRoom(@PathVariable UUID id) {
-        if (roomService.findRoomById(id) == null) {
-            throw new EntityNotFoundException("Room with id " + id + " not found");
-        }
+    public void deleteRoomById(@PathVariable UUID id) {
         roomService.deleteRoomById(id);
     }
 }

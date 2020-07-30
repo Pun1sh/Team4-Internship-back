@@ -1,5 +1,6 @@
 package com.exadel.booking.entities.office.floor.room.place;
 
+import com.exadel.booking.entities.office.floor.room.RoomRepository;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class PlaceService {
     private final PlaceRepository placeRepository;
     private final AMapper<Place, PlaceDto> placeMapper;
+    private final RoomRepository roomRepository;
 
 
     public PlaceDto getPlaceDtoById(UUID id) {
@@ -33,6 +35,8 @@ public class PlaceService {
     }
 
     public List<PlaceDto> getAllPlacesByRoomId(UUID id) {
+        Optional.ofNullable(roomRepository.findRoomById(id)).orElseThrow(() ->
+                new EntityNotFoundException("no room with id" + id));
         return placeMapper.toListDto(placeRepository.findAllPlacesByRoomId(id));
     }
 
@@ -45,6 +49,8 @@ public class PlaceService {
     }
 
     public void deletePlaceById(UUID id) {
+        Optional.ofNullable(placeRepository.findPlaceById(id)).orElseThrow(() ->
+                new EntityNotFoundException("no place with id" + id));
         placeRepository.deleteById(id);
     }
 

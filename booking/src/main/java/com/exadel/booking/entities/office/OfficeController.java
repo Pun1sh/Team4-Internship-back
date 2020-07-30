@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,18 +26,12 @@ public class OfficeController {
     @PreAuthorize("hasAuthority('OFFICE_READ')")
     @GetMapping(value = "/{id}")
     public OfficeDto getOfficeById(@PathVariable UUID id) {
-        if (officeService.findOfficeById(id) == null) {
-            throw new EntityNotFoundException("Office with id " + id + " not found");
-        }
         return officeService.getOfficeById(id);
     }
 
     @PreAuthorize("hasAuthority('OFFICE_READ')")
     @GetMapping(value = "/address/{id}")
     public OfficeDto getOfficeByAddressId(@PathVariable UUID id) {
-        if (officeService.findOfficeByAddressId(id) == null) {
-            throw new EntityNotFoundException("Office with address id " + id + " not found");
-        }
         return officeService.getOfficeByAddressId(id);
     }
 
@@ -62,10 +55,7 @@ public class OfficeController {
 
     @PreAuthorize("hasAuthority('OFFICE_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deleteOffice(@PathVariable UUID id) {
-        if (officeService.findOfficeById(id) == null) {
-            throw new EntityNotFoundException("Office with id " + id + " not found");
-        }
+    public void deleteOfficeById(@PathVariable UUID id) {
         officeService.deleteOfficeById(id);
     }
 }

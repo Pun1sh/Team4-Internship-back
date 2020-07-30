@@ -1,5 +1,6 @@
 package com.exadel.booking.entities.office.floor;
 
+import com.exadel.booking.entities.office.OfficeRepository;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class FloorService {
     private final FloorRepository floorRepository;
     private final AMapper<Floor, FloorDto> floorMapper;
+    private final OfficeRepository officeRepository;
 
     public FloorDto getFloorById(UUID id) {
         return floorMapper.toDto(Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
@@ -27,6 +29,8 @@ public class FloorService {
     }
 
     public List<FloorDto> getAllFloorsByOfficeId(UUID id) {
+        Optional.ofNullable(officeRepository.findOfficeById(id)).orElseThrow(() ->
+                new EntityNotFoundException("no office with id" + id));
         return floorMapper.toListDto(floorRepository.findAllFloorsByOfficeId(id));
     }
 
@@ -39,6 +43,8 @@ public class FloorService {
     }
 
     public void deleteFloorById(UUID id) {
+        Optional.ofNullable(floorRepository.findFloorById(id)).orElseThrow(() ->
+                new EntityNotFoundException("no floor with id" + id));
         floorRepository.deleteById(id);
     }
 
