@@ -21,5 +21,9 @@ public class PlaceController {
         return placeService.getPlaceDtoById(id);
     }
 
-
+    @PreAuthorize("hasAuthority('PLACE_READ')")
+    @GetMapping
+    public void subscribeOrUnsubcribeThisPlace(UUID userId, UUID placeId) {
+        placeService.subscribeUorUnsubcribeToPlace(userId, placeId);
+    }
 }

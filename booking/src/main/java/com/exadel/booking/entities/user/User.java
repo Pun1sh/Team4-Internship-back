@@ -1,6 +1,7 @@
 package com.exadel.booking.entities.user;
 
 import com.exadel.booking.entities.booking.Booking;
+import com.exadel.booking.entities.queue.Queue;
 import com.exadel.booking.entities.user.role.Role;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -56,4 +57,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
+
+    @ManyToMany
+    @JoinTable(name = "user_queue", joinColumns =
+    @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "queue_id"))
+    private List<Queue> queues;
 }

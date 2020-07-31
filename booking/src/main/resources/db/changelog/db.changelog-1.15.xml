@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="20200729.add-fk-queue-user">
+        <addForeignKeyConstraint
+                constraintName="fk_user2user_queue" referencedTableName="users"
+                referencedColumnNames="us_id" baseColumnNames="user_id"
+                baseTableName="user_queue"/>
+        <addForeignKeyConstraint
+                constraintName="fk_queue2user_queue" referencedTableName="queue"
+                referencedColumnNames="q_id" baseColumnNames="queue_id"
+                baseTableName="user_queue"/>
+    </changeSet>
+</databaseChangeLog>

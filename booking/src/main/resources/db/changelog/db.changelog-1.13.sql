@@ -117,4 +117,4 @@ values (
 values (
         (select rol_id from role where rol_name='ROLE_ADMIN'),
         (select au_id from authority where au_name= 'QUEUE_READ')
-             ); 
+             );
