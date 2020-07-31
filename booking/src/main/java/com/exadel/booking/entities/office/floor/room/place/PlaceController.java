@@ -19,6 +19,7 @@ public class PlaceController {
         return placeService.getPlaceById(id);
     }
 
+
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PostMapping
     public PlaceDto savePlace(@RequestBody @Valid PlaceDto placeDto) {
@@ -35,5 +36,12 @@ public class PlaceController {
     @DeleteMapping(value = "/{id}")
     public void deletePlaceById(@PathVariable UUID id) {
         placeService.deletePlaceById(id);
+    }
+
+    @PreAuthorize("hasAuthority('PLACE_READ')")
+    @GetMapping
+    public void subscribeOrUnsubcribeThisPlace(UUID userId, UUID placeId) {
+        placeService.subscribeUorUnsubcribeToPlace(userId, placeId);
+
     }
 }

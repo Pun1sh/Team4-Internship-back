@@ -4,30 +4,22 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="nastia" id="20200729.add-real-authority">
-        <insert tableName="authority">
-            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="BOOKING_READ"/>
-        </insert>
-        <insert tableName="authority">
-            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="BOOKING_WRITE"/>
-        </insert>
-        <insert tableName="authority">
-            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="BOOKING_DELETE"/>
-        </insert>
-        <insert tableName="authority">
-            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="QUEUE_WRITE"/>
-        </insert>
-        <insert tableName="authority">
-            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="QUEUE_DELETE"/>
-        </insert>
-        <insert tableName="authority">
-            <column name="au_id" valueComputed="(SELECT uuid_generate_v4())"/>
-            <column name="au_name" type="varchar(255)" value="QUEUE_READ"/>
-        </insert>
+    <changeSet author="nastia" id="20200729.queue-table">
+        <createTable tableName="queue">
+            <column name="q_id" type="UUID">
+                <constraints nullable="false" unique="true"
+                             primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nastia" id="20200729.add-queue-column">
+        <createTable tableName="user_queue">
+            <column name="user_id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="queue_id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
     </changeSet>
 </databaseChangeLog>

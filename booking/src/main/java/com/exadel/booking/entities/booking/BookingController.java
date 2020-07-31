@@ -21,7 +21,7 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping()
-    public List<BookingDto> getMyBookings(UUID userId) {
+    public List<BookingDto> getAllBookingsByUserId(UUID userId) {
         return bookingService.getAllBookingsByUserId(userId);
     }
 
@@ -33,13 +33,13 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping("{id}")
-    public BookingDto getBookingById(@PathVariable UUID bookindId) {
+    public BookingDto getBookingDtoById(@PathVariable UUID bookindId) {
         return bookingService.getBookingDtoById(bookindId);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
-    public BookingDto addBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
     }
 

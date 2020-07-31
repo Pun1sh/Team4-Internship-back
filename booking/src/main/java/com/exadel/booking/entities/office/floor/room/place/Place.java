@@ -1,6 +1,7 @@
 package com.exadel.booking.entities.office.floor.room.place;
 
 import com.exadel.booking.entities.booking.Booking;
+import com.exadel.booking.entities.queue.Queue;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -32,4 +33,8 @@ public class Place {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Booking> bookings;
+
+    @OneToOne(orphanRemoval = true)
+    @PrimaryKeyJoinColumn
+    private Queue queue;
 }
