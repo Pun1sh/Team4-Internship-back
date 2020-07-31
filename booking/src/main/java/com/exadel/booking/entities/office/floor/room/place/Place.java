@@ -1,11 +1,11 @@
 package com.exadel.booking.entities.office.floor.room.place;
 
 import com.exadel.booking.entities.booking.Booking;
-import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.queue.Queue;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,11 +14,12 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "place")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Place {
 
     @Id
     @GeneratedValue
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "pl_id", unique = true)
     private UUID id;
 
@@ -26,9 +27,9 @@ public class Place {
     @NonNull
     private Integer number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rm_id", nullable = false)
-    private Room room;
+    @Column(name = "rm_id")
+    @NonNull
+    private UUID roomId;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Booking> bookings;

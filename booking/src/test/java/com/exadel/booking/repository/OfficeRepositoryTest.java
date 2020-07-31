@@ -20,21 +20,14 @@ public class OfficeRepositoryTest extends AbstractTest {
     @Test
     public void whenFindById_thenReturnOffice() {
         Office office = createOffice();
-        Office found = officeRepository.findOfficeById(office.getId());
+        Office found = officeRepository.findById(office.getId()).get();
         assertThat(found.getId()).isEqualTo(office.getId());
-    }
-
-    @Test
-    public void whenFindByName_thenReturnOffice() {
-        Office office = createOffice();
-        Office found = officeRepository.findOfficeByName(office.getName());
-        assertThat(found.getName()).isEqualTo(office.getName());
     }
 
     @Test
     public void whenFindByNumber_thenReturnOffice() {
         Office office = createOffice();
-        Office found = officeRepository.findOfficeByNumber(office.getNumber());
+        Office found = officeRepository.findOfficeByNumber(office.getNumber()).get();
         assertThat(found.getNumber()).isEqualTo(office.getNumber());
     }
 

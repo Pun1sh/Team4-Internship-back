@@ -7,5 +7,4 @@ import java.util.UUID;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, UUID> {
-    public Address findAddressById(UUID id);
 }

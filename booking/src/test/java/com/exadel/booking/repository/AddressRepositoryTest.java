@@ -21,7 +21,7 @@ public class AddressRepositoryTest extends AbstractTest {
     @Test
     public void whenFindById_thenReturnAddress() {
         Address address = createAddress();
-        Address found = addressRepository.findAddressById(address.getId());
+        Address found = addressRepository.findById(address.getId()).get();
         assertThat(found.getId()).isEqualTo(address.getId());
     }
 

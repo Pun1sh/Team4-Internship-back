@@ -27,7 +27,7 @@ public class BookingService {
     private final EmailSender emailSender;
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
+        Booking booking = Booking.builder().place(placeService.findPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
         try {
             emailSender.sendEmailsFromAdminAboutNewBooking(booking);
         } catch (MessagingException e) {
