@@ -12,6 +12,8 @@ import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.RoomRepository;
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.office.floor.room.place.PlaceRepository;
+import com.exadel.booking.entities.queue.Queue;
+import com.exadel.booking.entities.queue.QueueRepository;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserRepository;
 import com.exadel.booking.entities.user.role.Role;
@@ -19,7 +21,10 @@ import com.exadel.booking.entities.user.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class AbstractTest {
 
@@ -39,6 +44,11 @@ public abstract class AbstractTest {
     private PlaceRepository placeRepository;
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private QueueRepository queueRepository;
+
+
+    public static final UUID ID = UUID.randomUUID();
 
     private static final Random RANDOM = new Random();
 
@@ -69,26 +79,26 @@ public abstract class AbstractTest {
     }
 
     protected Office createOffice() {
-        Office office = new Office(getRandomPrefix(), getRandomObjectsCount());
-        office.setAddress(createAddress());
+        Address address = createAddress();
+        Office office = new Office(getRandomObjectsCount(), address.getId());
         return officeRepository.save(office);
     }
 
     protected Floor createFloor() {
-        Floor floor = new Floor(getRandomObjectsCount());
-        floor.setOffice(createOffice());
+        Office office = createOffice();
+        Floor floor = new Floor(getRandomObjectsCount(), office.getId());
         return floorRepository.save(floor);
     }
 
     protected Room createRoom() {
-        Room room = new Room(5);
-        room.setFloor(createFloor());
+        Floor floor = createFloor();
+        Room room = new Room(5, floor.getId());
         return roomRepository.save(room);
     }
 
     protected Place createPlace() {
-        Place place = new Place(5);
-        place.setRoom(createRoom());
+        Room room = createRoom();
+        Place place = new Place(5, room.getId());
         return placeRepository.save(place);
     }
 
@@ -96,6 +106,12 @@ public abstract class AbstractTest {
         Place place = createPlace();
         Booking booking = Booking.builder().place(place).user(user).bookingDate(now).dueDate(now.plusDays(2)).build();
         return bookingRepository.save(booking);
+    }
+
+    protected Queue createQueue() {
+        User us=createUser();
+        Queue queue = Queue.builder().users(new ArrayList<>(Arrays.asList(us))).build();
+        return queueRepository.save(queue);
     }
 
 

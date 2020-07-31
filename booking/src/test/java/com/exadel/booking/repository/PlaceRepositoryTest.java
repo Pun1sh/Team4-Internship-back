@@ -26,7 +26,7 @@ public class PlaceRepositoryTest extends AbstractTest {
     @Test
     public void whenFindById_thenReturnPlace() {
         Place place = createPlace();
-        Place found = placeRepository.findPlaceById(place.getId());
+        Place found = placeRepository.findById(place.getId()).get();
         assertThat(found.getId()).isEqualTo(place.getId());
     }
 
@@ -36,7 +36,7 @@ public class PlaceRepositoryTest extends AbstractTest {
         Room room = createRoom();
         for (int i = 0; i < 3; i++) {
             Place place = createPlace();
-            place.setRoom(room);
+            place.setRoomId(room.getId());
             list.add(place);
         }
         List<Place> found = placeRepository.findAllPlacesByRoomId(room.getId());

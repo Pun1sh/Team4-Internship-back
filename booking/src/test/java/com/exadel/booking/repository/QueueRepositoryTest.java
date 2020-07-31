@@ -1,8 +1,8 @@
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.entities.office.address.Address;
-import com.exadel.booking.entities.office.address.AddressRepository;
+import com.exadel.booking.entities.queue.Queue;
+import com.exadel.booking.entities.queue.QueueRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-public class AddressRepositoryTest extends AbstractTest {
-
+public class QueueRepositoryTest extends AbstractTest {
     @Autowired
-    private AddressRepository addressRepository;
+    private QueueRepository queueRepository;
 
     @Test
-    public void whenFindById_thenReturnAddress() {
-        Address address = createAddress();
-        Address found = addressRepository.findById(address.getId()).get();
-        assertThat(found.getId()).isEqualTo(address.getId());
+    public void whenFindById_thenReturnQueue() {
+        Queue queue = createQueue();
+        Queue found = queueRepository.findQueueById(queue.getId());
+        assertThat(found.getId()).isEqualTo(queue.getId());
     }
-
 }
