@@ -1,9 +1,7 @@
 package com.exadel.booking.entities.queue;
 
-import com.exadel.booking.entities.office.floor.room.place.PlaceDto;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;

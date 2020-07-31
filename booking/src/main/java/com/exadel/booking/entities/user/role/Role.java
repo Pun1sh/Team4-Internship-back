@@ -4,9 +4,9 @@ import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.authority.Authority;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public class Role {
     private UUID id;
 
     @Column(name = "rol_name")
-    @NonNull
+    @NotBlank
     private String name;
 
     @ManyToMany(mappedBy = "roles")

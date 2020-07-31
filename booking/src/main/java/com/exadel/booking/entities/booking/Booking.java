@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -22,16 +23,20 @@ public class Booking {
     @Column(name = "b_id", unique = true)
     private UUID id;
 
+    @NotNull
     @Column(name = "b_start_date")
     private LocalDateTime bookingDate;
 
+    @NotNull
     @Column(name = "b_due_date")
     private LocalDateTime dueDate;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "b_place_id", referencedColumnName = "pl_id")
     private Place place;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "b_user_id", referencedColumnName = "us_id")
     private User user;

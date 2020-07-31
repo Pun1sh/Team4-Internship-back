@@ -9,6 +9,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -24,28 +26,36 @@ public class User {
     @Column(name = "us_id", unique = true)
     private UUID id;
 
+    @NotBlank
     @Column(name = "us_email")
     private String email;
 
+    @NotBlank
     @Column(name = "us_password")
     private String password;
 
+    @NotNull
     @Column(name = "us_is_active")
     private Boolean isActive;
 
+    @NotBlank
     @Column(name = "us_username")
     private String username;
 
+    @NotBlank
     @Column(name = "us_first_name")
     private String firstName;
 
+    @NotBlank
     @Column(name = "us_last_name")
     private String lastName;
 
+    @NotNull
     @CreatedDate
     @Column(name = "us_created")
     private Date created;
 
+    @NotNull
     @LastModifiedDate
     @Column(name = "us_updated")
     private Date updated;
