@@ -4,11 +4,9 @@ import com.exadel.booking.entities.office.floor.room.place.PlaceDto;
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,5 +27,23 @@ public class RoomController {
     @GetMapping(value = "/{id}/places")
     public List<PlaceDto> getAllPlacesByRoomId(@PathVariable UUID id) {
         return placeService.getAllPlacesByRoomId(id);
+    }
+
+    @PreAuthorize("hasAuthority('ROOM_WRITE')")
+    @PostMapping
+    public RoomDto saveRoom(@RequestBody @Valid RoomDto roomDto) {
+        return roomService.saveRoomFromDto(roomDto);
+    }
+
+    @PreAuthorize("hasAuthority('ROOM_WRITE')")
+    @PutMapping
+    public RoomDto updateRoom(@RequestBody @Valid RoomDto roomDto) {
+        return roomService.saveRoomFromDto(roomDto);
+    }
+
+    @PreAuthorize("hasAuthority('ROOM_DELETE')")
+    @DeleteMapping(value = "/{id}")
+    public void deleteRoomById(@PathVariable UUID id) {
+        roomService.deleteRoomById(id);
     }
 }

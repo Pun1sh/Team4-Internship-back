@@ -4,10 +4,16 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="nastia" id="20200731.queue-place">
-        <addForeignKeyConstraint
-                constraintName="fk_place2queue" referencedTableName="place"
-                referencedColumnNames="pl_id" baseColumnNames="q_place_id"
-                baseTableName="queue"/>
+    <changeSet author="nastia" id="20200731.queue-table">
+        <addColumn schemaName="public"
+                   tableName="queue">
+            <column name="q_when"
+                    type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="q_place_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

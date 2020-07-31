@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,11 +18,24 @@ public class AddressService {
 
 
     public AddressDto getAddressById(UUID id) {
-        return addressMapper.toDto(Optional.ofNullable(addressRepository.findAddressById(id)).orElseThrow(() ->
-                new EntityNotFoundException("no address with id" + id)));
+        return addressMapper.toDto(findAddressById(id));
     }
 
     public List<AddressDto> getAllAddresses() {
         return addressMapper.toListDto(addressRepository.findAll());
+    }
+
+    public AddressDto saveAddressFromDto(AddressDto addressDto) {
+        return addressMapper.toDto(addressRepository.save(addressMapper.toEntity(addressDto)));
+    }
+
+    public void deleteAddressById(UUID id) {
+        findAddressById(id);
+        addressRepository.deleteById(id);
+    }
+
+    public Address findAddressById(UUID id) {
+        return addressRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("no address with id " + id));
     }
 }
