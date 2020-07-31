@@ -33,7 +33,6 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    @OneToOne(orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-    private Queue queue;
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Queue> queue;
 }

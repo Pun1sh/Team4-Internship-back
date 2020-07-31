@@ -70,7 +70,7 @@ public class EmailSender {
     }
 
     private String formatTime(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
         return localDateTime.format(formatter);
     }
 }

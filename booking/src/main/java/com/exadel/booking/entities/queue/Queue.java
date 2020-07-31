@@ -1,11 +1,14 @@
 package com.exadel.booking.entities.queue;
 
+import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.user.User;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +27,12 @@ public class Queue {
     @ManyToMany(mappedBy = "queues")
     private List<User> users;
 
+    @NotNull
+    @Column(name = "q_when")
+    private LocalDateTime whenNeedPlace;
 
-
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "b_place_id", referencedColumnName = "pl_id")
+    private Place place;
 }

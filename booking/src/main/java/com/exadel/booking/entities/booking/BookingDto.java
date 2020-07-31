@@ -11,8 +11,8 @@ import java.util.UUID;
 public class BookingDto {
 
     private UUID id;
-    private UserDto userDto;
-    private PlaceDto placeDto;
+    private UUID userId;
+    private UUID placeId;
     private LocalDate bookingDate;
     private LocalDate dueDate;
     private boolean isFinished;
