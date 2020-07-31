@@ -54,4 +54,16 @@ public class BookingService {
     public void deleteBookingById(UUID id) {
         bookingDao.delete(bookingDao.getOne(id));
     }
+
+
+    public Boolean isOverlappingDB(UUID placeId,LocalDateTime bookingDate, LocalDateTime dueDate) {
+        List<Booking> listBookings = bookingDao.findListBookingsByPlaceId(placeId);
+        Boolean isOver = false;
+        for (Booking booking : listBookings) {
+            if (bookingDate.isBefore(booking.getDueDate()) && dueDate.isAfter(booking.getBookingDate())) ;
+            {
+                isOver = true;
+            }
+        }return isOver;
+    }
 }

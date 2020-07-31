@@ -16,6 +16,8 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     public List<Booking> findListBookingsByUserId(UUID id);
 
+    public List<Booking> findListBookingsByPlaceId(UUID id);
+
     @Query("SELECT b FROM Booking b WHERE b_user_id =:us_id AND b_due_date >= :now")
    public List<Booking> findListBookingsByUserIdAndBYDueDateFromNow(@Param("us_id") UUID id, @Param("now") LocalDateTime now);
 }
