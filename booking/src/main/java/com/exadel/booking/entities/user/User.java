@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -25,11 +26,11 @@ public class User {
     @Column(name = "us_id", unique = true)
     private UUID id;
 
-    @NotNull
+    @NotBlank
     @Column(name = "us_email")
     private String email;
 
-    @NotNull
+    @NotBlank
     @Column(name = "us_password")
     private String password;
 
@@ -37,15 +38,15 @@ public class User {
     @Column(name = "us_is_active")
     private Boolean isActive;
 
-    @NotNull
+    @NotBlank
     @Column(name = "us_username")
     private String username;
 
-    @NotNull
+    @NotBlank
     @Column(name = "us_first_name")
     private String firstName;
 
-    @NotNull
+    @NotBlank
     @Column(name = "us_last_name")
     private String lastName;
 

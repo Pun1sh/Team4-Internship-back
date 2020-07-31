@@ -2,6 +2,7 @@ package com.exadel.booking.entities.user;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
@@ -11,13 +12,13 @@ public class UserDto {
 
     @NotNull
     private UUID id;
-    @NotNull
+    @NotBlank
     private String email;
-    @NotNull
+    @NotBlank
     private String username;
-    @NotNull
+    @NotBlank
     private String firstName;
-    @NotNull
+    @NotBlank
     private String lastName;
     @NotNull
     private Boolean isActive;
