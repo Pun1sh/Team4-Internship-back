@@ -14,9 +14,9 @@ public class BookingDto {
     @NotNull
     private UUID id;
     @NotNull
-    private UserDto userDto;
+    private UUID userId;
     @NotNull
-    private PlaceDto placeDto;
+    private UUID placeId;
     @NotNull
     private LocalDate bookingDate;
     @NotNull
