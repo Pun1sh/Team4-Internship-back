@@ -105,8 +105,9 @@ public class RoleServiceTest {
     }
 
     private RoleDto toDto(Role role) {
-        RoleDto dto = new RoleDto(role.getName());
+        RoleDto dto = new RoleDto();
         dto.setId(role.getId());
+        dto.setName(role.getName());
         return dto;
     }
 

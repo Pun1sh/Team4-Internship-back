@@ -10,12 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -42,7 +42,7 @@ public class UserServiceTest {
 
     }
 
-/*    @Test
+    @Test
     void getAllUsersTest() {
         List<User> users = Arrays.asList(
                 createUser("TestEmail"),
@@ -52,7 +52,7 @@ public class UserServiceTest {
         when(userDao.findAll(any(Pageable.class))).thenReturn(pages);
         Page<UserDto> userFromService = userService.getAllUsers(PageRequest.of(0, 3));
         assertThat(userFromService.getTotalElements() == (3));
-    }*/
+    }
 
     @Test
     public void getUserDtoByIdTest() throws EntityNotFoundException {
@@ -86,6 +86,7 @@ public class UserServiceTest {
         User user = createUser("testName");
         when(userDao.findUserById(ID)).thenReturn(user);
         Role roleToUpdate = createRole("newTest");
+        roleToUpdate.setName("newTest");
         when(roleService.getRoleByName("newTest")).thenReturn(roleToUpdate);
         user.setRoles(Collections.singletonList(roleToUpdate));
         when(userDao.save(any(User.class))).thenReturn(user);
@@ -115,8 +116,9 @@ public class UserServiceTest {
 
 
     private RoleDto toDto(Role role) {
-        RoleDto dto = new RoleDto(role.getName());
+        RoleDto dto = new RoleDto();
         dto.setId(role.getId());
+        dto.setName(role.getName());
         return dto;
     }
 

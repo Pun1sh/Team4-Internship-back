@@ -1,10 +1,5 @@
-/*
 package com.exadel.booking.service;
 
-import com.exadel.booking.entities.office.Office;
-import com.exadel.booking.entities.office.address.Address;
-import com.exadel.booking.entities.office.floor.Floor;
-import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.queue.Queue;
 import com.exadel.booking.entities.queue.QueueDto;
@@ -33,14 +28,6 @@ public class QueueServiceTest {
     public static final UUID ID = UUID.randomUUID();
     private static final Random RANDOM = new Random();
 
-    protected String getRandomPrefix() {
-        return RANDOM.nextInt(99999) + "";
-    }
-
-    protected int getRandomObjectsCount() {
-        return RANDOM.nextInt(9) + 1;
-    }
-
     @InjectMocks
     QueueService queueService;
     @Mock
@@ -58,20 +45,6 @@ public class QueueServiceTest {
     }
 
     @Test
-    public void updateQueueTest() {
-        User user = createUser();
-        Queue queue = createQueue(LocalDateTime.now(), user);
-        User user2 = createUser();
-        user2.setEmail("user").setId(ID);
-        Queue queue2 = createQueue(LocalDateTime.now(), user2);
-        when(queueRepository.findQueueById(any(UUID.class))).thenReturn(queue);
-        when(userService.getUserById(any(UUID.class))).thenReturn(user);
-        when(queueMapper.toDto(any(Queue.class))).thenReturn(toDto(queue2));
-        QueueDto found = queueService.updateQueue(user.getId(), queue.getId());
-        assertThat(found.getListusersId().get(0)==user2.getId()).isTrue();
-    }
-
-    @Test
     public void getQueueByIdTest() throws EntityNotFoundException {
         User user = createUser();
         Queue queue = createQueue(LocalDateTime.now(), user);
@@ -82,7 +55,7 @@ public class QueueServiceTest {
         assertThat(found.getId().equals(qUuid)).isTrue();
     }
 
-     @Test
+    @Test
     public void getAllQueuesTest() {
         List<Queue> queueList = new ArrayList<>();
         User user = createUser();
@@ -94,17 +67,6 @@ public class QueueServiceTest {
         when(queueMapper.toListDto(queueList)).thenReturn(toListDto(queueList));
         List<QueueDto> queueDtos = queueService.getAllQueue();
         assertThat(queueDtos.size() == queueList.size()).isTrue();
-    }
-
-    @Test
-    public void createQueueTest() {
-        Place place=createPlace();
-        User user = createUser();
-        Queue queue = createQueue(LocalDateTime.now(), user);
-        when(queueRepository.save(any(Queue.class))).thenReturn(queue);
-        when(userService.getUserById(any(UUID.class))).thenReturn(user);
-        Queue qFromService = queueService.createQueue(user.getId(), place.getId() );
-        assertThat(qFromService.getId() == queue.getId()).isTrue();
     }
 
     @Test
@@ -120,7 +82,7 @@ public class QueueServiceTest {
         QueueDto dto = new QueueDto();
         dto.setId(queue.getId());
         ArrayList<UUID> users = new ArrayList<>();
-        for (User us: queue.getUsers()) {
+        for (User us : queue.getUsers()) {
             users.add(us.getId());
         }
         dto.setListusersId(users);
@@ -131,7 +93,7 @@ public class QueueServiceTest {
         List<QueueDto> queueDtos = new ArrayList<>();
         for (Queue b : queueList) {
             queueDtos.add(toDto(b));
-                }
+        }
         return queueDtos;
     }
 
@@ -145,35 +107,5 @@ public class QueueServiceTest {
         user.setEmail("user@mail.ru").setId(ID);
         return user;
     }
-
-    private Place createPlace() {
-        Place place = new Place(5);
-        place.setRoom(createRoom());
-        place.setId(ID);
-        return place;
-    }
-
-    private Room createRoom() {
-        Room room = new Room(5);
-        room.setFloor(createFloor());
-        return room;
-    }
-
-    private Floor createFloor() {
-        Floor floor = new Floor(getRandomObjectsCount());
-        floor.setOffice(createOffice());
-        return floor;
-    }
-
-    private Office createOffice() {
-        Office office = new Office(getRandomPrefix(), getRandomObjectsCount());
-        office.setAddress(createAddress());
-        return (office);
-    }
-
-    private Address createAddress() {
-        Address address = new Address(getRandomPrefix(), getRandomPrefix(), getRandomPrefix());
-        return address;
-    }
 }
-*/
+

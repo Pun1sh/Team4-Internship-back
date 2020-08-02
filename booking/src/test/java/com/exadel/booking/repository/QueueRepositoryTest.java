@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -25,9 +29,11 @@ public class QueueRepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void whenfindQueueByPlaceIdAndByWhenNeedPlace_thenReturnQueue() {
+    public void whenFindQueueByPlaceIdAndStartEndTime_thenReturnQueue() {
         Queue queue = createQueue();
-        Queue found = queueRepository.findQueueByPlaceIdAndByWhenNeedPlace(queue.getId());
+        Queue found = queueRepository.findQueueByPlaceIdAndStartEndTime(queue.getPlace().getId(), queue.getWhenNeedPlaceStart(), queue.getWhenNeedPlaceEnd());
+        UUID idd=found.getId();
+        UUID iddd=queue.getId();
         assertThat(found.getId()).isEqualTo(queue.getId());
     }
 }

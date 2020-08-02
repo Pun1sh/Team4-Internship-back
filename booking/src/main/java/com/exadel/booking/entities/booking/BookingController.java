@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/booking/")
+@RequestMapping("/bookings/")
 @RequiredArgsConstructor
 public class BookingController {
 
@@ -27,8 +27,8 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping("active")
-    public List<BookingDto> getAllActiveBookingsByUserId(UUID userId,LocalDateTime now) {
-        return bookingService.getAllActiveBookingsByUserId(userId,now);
+    public List<BookingDto> getAllActiveBookingsByUserId(UUID userId, LocalDateTime now) {
+        return bookingService.getAllActiveBookingsByUserId(userId, now);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
@@ -47,5 +47,11 @@ public class BookingController {
     @DeleteMapping(value = "delete")
     public void deleteBooking(UUID bookindId) {
         bookingService.deleteBookingById(bookindId);
+    }
+
+    @PreAuthorize("hasAuthority('BOOKING_READ')")
+    @DeleteMapping(value = "checkDateTimeIsFree")
+    public void checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+        bookingService.checkDateTimeIsFree(placeId, bookingDate, dueDate);
     }
 }

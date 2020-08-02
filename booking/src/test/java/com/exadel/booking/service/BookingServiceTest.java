@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -105,20 +106,28 @@ public class BookingServiceTest {
         assertThat(bookingDtos.size() == bookinglist.size()).isTrue();
         assertThat(bookingDtos.get(0).getId() == ID).isTrue();
     }
-//fix
-/*@Test
-public void createBookingTest() throws MessagingException {
-    Place place = createPlace();
-    User user = createUser();
-    Booking booking = createBooking(LocalDateTime.now(), user);
-    when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
-    when(bookingMapper.toDto(booking)).thenReturn(toDto(booking));
-    when(placeService.getPlaceById(any(UUID.class))).thenReturn(place);
-    when(userService.getUserById(any(UUID.class))).thenReturn(user);
-    doNothing().when(emailSender).sendEmailsFromAdminAboutNewBooking(any(Booking.class));
-    BookingDto bookingDto = bookingService.createBooking(place.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(3));
-    assertThat(bookingDto.getId() == booking.getId()).isTrue();
-}*/
+
+    @Test
+    public void createBookingTest() throws MessagingException {
+        Place place = createPlace();
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now(), user);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+        when(bookingMapper.toDto(booking)).thenReturn(toDto(booking));
+        when(placeService.getPlaceById(any(UUID.class))).thenReturn(place);
+        when(userService.getUserById(any(UUID.class))).thenReturn(user);
+        doNothing().when(emailSender).sendEmailsFromAdminAboutNewBooking(any(Booking.class));
+        BookingDto bookingDto = bookingService.createBooking(place.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+        assertThat(bookingDto.getId() == booking.getId()).isTrue();
+    }
+
+    @Test
+    public void checkDateTimeIsFreeTest() {
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now(), user);
+        bookingService.checkDateTimeIsFree(booking.getPlace().getId(), booking.getBookingDate(), booking.getDueDate());
+        verify(bookingRepository, times(1)).NumberofIntersection(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
+    }
 
     @Test
     public void deleteBookingByIdTest() {
@@ -145,6 +154,7 @@ public void createBookingTest() throws MessagingException {
 
     private Place createPlace() {
         Place place = new Place(5, ID);
+        place.setId(ID);
         return place;
     }
 

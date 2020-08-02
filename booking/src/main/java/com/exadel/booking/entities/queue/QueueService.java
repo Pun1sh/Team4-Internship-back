@@ -5,6 +5,8 @@ import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@EnableScheduling
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -25,25 +28,12 @@ public class QueueService {
     private final UserService userService;
     private final PlaceService placeService;
 
-    public Queue createQueue(UUID userId, UUID placeId, LocalDateTime when) {
-        Queue queue = Queue.builder().whenNeedPlace(when).users(Arrays.asList(userService.getUserById(userId)))
-                .place(placeService.getPlaceById(placeId)).build();
-        return queueRepository.save(queue);
-    }
-
-    public QueueDto updateQueue(UUID userId, UUID placeId,LocalDateTime when) {
-        Queue q = queueRepository.findQueueById();
-        if (q == null) {
-            Queue newQ = createQueue(userId, placeId);
-            return queueMapper.toDto(newQ);
+    public void createOrUpdateQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
+        Queue queueFromDB = getQueueByPlaceIdAndDateTime(placeId, start, end);
+        if (queueFromDB == null) {
+            createQueue(userId, placeId, start, end);
         } else {
-            List<User> usersFromQueue = q.getUsers();
-            if (usersFromQueue.contains(userService.getUserById(userId))) {
-                usersFromQueue.removeIf(x -> x.getId().equals(userId));
-            } else {
-                usersFromQueue.add(userService.getUserById(userId));
-            }
-            return queueMapper.toDto(q);
+            updateQueue(queueFromDB, userId, placeId, start, end);
         }
     }
 
@@ -59,9 +49,37 @@ public class QueueService {
         queueRepository.deleteById(id);
     }
 
+    private Queue createQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
+        Queue queue = Queue.builder().users(Arrays.asList(userService.getUserById(userId)))
+                .place(placeService.getPlaceById(placeId)).whenNeedPlaceStart(start).whenNeedPlaceEnd(end).build();
+        return queueRepository.save(queue);
+    }
+
+    private Queue getQueueByPlaceIdAndDateTime(UUID placeId, LocalDateTime start, LocalDateTime end) {
+        return queueRepository.findQueueByPlaceIdAndStartEndTime(placeId, start, end);
+    }
+
+    private QueueDto updateQueue(Queue queueFromDB, UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
+        List<User> usersFromQueue = queueFromDB.getUsers();
+        if (usersFromQueue.contains(userService.getUserById(userId))) {
+            usersFromQueue.removeIf(x -> x.getId().equals(userId));
+        } else {
+            usersFromQueue.add(userService.getUserById(userId));
+        }
+        return queueMapper.toDto(queueFromDB);
+    }
+
+    @Scheduled(cron = "0 40 07 * * *")
+    public void checkIfPlaceIsFree() {
+        for (Queue queue : queueRepository.findAll()) {
+            queue.getWhenNeedPlaceStart()
+
+        }
+    }
+
+
     private String formatTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
         return localDateTime.format(formatter);
     }
-
 }

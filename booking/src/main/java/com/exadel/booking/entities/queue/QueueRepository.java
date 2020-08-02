@@ -1,6 +1,8 @@
 package com.exadel.booking.entities.queue;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -10,5 +12,11 @@ import java.util.UUID;
 public interface QueueRepository extends JpaRepository<Queue, UUID> {
 
     public Queue findQueueById(UUID id);
-    public Queue findQueueByPlaceIdAndByWhenNeedPlace(UUID placeId, LocalDateTime localDateTime);
+
+    @Query("SELECT q FROM Queue q WHERE (q_place_id=:placeId) AND (q_start=:start) AND (q_end=:end)")
+    public Queue findQueueByPlaceIdAndStartEndTime(@Param("placeId") UUID placeId,
+                                    @Param("start")
+                                            LocalDateTime start,
+                                    @Param("end")
+                                            LocalDateTime end);
 }

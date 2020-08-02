@@ -4,43 +4,25 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="gleb" id="20200729.delete-country-code-from-address-table">
+    <changeSet author="nastia" id="20200729.delete-country-code-from-address-table">
         <dropColumn
-                columnName="ad_country_code"
+                columnName="q_when"
                 schemaName="public"
-                tableName="address">
+                tableName="queue">
         </dropColumn>
     </changeSet>
-    <changeSet author="gleb" id="20200729.delete-name-from-office-table">
-        <dropColumn
-                columnName="of_name"
-                schemaName="public"
-                tableName="office">
-        </dropColumn>
-    </changeSet>
-    <changeSet author="gleb" id="20200730.add-country-name-to-address-table">
+    <changeSet author="nastia" id="20200730.add-country-name-to-address-table">
         <addColumn
                 schemaName="public"
-                tableName="address">
-            <column name="ad_country_name"
-                    type="varchar(255)">
+                tableName="queue">
+            <column name="q_start"
+                    type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="q_end"
+                    type="TIMESTAMP">
+                <constraints nullable="false"/>
             </column>
         </addColumn>
-    </changeSet>
-    <changeSet author="gleb" id="20200731.add-values-to-country-name">
-        <update
-                schemaName="public"
-                tableName="address">
-            <column name="ad_country_name" value="Belarus" type="varchar(255)"/>
-            <where>ad_country_name is null</where>
-
-        </update>
-    </changeSet>
-    <changeSet author="gleb" id="20200731.add-not-null-constraint-to-country-name">
-        <addNotNullConstraint
-                columnDataType="varchar"
-                columnName="ad_country_name"
-                schemaName="public"
-                tableName="address"/>
     </changeSet>
 </databaseChangeLog>

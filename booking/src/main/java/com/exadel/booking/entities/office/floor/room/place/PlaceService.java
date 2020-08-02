@@ -1,7 +1,6 @@
 package com.exadel.booking.entities.office.floor.room.place;
 
 import com.exadel.booking.entities.office.floor.room.RoomRepository;
-import com.exadel.booking.entities.queue.QueueService;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,10 +17,9 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
     private final AMapper<Place, PlaceDto> placeMapper;
     private final RoomRepository roomRepository;
-    private final QueueService queueService;
 
-    public PlaceDto getPlaceById(UUID id) {
-        return placeMapper.toDto(findPlaceById(id));
+    public PlaceDto getPlaceDtoById(UUID id) {
+        return placeMapper.toDto(getPlaceById(id));
     }
 
     public List<PlaceDto> getAllPlaces() {
@@ -33,8 +31,7 @@ public class PlaceService {
         return placeMapper.toListDto(placeRepository.findAllPlacesByRoomId(id));
     }
 
-
-    public Place findPlaceById(UUID id) {
+    public Place getPlaceById(UUID id) {
         return placeRepository.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("no place with id " + id));
     }
@@ -44,14 +41,7 @@ public class PlaceService {
     }
 
     public void deletePlaceById(UUID id) {
-        findPlaceById(id);
         placeRepository.deleteById(id);
     }
-
-    public void subscribeUorUnsubcribeToPlace(UUID userId, UUID placeId) {
-        queueService.updateQueue(userId, placeId);
-    }
-
-
 }
 

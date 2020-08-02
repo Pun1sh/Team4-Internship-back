@@ -28,11 +28,15 @@ public class Queue {
     private List<User> users;
 
     @NotNull
-    @Column(name = "q_when")
-    private LocalDateTime whenNeedPlace;
+    @Column(name = "q_start")
+    private LocalDateTime whenNeedPlaceStart;
+
+    @NotNull
+    @Column(name = "q_end")
+    private LocalDateTime whenNeedPlaceEnd;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "b_place_id", referencedColumnName = "pl_id")
+    @JoinColumn(name = "q_place_id", referencedColumnName = "pl_id")
     private Place place;
 }

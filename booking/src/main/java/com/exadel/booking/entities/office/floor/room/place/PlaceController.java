@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -15,10 +16,9 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_READ')")
     @GetMapping(value = "/{id}")
-    public PlaceDto getPlaceById(@PathVariable UUID id) {
-        return placeService.getPlaceById(id);
+    public PlaceDto getPlaceById(@PathVariable UUID placeId) {
+        return placeService.getPlaceDtoById(placeId);
     }
-
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PostMapping
@@ -34,14 +34,8 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deletePlaceById(@PathVariable UUID id) {
-        placeService.deletePlaceById(id);
+    public void deletePlaceById(@PathVariable UUID placeId) {
+        placeService.deletePlaceById(placeId);
     }
 
-    @PreAuthorize("hasAuthority('PLACE_READ')")
-    @GetMapping
-    public void subscribeOrUnsubcribeThisPlace(UUID userId, UUID placeId) {
-        placeService.subscribeUorUnsubcribeToPlace(userId, placeId);
-
-    }
 }

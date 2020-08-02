@@ -27,14 +27,24 @@ public class BookingService {
     private final EmailSender emailSender;
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        Booking booking = Booking.builder().place(placeService.findPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
-        try {
-            emailSender.sendEmailsFromAdminAboutNewBooking(booking);
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        if (checkDateTimeIsFree(placeId, bookingDate, dueDate)) {
+            Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
+            try {
+                emailSender.sendEmailsFromAdminAboutNewBooking(booking);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+            return bookingMapper.toDto(bookingDao.save(booking));
+        } else {
+            new IllegalArgumentException("sorry time is busy");
         }
-        return bookingMapper.toDto(bookingDao.save(booking));
+        return null;
     }
+
+    public Boolean checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+        return bookingDao.NumberofIntersection(placeId, bookingDate, dueDate) == 0 ? true : false;
+    }
+
 
     public BookingDto getBookingDtoById(UUID id) {
         return bookingMapper.toDto(Optional.ofNullable(bookingDao.findBookingById(id)).orElseThrow(() ->
@@ -53,17 +63,5 @@ public class BookingService {
 
     public void deleteBookingById(UUID id) {
         bookingDao.delete(bookingDao.getOne(id));
-    }
-
-
-    public Boolean isOverlappingDB(UUID placeId,LocalDateTime bookingDate, LocalDateTime dueDate) {
-        List<Booking> listBookings = bookingDao.findListBookingsByPlaceId(placeId);
-        Boolean isOver = false;
-        for (Booking booking : listBookings) {
-            if (bookingDate.isBefore(booking.getDueDate()) && dueDate.isAfter(booking.getBookingDate())) ;
-            {
-                isOver = true;
-            }
-        }return isOver;
     }
 }

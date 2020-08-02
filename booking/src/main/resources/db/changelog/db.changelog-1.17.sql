@@ -1,4 +1,4 @@
-db.changelog-1.17.sqlinsert into role_authority (role_id, authority_id)
+insert into role_authority (role_id, authority_id)
 values (
         (select rol_id from role where rol_name='ROLE_USER'),
         (select au_id from authority where au_name= 'ADDRESS_READ')

@@ -59,4 +59,19 @@ public class BookingRepositoryTest extends AbstractTest {
         assertThat(found.contains(booking)).isFalse();
     }
 
+    @Test
+    public void whenNumberofIntersection_thenReturn1Bookings() {
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now().minusDays(2), user);
+        Integer found = bookingDao.NumberofIntersection(booking.getPlace().getId(), LocalDateTime.now().minusDays(1), LocalDateTime.now());
+        assertThat((found == 1));
+    }
+
+    @Test
+    public void whenNumberofIntersection_thenReturn0Bookings() {
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now().minusDays(3), user);
+        Integer found = bookingDao.NumberofIntersection(booking.getPlace().getId(), LocalDateTime.now(), LocalDateTime.now());
+        assertThat((found == 0));
+    }
 }
