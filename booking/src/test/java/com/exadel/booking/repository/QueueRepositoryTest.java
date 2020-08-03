@@ -31,7 +31,7 @@ public class QueueRepositoryTest extends AbstractTest {
     @Test
     public void whenFindQueueByPlaceIdAndStartEndTime_thenReturnQueue() {
         Queue queue = createQueue();
-        Queue found = queueRepository.findQueueByPlaceIdAndStartEndTime(queue.getPlace().getId(), queue.getWhenNeedPlaceStart(), queue.getWhenNeedPlaceEnd());
+        Queue found = queueRepository.findQueueByPlaceIdAndStartEndTime(queue.getPlace().getId(), queue.getRequestedStart(), queue.getRequestedEnd());
         UUID idd=found.getId();
         UUID iddd=queue.getId();
         assertThat(found.getId()).isEqualTo(queue.getId());

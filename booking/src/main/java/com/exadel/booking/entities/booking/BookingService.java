@@ -42,7 +42,7 @@ public class BookingService {
     }
 
     public Boolean checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        return bookingDao.NumberofIntersection(placeId, bookingDate, dueDate) == 0 ? true : false;
+        return bookingDao.numberOfIntersection(placeId, bookingDate, dueDate) == 0 ? true : false;
     }
 
 

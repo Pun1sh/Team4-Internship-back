@@ -126,7 +126,7 @@ public class BookingServiceTest {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
         bookingService.checkDateTimeIsFree(booking.getPlace().getId(), booking.getBookingDate(), booking.getDueDate());
-        verify(bookingRepository, times(1)).NumberofIntersection(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
+        verify(bookingRepository, times(1)).numberOfIntersection(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
     }
 
     @Test

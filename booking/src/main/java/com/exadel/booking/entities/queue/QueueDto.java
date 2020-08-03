@@ -16,10 +16,10 @@ public class QueueDto {
     private List<UUID> listusersId;
 
     @NotNull
-    private LocalDateTime whenNeedPlaceStart;
+    private LocalDateTime requestedStart;
 
     @NotNull
-    private LocalDateTime whenNeedPlaceEnd;
+    private LocalDateTime requestedEnd;
 
     @NotNull
     private UUID placeId;

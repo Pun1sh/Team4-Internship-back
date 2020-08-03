@@ -29,11 +29,11 @@ public class Queue {
 
     @NotNull
     @Column(name = "q_start")
-    private LocalDateTime whenNeedPlaceStart;
+    private LocalDateTime requestedStart;
 
     @NotNull
     @Column(name = "q_end")
-    private LocalDateTime whenNeedPlaceEnd;
+    private LocalDateTime requestedEnd;
 
     @NotNull
     @ManyToOne

@@ -35,16 +35,16 @@ public class QueueService {
         Queue queueFromDB = getQueueByPlaceIdAndDateTime(placeId, start, end);
         if (queueFromDB == null) {
             Queue newQueue = createQueue(userId, placeId, start, end);
-            sentEmail(newQueue, userId);
+            sendEmail(newQueue, userId);
             return newQueue;
         } else {
             Queue queuUpdated = updateQueue(queueFromDB, userId, placeId, start, end);
-            sentEmail(queuUpdated, userId);
+            sendEmail(queuUpdated, userId);
             return queuUpdated;
         }
     }
 
-    public void sentEmail(Queue queue, UUID userId) {
+    public void sendEmail(Queue queue, UUID userId) {
         List<User> usersFromQueue = queue.getUsers();
         try {
             if (usersFromQueue.contains(userService.getUserById(userId))) {
@@ -72,7 +72,7 @@ public class QueueService {
 
     private Queue createQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
         Queue queue = Queue.builder().users(Arrays.asList(userService.getUserById(userId)))
-                .place(placeService.getPlaceById(placeId)).whenNeedPlaceStart(start).whenNeedPlaceEnd(end).build();
+                .place(placeService.getPlaceById(placeId)).requestedStart(start).requestedEnd(end).build();
         return queueRepository.save(queue);
     }
 

@@ -112,7 +112,7 @@ public abstract class AbstractTest {
         User us=createUser();
         Place pl=createPlace();
         Queue queue = Queue.builder().users(new ArrayList<>(Arrays.asList(us))).place(pl)
-                .whenNeedPlaceStart(LocalDateTime.now().minusDays(2)).whenNeedPlaceEnd(LocalDateTime.now()).build();
+                .requestedStart(LocalDateTime.now().minusDays(2)).requestedEnd(LocalDateTime.now()).build();
         return queueRepository.save(queue);
     }
 

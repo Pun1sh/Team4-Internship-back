@@ -102,8 +102,8 @@ public class EmailSender {
         VelocityContext context = new VelocityContext();
         context.put("name", user.getUsername());
         context.put("number", queue.getPlace().getNumber());
-        context.put("start", formatTime(queue.getWhenNeedPlaceStart()));
-        context.put("end", formatTime(queue.getWhenNeedPlaceEnd()));
+        context.put("start", formatTime(queue.getRequestedStart()));
+        context.put("end", formatTime(queue.getRequestedEnd()));
         return context;
     }
 
