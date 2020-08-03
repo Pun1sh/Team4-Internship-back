@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/offices")
+@RequestMapping(value = "/office")
 public class OfficeController {
 
     private final OfficeService officeService;

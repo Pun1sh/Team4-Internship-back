@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
@@ -53,10 +55,8 @@ public class BookingRepositoryTest extends AbstractTest {
         Booking booking2 = createBooking(LocalDateTime.now().plusDays(2), user);
         list.add(booking);
         list.add(booking2);
-        List<Booking> found = bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(user.getId(), LocalDateTime.now());
-        assertThat((found.size() == 1));
-        assertThat(found.contains(booking2)).isTrue();
-        assertThat(found.contains(booking)).isFalse();
+        Page<Booking> found = bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(user.getId(), LocalDateTime.now(), PageRequest.of(0, 3));
+        assertThat(found.getTotalElements() == 1).isTrue();
     }
 
     @Test

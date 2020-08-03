@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/queues/")
+@RequestMapping("/queue/")
 @RequiredArgsConstructor
 public class QueueController {
 

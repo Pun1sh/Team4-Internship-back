@@ -6,20 +6,16 @@ import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@EnableScheduling
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -89,11 +85,4 @@ public class QueueService {
         }
         return queueFromDB;
     }
-//
-//    @Scheduled(cron = "0 40 07 * * *")
-//    public void checkIfPlaceIsFree() {
-//        for (Queue queue : queueRepository.findAll()) {
-//            queue.getWhenNeedPlaceStart()
-//        }
-//    }
 }

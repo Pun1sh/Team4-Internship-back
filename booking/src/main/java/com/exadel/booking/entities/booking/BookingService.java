@@ -5,6 +5,8 @@ import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -20,7 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BookingService {
 
-    private final BookingRepository bookingDao;
+    private final BookingRepository bookingRepository;
     private final AMapper<Booking, BookingDto> bookingMapper;
     private final PlaceService placeService;
     private final UserService userService;
@@ -34,7 +36,7 @@ public class BookingService {
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
-            return bookingMapper.toDto(bookingDao.save(booking));
+            return bookingMapper.toDto(bookingRepository.save(booking));
         } else {
             new IllegalArgumentException("sorry time is busy");
         }
@@ -42,26 +44,26 @@ public class BookingService {
     }
 
     public Boolean checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        return bookingDao.numberOfIntersection(placeId, bookingDate, dueDate) == 0 ? true : false;
+        return bookingRepository.numberOfIntersection(placeId, bookingDate, dueDate) == 0 ? true : false;
     }
 
 
     public BookingDto getBookingDtoById(UUID id) {
-        return bookingMapper.toDto(Optional.ofNullable(bookingDao.findBookingById(id)).orElseThrow(() ->
+        return bookingMapper.toDto(Optional.ofNullable(bookingRepository.findBookingById(id)).orElseThrow(() ->
                 new EntityNotFoundException("no booking with id" + id)));
     }
 
     public List<BookingDto> getAllBookingsByUserId(UUID id) throws EntityNotFoundException {
-        return bookingMapper.toListDto(Optional.ofNullable(bookingDao.findListBookingsByUserId(id))
+        return bookingMapper.toListDto(Optional.ofNullable(bookingRepository.findListBookingsByUserId(id))
                 .orElseThrow(() -> new EntityNotFoundException("user with such id" + id + "has no orders")));
     }
 
-    public List<BookingDto> getAllActiveBookingsByUserId(UUID id, LocalDateTime now) throws EntityNotFoundException {
-        return bookingMapper.toListDto(Optional.ofNullable(bookingDao.findListBookingsByUserIdAndBYDueDateFromNow(id, now))
-                .orElseThrow(() -> new EntityNotFoundException("user with such id" + id + "has no orders")));
+    public Page<BookingDto> getAllActiveBookingsByUserId(UUID id, LocalDateTime now, Pageable pageable) throws EntityNotFoundException {
+        Page<Booking> bookings = bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(id, now, pageable);
+        return bookings.map(x -> bookingMapper.toDto(x));
     }
 
-    public void deleteBookingById(UUID id) {
-        bookingDao.delete(bookingDao.getOne(id));
+    public void deleteBookingById(UUID bookingId) {
+        bookingRepository.deleteById(bookingId);
     }
 }

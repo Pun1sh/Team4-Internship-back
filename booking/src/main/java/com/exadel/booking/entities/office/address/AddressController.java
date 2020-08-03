@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/addresses")
+@RequestMapping(value = "/address")
 public class AddressController {
     private final AddressService addressService;
 
