@@ -5,6 +5,7 @@ import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class BookingService {
 
     private final BookingRepository bookingRepository;
@@ -34,7 +36,7 @@ public class BookingService {
             try {
                 emailSender.sendEmailsFromAdminAboutNewBooking(booking);
             } catch (MessagingException e) {
-                e.printStackTrace();
+                log.info(e.getMessage());
             }
             return bookingMapper.toDto(bookingRepository.save(booking));
         } else {

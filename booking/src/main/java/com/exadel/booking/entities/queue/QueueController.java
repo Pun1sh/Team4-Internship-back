@@ -20,7 +20,7 @@ public class QueueController {
     private final UserService userService;
 
     @PreAuthorize("hasAuthority('QUEUE_READ')")
-    @GetMapping()
+    @GetMapping
     public List<QueueDto> getAllQueueDto() {
         return queueService.getAllQueue();
     }
