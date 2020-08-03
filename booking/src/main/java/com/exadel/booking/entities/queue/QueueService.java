@@ -3,12 +3,14 @@ package com.exadel.booking.entities.queue;
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
+import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,13 +29,32 @@ public class QueueService {
     private final AMapper<Queue, QueueDto> queueMapper;
     private final UserService userService;
     private final PlaceService placeService;
+    private final EmailSender emailSender;
 
-    public void createOrUpdateQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
+    public Queue createOrUpdateQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
         Queue queueFromDB = getQueueByPlaceIdAndDateTime(placeId, start, end);
         if (queueFromDB == null) {
-            createQueue(userId, placeId, start, end);
+            Queue newQueue = createQueue(userId, placeId, start, end);
+            sentEmail(newQueue, userId);
+            return newQueue;
         } else {
-            updateQueue(queueFromDB, userId, placeId, start, end);
+            Queue queuUpdated = updateQueue(queueFromDB, userId, placeId, start, end);
+            sentEmail(queuUpdated, userId);
+            return queuUpdated;
+        }
+    }
+
+    public void sentEmail(Queue queue, UUID userId) {
+        List<User> usersFromQueue = queue.getUsers();
+        try {
+            if (usersFromQueue.contains(userService.getUserById(userId))) {
+
+                emailSender.sendEmailsFromAdminAboutSubcribingPlace(queue, userId);
+            } else {
+                emailSender.sendEmailsFromAdminAboutUnSubcribingPlace(queue, userId);
+            }
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 
@@ -59,27 +80,20 @@ public class QueueService {
         return queueRepository.findQueueByPlaceIdAndStartEndTime(placeId, start, end);
     }
 
-    private QueueDto updateQueue(Queue queueFromDB, UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
+    private Queue updateQueue(Queue queueFromDB, UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
         List<User> usersFromQueue = queueFromDB.getUsers();
         if (usersFromQueue.contains(userService.getUserById(userId))) {
             usersFromQueue.removeIf(x -> x.getId().equals(userId));
         } else {
             usersFromQueue.add(userService.getUserById(userId));
         }
-        return queueMapper.toDto(queueFromDB);
+        return queueFromDB;
     }
-
-    @Scheduled(cron = "0 40 07 * * *")
-    public void checkIfPlaceIsFree() {
-        for (Queue queue : queueRepository.findAll()) {
-            queue.getWhenNeedPlaceStart()
-
-        }
-    }
-
-
-    private String formatTime(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
-        return localDateTime.format(formatter);
-    }
+//
+//    @Scheduled(cron = "0 40 07 * * *")
+//    public void checkIfPlaceIsFree() {
+//        for (Queue queue : queueRepository.findAll()) {
+//            queue.getWhenNeedPlaceStart()
+//        }
+//    }
 }

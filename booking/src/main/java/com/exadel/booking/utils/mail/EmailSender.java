@@ -1,9 +1,12 @@
 package com.exadel.booking.utils.mail;
 
 import com.exadel.booking.entities.booking.Booking;
+import com.exadel.booking.entities.queue.Queue;
+import com.exadel.booking.entities.user.User;
+import com.exadel.booking.entities.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,24 +18,24 @@ import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class EmailSender {
 
     @Value("${admin.email}")
     private String adminEmail;
 
-    @Autowired
-    private VelocityEngine velocityEngine;
-
-    @Autowired
-    private JavaMailSender mailSender;
+    private final VelocityEngine velocityEngine;
+    private final JavaMailSender mailSender;
+    private final UserService userService;
 
     @Async
     public void sendEmailsFromAdminAboutNewBooking(Booking booking) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        String text = prepareActivateRequestEmail(booking, "mailtemplates/newBookingMessage.vm");
+        String text = prepareActivateRequestEmail_AboutNewBooking(booking, "mailtemplates/newBookingMessage.vm");
         configureMimeMessageHelper(helper, adminEmail, booking.getUser().getEmail(), text, "New Booking!");
         mailSender.send(message);
     }
@@ -45,19 +48,62 @@ public class EmailSender {
         mailSender.send(message);
     }
 
-    private String prepareActivateRequestEmail(Booking booking, String mailtemplates) {
-        VelocityContext context = createVelocityContextWithBasicParameters(booking);
+    @Async
+    public void sendEmailsFromAdminAboutSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        User user = userService.getUserById(userId);
+        String text = prepareActivateRequestEmail_AboutSubcribingPlace(queue, "mailtemplates/AboutSubcribingPlace.vm", user);
+        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "New Booking!");
+        mailSender.send(message);
+    }
+
+    @Async
+    public void sendEmailsFromAdminAboutUnSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        User user = userService.getUserById(userId);
+        String text = prepareActivateRequestEmail_AboutUnSubcribingPlace(queue, "mailtemplates/AboutUnSubcribingPlace.vm", user);
+        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "New Booking!");
+        mailSender.send(message);
+    }
+
+    private String prepareActivateRequestEmail_AboutNewBooking(Booking booking, String mailtemplates) {
+        VelocityContext context = createVelocityContextWithBasicParameters_AboutNewBooking(booking);
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
         return stringWriter.toString();
     }
 
-    private VelocityContext createVelocityContextWithBasicParameters(Booking booking) {
+    private String prepareActivateRequestEmail_AboutSubcribingPlace(Queue queue, String mailtemplates, User user) {
+        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlace(queue, user);
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
+        return stringWriter.toString();
+    }
+
+    private String prepareActivateRequestEmail_AboutUnSubcribingPlace(Queue queue, String mailtemplates, User user) {
+        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlace(queue, user);
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
+        return stringWriter.toString();
+    }
+
+    private VelocityContext createVelocityContextWithBasicParameters_AboutNewBooking(Booking booking) {
         VelocityContext context = new VelocityContext();
         context.put("name", booking.getUser().getUsername());
         context.put("number", booking.getPlace().getNumber());
         context.put("start", formatTime(booking.getBookingDate()));
         context.put("end", formatTime(booking.getDueDate()));
+        return context;
+    }
+
+    private VelocityContext createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlace(Queue queue, User user) {
+        VelocityContext context = new VelocityContext();
+        context.put("name", user.getUsername());
+        context.put("number", queue.getPlace().getNumber());
+        context.put("start", formatTime(queue.getWhenNeedPlaceStart()));
+        context.put("end", formatTime(queue.getWhenNeedPlaceEnd()));
         return context;
     }
 
