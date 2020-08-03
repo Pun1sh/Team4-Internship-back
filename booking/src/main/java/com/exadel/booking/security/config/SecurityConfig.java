@@ -34,9 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT, "/**").permitAll()
-                .antMatchers(LOGOUT_ENDPOINT).authenticated()
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider));
+                .apply(new JwtConfigurer(jwtTokenProvider))
+                .and()
+                .logout()
+                .logoutUrl(LOGOUT_ENDPOINT)
+                .logoutSuccessUrl(LOGIN_ENDPOINT)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .clearAuthentication(true);
     }
 }
