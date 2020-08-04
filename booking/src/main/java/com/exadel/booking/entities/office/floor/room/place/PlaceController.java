@@ -2,6 +2,7 @@ package com.exadel.booking.entities.office.floor.room.place;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/place")
+@Validated
 public class PlaceController {
     private final PlaceService placeService;
 

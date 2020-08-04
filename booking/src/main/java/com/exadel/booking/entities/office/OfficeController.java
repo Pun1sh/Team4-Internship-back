@@ -14,6 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/office")
+@Validated
 public class OfficeController {
 
     private final OfficeService officeService;

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,5 +47,6 @@ public class Place {
     @Column(name = "pl_max_quantity")
     @NonNull
     @Max(value = 25)
+    @Min(value = 1)
     private Integer maxQuantity;
 }
