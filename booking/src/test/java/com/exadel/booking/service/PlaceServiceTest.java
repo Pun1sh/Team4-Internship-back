@@ -1,10 +1,7 @@
 package com.exadel.booking.service;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.entities.office.floor.room.place.Place;
-import com.exadel.booking.entities.office.floor.room.place.PlaceDto;
-import com.exadel.booking.entities.office.floor.room.place.PlaceRepository;
-import com.exadel.booking.entities.office.floor.room.place.PlaceService;
+import com.exadel.booking.entities.office.floor.room.place.*;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,12 +70,12 @@ public class PlaceServiceTest extends AbstractTest {
     }*/
 
     private Place createPlace(Integer number) {
-        Place place = new Place(number, ID);
+        Place place = new Place();
         return place;
     }
 
     private PlaceDto toDto(Place place) {
-        PlaceDto dto = new PlaceDto(getRandomObjectsCount(), ID);
+        PlaceDto dto = new PlaceDto(getRandomObjectsCount(), ID, PlaceType.COWORK);
         dto.setId(place.getId());
         return dto;
     }

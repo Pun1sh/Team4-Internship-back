@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,4 +37,14 @@ public class Place {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Queue> queue;
+
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    @Column(name = "pl_type")
+    private PlaceType placeType;
+
+    @Column(name = "pl_max_quantity")
+    @NonNull
+    @Max(value = 25)
+    private Integer maxQuantity;
 }

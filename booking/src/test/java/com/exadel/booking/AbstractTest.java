@@ -12,6 +12,7 @@ import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.RoomRepository;
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.office.floor.room.place.PlaceRepository;
+import com.exadel.booking.entities.office.floor.room.place.PlaceType;
 import com.exadel.booking.entities.queue.Queue;
 import com.exadel.booking.entities.queue.QueueRepository;
 import com.exadel.booking.entities.user.User;
@@ -98,7 +99,7 @@ public abstract class AbstractTest {
 
     protected Place createPlace() {
         Room room = createRoom();
-        Place place = new Place(5, room.getId());
+        Place place = new Place(5, room.getId(), PlaceType.COWORK, 1);
         return placeRepository.save(place);
     }
 
@@ -109,8 +110,8 @@ public abstract class AbstractTest {
     }
 
     protected Queue createQueue() {
-        User us=createUser();
-        Place pl=createPlace();
+        User us = createUser();
+        Place pl = createPlace();
         Queue queue = Queue.builder().users(new ArrayList<>(Arrays.asList(us))).place(pl)
                 .requestedStart(LocalDateTime.now().minusDays(2)).requestedEnd(LocalDateTime.now()).build();
         return queueRepository.save(queue);

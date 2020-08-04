@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200804.add-place-type-to-place-table">
+        <addColumn
+                schemaName="public"
+                tableName="place">
+            <column name="pl_type"
+                    type="varchar(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200804.add-values-to-place-type">
+        <update
+                schemaName="public"
+                tableName="place">
+            <column name="pl_type" value="COWORK" type="varchar"/>
+            <where>pl_type is null</where>
+        </update>
+    </changeSet>
+    <changeSet author="gleb" id="20200804.add-not-null-constraint-to-place-type">
+        <addNotNullConstraint
+                columnDataType="varchar"
+                columnName="pl_type"
+                schemaName="public"
+                tableName="place"/>
+    </changeSet>
+</databaseChangeLog>
