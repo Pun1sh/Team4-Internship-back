@@ -1,4 +1,4 @@
-/*
+
 package com.exadel.booking.service;
 
 import com.exadel.booking.entities.booking.Booking;
@@ -11,6 +11,7 @@ import com.exadel.booking.entities.office.floor.Floor;
 import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
+import com.exadel.booking.entities.office.floor.room.place.PlaceType;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.mail.EmailSender;
@@ -146,7 +147,7 @@ public class BookingServiceTest {
     }
 
     private Place createPlace() {
-        Place place = new Place(5, ID);
+        Place place = new Place(5, ID, PlaceType.CONFROOM,2);
         place.setId(ID);
         return place;
     }
@@ -183,4 +184,4 @@ public class BookingServiceTest {
         return user;
     }
 }
-*/
+

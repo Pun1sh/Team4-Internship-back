@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,11 +35,12 @@ public class PlaceServiceTest extends AbstractTest {
         assertThat(placeMapper).isNotNull();
     }
 
+
 /*    @Test
     public void getPlaceByIdTest() throws EntityNotFoundException {
         Place place = createPlace(5);
         when(placeRepository.findById(ID).get()).thenReturn(place);
-        PlaceDto found = placeService.getPlaceById(ID);
+        PlaceDto found = placeService.getPlaceDtoById(ID);
         assertThat(found.getNumber() == 5).isTrue();
     }*/
 
