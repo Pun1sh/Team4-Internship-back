@@ -44,7 +44,7 @@ public class BookingController {
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
-    @PostMapping
+    @PostMapping("update")
     public BookingDto updateBooking(UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
     }
