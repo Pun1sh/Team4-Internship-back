@@ -130,15 +130,6 @@ public class BookingServiceTest {
         verify(bookingRepository, times(1)).numberOfIntersection(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
     }
 
-    @Test
-    public void deleteBookingByIdTest() {
-        User user = createUser();
-        Booking booking = createBooking(LocalDateTime.now(), user);
-        doNothing().when(bookingRepository).deleteById(booking.getId());
-        bookingService.deleteBookingById(booking.getId());
-        verify(bookingRepository, times(1)).deleteById(booking.getId());
-    }
-
     private BookingDto toDto(Booking booking) {
         BookingDto dto = new BookingDto();
         dto.setId(booking.getId());
