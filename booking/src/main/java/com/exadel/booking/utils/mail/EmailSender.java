@@ -32,15 +32,6 @@ public class EmailSender {
     private final UserService userService;
 
     @Async
-    public void sendEmailsFromAdminAboutNewBooking(Booking booking) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        String text = prepareActivateRequestEmail_AboutNewBooking(booking, "mailtemplates/newBookingMessage.vm");
-        configureMimeMessageHelper(helper, adminEmail, booking.getUser().getEmail(), text, "New Booking!");
-        mailSender.send(message);
-    }
-
-    @Async
     public void sendEmailToAdmin(String email, String text) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -49,41 +40,16 @@ public class EmailSender {
     }
 
     @Async
-    public void sendEmailsFromAdminAboutSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
+    public void sendEmailsFromAdminAboutNewBooking(Booking booking) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        User user = userService.getUserById(userId);
-        String text = prepareActivateRequestEmail_AboutSubcribingPlace(queue, "mailtemplates/AboutSubcribingPlace.vm", user);
-        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "New Booking!");
-        mailSender.send(message);
-    }
-
-    @Async
-    public void sendEmailsFromAdminAboutUnSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        User user = userService.getUserById(userId);
-        String text = prepareActivateRequestEmail_AboutUnSubcribingPlace(queue, "mailtemplates/AboutUnSubcribingPlace.vm", user);
-        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "New Booking!");
+        String text = prepareActivateRequestEmail_AboutNewBooking(booking, "mailtemplates/newBookingMessage.vm");
+        configureMimeMessageHelper(helper, adminEmail, booking.getUser().getEmail(), text, "New Booking!");
         mailSender.send(message);
     }
 
     private String prepareActivateRequestEmail_AboutNewBooking(Booking booking, String mailtemplates) {
         VelocityContext context = createVelocityContextWithBasicParameters_AboutNewBooking(booking);
-        StringWriter stringWriter = new StringWriter();
-        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
-        return stringWriter.toString();
-    }
-
-    private String prepareActivateRequestEmail_AboutSubcribingPlace(Queue queue, String mailtemplates, User user) {
-        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlace(queue, user);
-        StringWriter stringWriter = new StringWriter();
-        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
-        return stringWriter.toString();
-    }
-
-    private String prepareActivateRequestEmail_AboutUnSubcribingPlace(Queue queue, String mailtemplates, User user) {
-        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlace(queue, user);
         StringWriter stringWriter = new StringWriter();
         velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
         return stringWriter.toString();
@@ -98,7 +64,58 @@ public class EmailSender {
         return context;
     }
 
-    private VelocityContext createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlace(Queue queue, User user) {
+    @Async
+    public void sendEmailsFromAdminAboutYourPlaceIsFree(Queue queue, UUID userId) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        User user = userService.getUserById(userId);
+        String text = prepareActivateRequestEmail_AboutYourPlaceIsFree(queue, "mailtemplates/PlaceIsFree.vm.vm", user);
+        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "Place is free!");
+        mailSender.send(message);
+    }
+
+    private String prepareActivateRequestEmail_AboutYourPlaceIsFree(Queue queue, String mailtemplates, User user) {
+        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlaceOrFreePlace(queue, user);
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
+        return stringWriter.toString();
+    }
+
+    @Async
+    public void sendEmailsFromAdminAboutSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        User user = userService.getUserById(userId);
+        String text = prepareActivateRequestEmail_AboutSubcribingPlace(queue, "mailtemplates/AboutSubcribingPlace.vm", user);
+        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "Subcribing Place!");
+        mailSender.send(message);
+    }
+
+    private String prepareActivateRequestEmail_AboutSubcribingPlace(Queue queue, String mailtemplates, User user) {
+        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlaceOrFreePlace(queue, user);
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
+        return stringWriter.toString();
+    }
+
+    @Async
+    public void sendEmailsFromAdminAboutUnSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        User user = userService.getUserById(userId);
+        String text = prepareActivateRequestEmail_AboutUnSubcribingPlace(queue, "mailtemplates/AboutUnSubcribingPlace.vm", user);
+        configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "Unsubcribing Place!");
+        mailSender.send(message);
+    }
+
+    private String prepareActivateRequestEmail_AboutUnSubcribingPlace(Queue queue, String mailtemplates, User user) {
+        VelocityContext context = createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlaceOrFreePlace(queue, user);
+        StringWriter stringWriter = new StringWriter();
+        velocityEngine.mergeTemplate(mailtemplates, "UTF-8", context, stringWriter);
+        return stringWriter.toString();
+    }
+
+    private VelocityContext createVelocityContextWithBasicParameters_AboutSubcribingOrUnSubcribingPlaceOrFreePlace(Queue queue, User user) {
         VelocityContext context = new VelocityContext();
         context.put("name", user.getUsername());
         context.put("number", queue.getPlace().getNumber());

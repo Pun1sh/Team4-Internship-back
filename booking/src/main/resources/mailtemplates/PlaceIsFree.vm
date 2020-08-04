@@ -1,0 +1,10 @@
+<html>
+    <body>
+    	<h4>Hello, ${name}!</h4>
+        <pre>
+        You subscribed to the seat number ${number} from ${start} to ${end}
+        The place becomes vacant, check it out.
+        Thanks a lot!
+        </pre>
+    </body>
+</html>

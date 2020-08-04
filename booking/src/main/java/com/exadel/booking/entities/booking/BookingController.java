@@ -1,6 +1,5 @@
 package com.exadel.booking.entities.booking;
 
-import com.exadel.booking.entities.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +19,8 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    private final UserService userService;
-
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @GetMapping()
+    @GetMapping
     public List<BookingDto> getAllBookingsByUserId(UUID userId) {
         return bookingService.getAllBookingsByUserId(userId);
     }
@@ -44,6 +41,12 @@ public class BookingController {
     @PostMapping
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
+    }
+
+    @PreAuthorize("hasAuthority('BOOKING_WRITE')")
+    @PostMapping
+    public BookingDto updateBooking(UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+        return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_DELETE')")

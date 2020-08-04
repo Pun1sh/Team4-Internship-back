@@ -10,7 +10,6 @@ import java.util.UUID;
 @Data
 public class QueueDto {
 
-    @NotNull
     private UUID id;
 
     private List<UUID> listusersId;

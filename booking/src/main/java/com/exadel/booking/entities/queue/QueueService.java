@@ -1,11 +1,14 @@
 package com.exadel.booking.entities.queue;
 
+import com.exadel.booking.entities.booking.Booking;
+import com.exadel.booking.entities.booking.BookingDto;
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
 import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.UserService;
 import com.exadel.booking.utils.mail.EmailSender;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -44,13 +48,12 @@ public class QueueService {
         List<User> usersFromQueue = queue.getUsers();
         try {
             if (usersFromQueue.contains(userService.getUserById(userId))) {
-
                 emailSender.sendEmailsFromAdminAboutSubcribingPlace(queue, userId);
             } else {
                 emailSender.sendEmailsFromAdminAboutUnSubcribingPlace(queue, userId);
             }
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.info("Mailing error", e);
         }
     }
 
@@ -64,6 +67,10 @@ public class QueueService {
 
     public void deleteQueueById(UUID id) {
         queueRepository.deleteById(id);
+    }
+
+    public List<Queue> findQueueThatIntersectByPlaceAndTimeWithBooking(BookingDto bookingdto) {
+        return queueRepository.findQueueThatIntersectByPlaceAndTimeWithBooking(bookingdto.getPlaceId(), bookingdto.getBookingDate(), bookingdto.getDueDate());
     }
 
     private Queue createQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {

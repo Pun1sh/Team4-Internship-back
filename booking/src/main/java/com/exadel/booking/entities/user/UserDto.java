@@ -10,7 +10,6 @@ import java.util.UUID;
 @Data
 public class UserDto {
 
-    @NotNull
     private UUID id;
     @NotBlank
     private String email;
