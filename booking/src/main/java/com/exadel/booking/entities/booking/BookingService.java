@@ -36,7 +36,7 @@ public class BookingService {
             try {
                 emailSender.sendEmailsFromAdminAboutNewBooking(booking);
             } catch (MessagingException e) {
-                log.info(e.getMessage());
+                log.info("Mailing error", e);
             }
             return bookingMapper.toDto(bookingRepository.save(booking));
         } else {
