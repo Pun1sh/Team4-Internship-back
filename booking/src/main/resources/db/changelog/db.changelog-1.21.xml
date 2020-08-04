@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200804.add-max-quantity-to-place-table">
+        <addColumn
+                schemaName="public"
+                tableName="place">
+            <column name="pl_max_quantity"
+                    type="bigint">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200804.add-values-to-max-quantity">
+        <update
+                schemaName="public"
+                tableName="place">
+            <column name="pl_max_quantity" value="1" type="bigint"/>
+            <where>pl_max_quantity is null</where>
+        </update>
+    </changeSet>
+    <changeSet author="gleb" id="20200804.add-not-null-constraint-to-max-quantity">
+        <addNotNullConstraint
+                columnDataType="bigint"
+                columnName="pl_max_quantity"
+                schemaName="public"
+                tableName="place"/>
+    </changeSet>
+</databaseChangeLog>
