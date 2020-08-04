@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-                        log.info("succesfully logout");
+                        log.info("successfully logout");
                     }
                 })
                 .invalidateHttpSession(true)
