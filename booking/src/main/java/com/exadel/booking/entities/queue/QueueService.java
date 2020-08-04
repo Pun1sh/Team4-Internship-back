@@ -1,6 +1,5 @@
 package com.exadel.booking.entities.queue;
 
-import com.exadel.booking.entities.booking.Booking;
 import com.exadel.booking.entities.booking.BookingDto;
 import com.exadel.booking.entities.office.floor.room.place.PlaceService;
 import com.exadel.booking.entities.user.User;

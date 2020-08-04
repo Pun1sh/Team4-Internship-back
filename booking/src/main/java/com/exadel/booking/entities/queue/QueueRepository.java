@@ -21,8 +21,8 @@ public interface QueueRepository extends JpaRepository<Queue, UUID> {
                                                    @Param("end")
                                                            LocalDateTime end);
 
-    @Query("SELECT q FROM Queue b WHERE (q_place_id=:placeId) AND " +
-            "(q.requestedStart<:end AND q.requestedEnd>:start)")
+    @Query("SELECT q FROM Queue q WHERE (q_place_id=:placeId) AND " +
+            "(q_start<:end AND q_end>:start)")
     public List<Queue> findQueueThatIntersectByPlaceAndTimeWithBooking(@Param("placeId")
                                                        UUID placeId,
                                                @Param("start")
