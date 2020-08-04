@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200804.add-location-to-user-table">
+        <addColumn
+                schemaName="public"
+                tableName="users">
+            <column name="us_location"
+                    type="varchar(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200804.add-values-to-user-table">
+        <update
+                schemaName="public"
+                tableName="users">
+            <column name="us_location" value="Belarus,Grodno" type="varchar"/>
+            <where>us_location is null</where>
+        </update>
+    </changeSet>
+    <changeSet author="gleb" id="20200804.add-not-null-constraint-to-user-location">
+        <addNotNullConstraint
+                columnDataType="varchar"
+                columnName="us_location"
+                schemaName="public"
+                tableName="users"/>
+    </changeSet>
+</databaseChangeLog>

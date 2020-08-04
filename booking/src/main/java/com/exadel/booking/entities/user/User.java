@@ -50,6 +50,30 @@ public class User {
     @Column(name = "us_last_name")
     private String lastName;
 
+    @NotBlank
+    @Column(name = "us_position")
+    private String position;
+
+    @NotBlank
+    @Column(name = "us_department")
+    private String department;
+
+    @NotBlank
+    @Column(name = "us_location")
+    private String location;
+
+    @NotBlank
+    @Column(name = "us_phone")
+    private String phone;
+
+    @NotBlank
+    @Column(name = "us_skype")
+    private String skype;
+
+    @NotBlank
+    @Column(name = "us_hr")
+    private String hr;
+
     @NotNull
     @CreatedDate
     @Column(name = "us_created")

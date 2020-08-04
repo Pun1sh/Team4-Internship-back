@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/login")
 @RequiredArgsConstructor
+@Validated
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -33,7 +36,7 @@ public class AuthenticationController {
 
 
     @PostMapping
-    public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
+    public ResponseEntity login(@RequestBody @Valid AuthenticationRequestDto requestDto) {
         try {
             UserDto userDto = userService.checkUserCredentialsAndGetInfo(requestDto);
             if (userDto == null) {
