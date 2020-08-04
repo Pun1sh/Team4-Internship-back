@@ -37,9 +37,6 @@ public class PlaceService {
     }
 
     public PlaceDto savePlaceFromDto(PlaceDto placeDto) {
-        if (placeDto.getMaxQuantity() == null) {
-            placeDto.setMaxQuantity(1);
-        }
         return placeMapper.toDto(placeRepository.save(placeMapper.toEntity(placeDto)));
     }
 

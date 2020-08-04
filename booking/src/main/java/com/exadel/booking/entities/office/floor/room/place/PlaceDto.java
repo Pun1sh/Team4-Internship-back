@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.UUID;
 
 @Data
@@ -20,5 +21,6 @@ public class PlaceDto {
     @NonNull
     private PlaceType placeType;
     @Max(value = 25)
-    private Integer maxQuantity;
+    @Min(value = 1)
+    private int maxQuantity = 1;
 }

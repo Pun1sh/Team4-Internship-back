@@ -15,8 +15,8 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_READ')")
     @GetMapping(value = "/{id}")
-    public PlaceDto getPlaceById(@PathVariable UUID placeId) {
-        return placeService.getPlaceDtoById(placeId);
+    public PlaceDto getPlaceById(@PathVariable UUID id) {
+        return placeService.getPlaceDtoById(id);
     }
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
@@ -33,8 +33,8 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deletePlaceById(@PathVariable UUID placeId) {
-        placeService.deletePlaceById(placeId);
+    public void deletePlaceById(@PathVariable UUID id) {
+        placeService.deletePlaceById(id);
     }
 
 }
