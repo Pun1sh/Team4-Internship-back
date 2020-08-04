@@ -9,16 +9,15 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/places")
+@RequestMapping(value = "/place")
 public class PlaceController {
     private final PlaceService placeService;
 
     @PreAuthorize("hasAuthority('PLACE_READ')")
     @GetMapping(value = "/{id}")
-    public PlaceDto getPlaceById(@PathVariable UUID id) {
-        return placeService.getPlaceById(id);
+    public PlaceDto getPlaceById(@PathVariable UUID placeId) {
+        return placeService.getPlaceDtoById(placeId);
     }
-
 
     @PreAuthorize("hasAuthority('PLACE_WRITE')")
     @PostMapping
@@ -34,14 +33,8 @@ public class PlaceController {
 
     @PreAuthorize("hasAuthority('PLACE_DELETE')")
     @DeleteMapping(value = "/{id}")
-    public void deletePlaceById(@PathVariable UUID id) {
-        placeService.deletePlaceById(id);
+    public void deletePlaceById(@PathVariable UUID placeId) {
+        placeService.deletePlaceById(placeId);
     }
 
-    @PreAuthorize("hasAuthority('PLACE_READ')")
-    @GetMapping
-    public void subscribeOrUnsubcribeThisPlace(UUID userId, UUID placeId) {
-        placeService.subscribeUorUnsubcribeToPlace(userId, placeId);
-
-    }
 }

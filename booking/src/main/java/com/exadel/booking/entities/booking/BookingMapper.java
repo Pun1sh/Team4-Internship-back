@@ -54,7 +54,7 @@ public class BookingMapper extends AMapper<Booking, BookingDto> {
 
     @Override
     public void mapSpecificFieldsToEntityConverter(BookingDto source, Booking destination) {
-        destination.setPlace(placeRepository.findPlaceById(source.getPlaceId()));
+        destination.setPlace(placeRepository.getOne(source.getPlaceId()));
         destination.setUser(userRepository.findUserById(source.getUserId()));
     }
 }

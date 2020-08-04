@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "roles")
+@RequestMapping(value = "role")
 public class RoleController {
 
     private final RoleService roleService;

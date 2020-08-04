@@ -110,7 +110,9 @@ public abstract class AbstractTest {
 
     protected Queue createQueue() {
         User us=createUser();
-        Queue queue = Queue.builder().users(new ArrayList<>(Arrays.asList(us))).build();
+        Place pl=createPlace();
+        Queue queue = Queue.builder().users(new ArrayList<>(Arrays.asList(us))).place(pl)
+                .requestedStart(LocalDateTime.now().minusDays(2)).requestedEnd(LocalDateTime.now()).build();
         return queueRepository.save(queue);
     }
 

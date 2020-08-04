@@ -1,0 +1,9 @@
+<html>
+    <body>
+    	<h4>Hello, ${name}!</h4>
+        <pre>
+        You Unsubscribed to the seat number ${number} from ${start} to ${end}
+        Thanks a lot!
+        </pre>
+    </body>
+</html>

@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
@@ -21,13 +23,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BookingRepositoryTest extends AbstractTest {
 
     @Autowired
-    private BookingRepository bookingDao;
+    private BookingRepository bookingRepository;
 
     @Test
     public void whenFindById_thenReturnBooking() {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
-        Booking found = bookingDao.findBookingById(booking.getId());
+        Booking found = bookingRepository.findBookingById(booking.getId());
         assertThat(found.getId()).isEqualTo(booking.getId());
     }
 
@@ -39,7 +41,7 @@ public class BookingRepositoryTest extends AbstractTest {
         Booking booking2 = createBooking(LocalDateTime.now().plusDays(2), user);
         list.add(booking);
         list.add(booking2);
-        List<Booking> found = bookingDao.findListBookingsByUserId(user.getId());
+        List<Booking> found = bookingRepository.findListBookingsByUserId(user.getId());
         assertThat(list.size()).isEqualTo(found.size());
         assertThat(found.contains(list.get(0))).isTrue();
         assertThat(found.contains(list.get(1))).isTrue();
@@ -53,10 +55,23 @@ public class BookingRepositoryTest extends AbstractTest {
         Booking booking2 = createBooking(LocalDateTime.now().plusDays(2), user);
         list.add(booking);
         list.add(booking2);
-        List<Booking> found = bookingDao.findListBookingsByUserIdAndBYDueDateFromNow(user.getId(), LocalDateTime.now());
-        assertThat((found.size() == 1));
-        assertThat(found.contains(booking2)).isTrue();
-        assertThat(found.contains(booking)).isFalse();
+        Page<Booking> found = bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(user.getId(), LocalDateTime.now(), PageRequest.of(0, 3));
+        assertThat(found.getTotalElements() == 1).isTrue();
     }
 
+    @Test
+    public void whenNumberofIntersection_thenReturn1Bookings() {
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now().minusDays(2), user);
+        Integer found = bookingRepository.numberOfIntersection(booking.getPlace().getId(), LocalDateTime.now().minusDays(1), LocalDateTime.now());
+        assertThat((found == 1));
+    }
+
+    @Test
+    public void whenNumberofIntersection_thenReturn0Bookings() {
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now().minusDays(3), user);
+        Integer found = bookingRepository.numberOfIntersection(booking.getPlace().getId(), LocalDateTime.now(), LocalDateTime.now());
+        assertThat((found == 0));
+    }
 }

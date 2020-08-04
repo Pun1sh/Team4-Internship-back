@@ -1,5 +1,7 @@
 package com.exadel.booking.entities.booking;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +18,18 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     public List<Booking> findListBookingsByUserId(UUID id);
 
+    public List<Booking> findListBookingsByPlaceId(UUID id);
+
     @Query("SELECT b FROM Booking b WHERE b_user_id =:us_id AND b_due_date >= :now")
-   public List<Booking> findListBookingsByUserIdAndBYDueDateFromNow(@Param("us_id") UUID id, @Param("now") LocalDateTime now);
+    public Page<Booking> findListBookingsByUserIdAndBYDueDateFromNow(@Param("us_id") UUID id, @Param("now") LocalDateTime now, Pageable pageReq);
+
+    @Query("SELECT count(*) FROM Booking b WHERE (b_place_id=:placeId) AND " +
+            "(b.bookingDate<:end AND b.dueDate>:start)")
+    public Integer numberOfIntersection(@Param("placeId")
+                                                UUID placeId,
+                                        @Param("start")
+                                                LocalDateTime start,
+                                        @Param("end")
+                                                LocalDateTime end);
+
 }

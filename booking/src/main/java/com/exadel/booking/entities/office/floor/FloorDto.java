@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
 import java.util.UUID;

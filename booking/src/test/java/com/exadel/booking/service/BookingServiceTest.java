@@ -19,14 +19,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -96,38 +97,46 @@ public class BookingServiceTest {
 
     @Test
     public void getAllActiveBookingsTestByUserId() {
-        List<Booking> bookinglist = new ArrayList<>();
+        User user = createUser();
+        List<Booking> bookinglist = Arrays.asList(
+                createBooking(LocalDateTime.now(), user),
+                createBooking(LocalDateTime.now().minusDays(4), user),
+                createBooking(LocalDateTime.now().minusDays(5), user));
+        Page<Booking> pages = new PageImpl<Booking>(bookinglist, PageRequest.of(0, 4), bookinglist.size());
+        when(bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(any(UUID.class), any(LocalDateTime.class), any(Pageable.class))).thenReturn(pages);
+        Page<BookingDto> bookingDtos = bookingService.getAllActiveBookingsByUserId(user.getId(), LocalDateTime.now(), PageRequest.of(0, 3));
+        assertThat(bookingDtos.getTotalElements() == (3));
+    }
+
+    @Test
+    public void createBookingTest() throws MessagingException {
+        Place place = createPlace();
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
-        bookinglist.add(booking);
-        when(bookingRepository.findListBookingsByUserIdAndBYDueDateFromNow(any(UUID.class), any(LocalDateTime.class))).thenReturn(bookinglist);
-        when(bookingMapper.toListDto(bookinglist)).thenReturn(toListDto(bookinglist));
-        List<BookingDto> bookingDtos = bookingService.getAllActiveBookingsByUserId(user.getId(), LocalDateTime.now());
-        assertThat(bookingDtos.size() == bookinglist.size()).isTrue();
-        assertThat(bookingDtos.get(0).getId() == ID).isTrue();
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+        when(bookingMapper.toDto(booking)).thenReturn(toDto(booking));
+        when(placeService.getPlaceById(any(UUID.class))).thenReturn(place);
+        when(userService.getUserById(any(UUID.class))).thenReturn(user);
+        doNothing().when(emailSender).sendEmailsFromAdminAboutNewBooking(any(Booking.class));
+        BookingDto bookingDto = bookingService.createBooking(place.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+        assertThat(bookingDto.getId() == booking.getId()).isTrue();
     }
-//fix
-/*@Test
-public void createBookingTest() throws MessagingException {
-    Place place = createPlace();
-    User user = createUser();
-    Booking booking = createBooking(LocalDateTime.now(), user);
-    when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
-    when(bookingMapper.toDto(booking)).thenReturn(toDto(booking));
-    when(placeService.getPlaceById(any(UUID.class))).thenReturn(place);
-    when(userService.getUserById(any(UUID.class))).thenReturn(user);
-    doNothing().when(emailSender).sendEmailsFromAdminAboutNewBooking(any(Booking.class));
-    BookingDto bookingDto = bookingService.createBooking(place.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(3));
-    assertThat(bookingDto.getId() == booking.getId()).isTrue();
-}*/
+
+    @Test
+    public void checkDateTimeIsFreeTest() {
+        User user = createUser();
+        Booking booking = createBooking(LocalDateTime.now(), user);
+        bookingService.checkDateTimeIsFree(booking.getPlace().getId(), booking.getBookingDate(), booking.getDueDate());
+        verify(bookingRepository, times(1)).numberOfIntersection(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
+    }
 
     @Test
     public void deleteBookingByIdTest() {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
-        when(bookingRepository.getOne(booking.getId())).thenReturn(booking);
+        doNothing().when(bookingRepository).deleteById(booking.getId());
         bookingService.deleteBookingById(booking.getId());
-        verify(bookingRepository, times(1)).delete(booking);
+        verify(bookingRepository, times(1)).deleteById(booking.getId());
     }
 
     private BookingDto toDto(Booking booking) {
@@ -146,6 +155,7 @@ public void createBookingTest() throws MessagingException {
 
     private Place createPlace() {
         Place place = new Place(5, ID);
+        place.setId(ID);
         return place;
     }
 

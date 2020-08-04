@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/rooms")
+@RequestMapping(value = "/room")
 public class RoomController {
     private final RoomService roomService;
     private final PlaceService placeService;

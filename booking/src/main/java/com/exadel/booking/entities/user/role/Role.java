@@ -4,7 +4,6 @@ import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.authority.Authority;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
