@@ -23,4 +23,16 @@ public class UserDto {
     private Boolean isActive;
     @NotNull
     private List<String> roleNames;
+    @NotBlank
+    private String position;
+    @NotBlank
+    private String department;
+    @NotBlank
+    private String location;
+    @NotBlank
+    private String phone;
+    @NotBlank
+    private String skype;
+    @NotBlank
+    private String hr;
 }
