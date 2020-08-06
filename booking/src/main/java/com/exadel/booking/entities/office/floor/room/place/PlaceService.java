@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,6 +39,12 @@ public class PlaceService {
 
     public PlaceDto savePlaceFromDto(PlaceDto placeDto) {
         return placeMapper.toDto(placeRepository.save(placeMapper.toEntity(placeDto)));
+    }
+
+    public List<PlaceDto> saveAllPlaces(List<PlaceDto> list) {
+        return placeMapper.toListDto
+                (placeRepository.saveAll(list.stream().map
+                        (placeDto -> placeMapper.toEntity(placeDto)).collect(Collectors.toList())));
     }
 
     public void deletePlaceById(UUID id) {
