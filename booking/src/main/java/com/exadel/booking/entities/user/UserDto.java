@@ -35,4 +35,5 @@ public class UserDto {
     private String skype;
     @NotBlank
     private String hr;
+    private String img;
 }

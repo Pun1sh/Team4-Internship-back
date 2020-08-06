@@ -3,7 +3,6 @@ package com.exadel.booking.entities.user;
 import com.exadel.booking.entities.user.role.RoleDto;
 import com.exadel.booking.utils.imguploader.ImgFileUploader;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -11,14 +10,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Slf4j
 @RestController
 @RequestMapping(value = "user")
 public class UserController {
@@ -52,12 +48,7 @@ public class UserController {
 
 
     @PostMapping("myedit/{id}")
-    public UserDto createOrUpdateUserAvatar(UserDto userDto, @RequestParam(value = "file", required = false) MultipartFile file) {
-        try {
-            imgFileUploader.createOrUpdateAvatar(userDto, file);
-        } catch (IOException e) {
-            log.info("Uploading avatar image error", e);
-        }
-        return userDto;
+    public UserDto createOrUpdateUserAvatar(UserDto userdto, @RequestParam(value = "file", required = false) MultipartFile file) {
+        return imgFileUploader.createOrUpdateAvatar(userdto, file);
     }
 }

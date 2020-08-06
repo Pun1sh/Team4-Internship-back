@@ -30,6 +30,9 @@ public class User {
     @Column(name = "us_email")
     private String email;
 
+    @Column(name = "img")
+    private String img;
+
     @NotBlank
     @Column(name = "us_password")
     private String password;
