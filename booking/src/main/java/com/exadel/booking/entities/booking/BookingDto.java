@@ -1,5 +1,6 @@
 package com.exadel.booking.entities.booking;
 
+import com.exadel.booking.entities.user.UserDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ public class BookingDto {
 
     private UUID id;
     @NotNull
-    private UUID userId;
+    private UserDto userDto;
     @NotNull
     private UUID placeId;
     @NotNull

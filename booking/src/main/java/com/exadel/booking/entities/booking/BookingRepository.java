@@ -25,11 +25,9 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     @Query("SELECT count(*) FROM Booking b WHERE (b_place_id=:placeId) AND " +
             "(b.bookingDate<:end AND b.dueDate>:start)")
-    public Integer numberOfIntersection(@Param("placeId")
-                                                UUID placeId,
-                                        @Param("start")
-                                                LocalDateTime start,
-                                        @Param("end")
-                                                LocalDateTime end);
+    public Integer numberOfIntersection(@Param("placeId") UUID placeId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    @Query("SELECT b FROM Booking b WHERE (b_place_id IN (SELECT pl FROM Place pl WHERE rm_id=:roomId)) AND (b_start_date<:end AND b_due_date>:start)")
+    public List<Booking> findListBookingsByRoomIdAndTime(@Param("roomId") UUID roomId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
 }

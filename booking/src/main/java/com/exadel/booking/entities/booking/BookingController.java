@@ -33,7 +33,7 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping("{id}")
-    public BookingDto getBookingDtoById(@PathVariable UUID bookindId) {
+    public BookingDto getBookingById(@PathVariable UUID bookindId) {
         return bookingService.getBookingDtoById(bookindId);
     }
 
@@ -44,7 +44,7 @@ public class BookingController {
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
-    @PostMapping("update")
+    @PutMapping("update")
     public BookingDto updateBooking(UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
     }
@@ -56,8 +56,14 @@ public class BookingController {
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @DeleteMapping(value = "checkDateTimeIsFree")
-    public void checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        bookingService.checkDateTimeIsFree(placeId, bookingDate, dueDate);
+    @GetMapping(value = "checkDateTimeIsFree")
+    public Boolean checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+        return bookingService.checkDateTimeIsFree(placeId, bookingDate, dueDate);
+    }
+
+    @PreAuthorize("hasAuthority('BOOKING_READ')")
+    @GetMapping("activeBookingInRoom")
+    public List<BookingDto> getAllBookingsByRoomIdOnDate(UUID roomId, LocalDateTime start, LocalDateTime end) {
+        return bookingService.getAllBookingsByRoomId(roomId, start, end);
     }
 }

@@ -21,7 +21,6 @@ public abstract class AMapper <E, D> {
         this.dtoClass = dtoClass;
     }
 
-
     public E toEntity(D dto) {
         return Objects.isNull(dto) ? null : mapper.map(dto, entityClass);
     }
@@ -34,11 +33,9 @@ public abstract class AMapper <E, D> {
         return Objects.isNull(entity) ? null : mapper.map(entity, dtoClass);
     }
 
-
     public D toLiteDto(E entity) {
         return Objects.isNull(entity) ? null : mapper.map(entity, dtoClass);
     }
-
 
     public List<D> toListDto(List<E> entities) {
         return entities.stream().map(this::toDto).collect(Collectors.toList());
