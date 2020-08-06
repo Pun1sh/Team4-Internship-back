@@ -30,7 +30,7 @@ public class User {
     @Column(name = "us_email")
     private String email;
 
-    @Column(name = "img")
+    @Column(name = "us_img")
     private String img;
 
     @NotBlank
