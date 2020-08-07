@@ -26,13 +26,13 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('USER_READ_ALL')")
-    @GetMapping("/all")
+    @GetMapping
     public Page<UserDto> getAllUsers(@PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return userService.getAllUsers(pageable);
     }
 
     @PreAuthorize("hasAuthority('USER_READ_ALL')")
-    @GetMapping(value = "/{id}/allsubordinates")
+    @GetMapping(value = "/{id}/children")
     public List<UserDto> getAllHrUsersByHrId(@PathVariable UUID id) {
         return userService.getAllHrUsers(id);
     }
