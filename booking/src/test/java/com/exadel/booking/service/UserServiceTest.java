@@ -57,7 +57,7 @@ public class UserServiceTest {
     @Test
     public void getUserDtoByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         when(userMapper.toDto(user)).thenReturn(toDto(user));
         UserDto userFromService = userService.getUserDtoById(ID);
         assertThat(userFromService.getId() == ID).isTrue();
@@ -66,7 +66,7 @@ public class UserServiceTest {
     @Test
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         User userFromService = userService.getUserById(ID);
         assertThat(userFromService.getEmail() == "testName").isTrue();
     }
@@ -74,7 +74,7 @@ public class UserServiceTest {
     @Test
     public void updateUser() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         User userToUpdate = createUser("newTest");
         when(userDao.save(userToUpdate)).thenReturn(userToUpdate);
         UserDto userFromService = userService.updateUser(ID, toDto(userToUpdate));
@@ -84,7 +84,7 @@ public class UserServiceTest {
     @Test
     public void editUsersRole() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         Role roleToUpdate = createRole("newTest");
         roleToUpdate.setName("newTest");
         when(roleService.getRoleByName("newTest")).thenReturn(roleToUpdate);
