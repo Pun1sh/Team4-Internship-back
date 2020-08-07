@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/booking/")
+@RequestMapping("/booking")
 @RequiredArgsConstructor
 public class BookingController {
 
@@ -26,7 +26,7 @@ public class BookingController {
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @GetMapping("active")
+    @GetMapping(params = "userId" )
     public Page<BookingDto> getAllActiveBookingsByUserId(UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return bookingService.getAllActiveBookingsByUserId(userId, now, pageable);
     }
@@ -44,25 +44,25 @@ public class BookingController {
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
-    @PutMapping("update")
+    @PutMapping
     public BookingDto updateBooking(UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_DELETE')")
-    @DeleteMapping(value = "delete")
+    @DeleteMapping
     public void deleteBooking(UUID bookindId) {
         bookingService.deleteBookingById(bookindId);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @GetMapping(value = "checkDateTimeIsFree")
-    public Boolean checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    @GetMapping( params = "placeId" )
+    public Boolean IsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.checkDateTimeIsFree(placeId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @GetMapping("activeBookingInRoom")
+    @GetMapping( params = "roomId" )
     public List<BookingDto> getAllBookingsByRoomIdOnDate(UUID roomId, LocalDateTime start, LocalDateTime end) {
         return bookingService.getAllBookingsByRoomId(roomId, start, end);
     }
