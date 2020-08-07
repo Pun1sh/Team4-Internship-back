@@ -70,9 +70,10 @@ public class User {
     @Column(name = "us_skype")
     private String skype;
 
-    @NotBlank
-    @Column(name = "us_hr")
-    private String hr;
+    @ManyToMany
+    @JoinTable(name = "mapping_user_table", joinColumns =
+    @JoinColumn(name = "parent_user_id"), inverseJoinColumns = @JoinColumn(name = "child_user_id"))
+    List<User> childUsers;
 
     @NotNull
     @CreatedDate

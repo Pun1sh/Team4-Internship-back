@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="20200807.crete-second-hr">
+    <insert tableName="users">
+        <column name="us_id" valueComputed="(SELECT uuid_generate_v4())"/>
+        <column name="us_email" type="varchar(255)" value="hr2@mail.ru"/>
+        <column name="us_password" type="varchar(255)" value="$2a$04$nY4K5rxabUVzAd8rHQjwF.Ds6u.A4cLFXntOHec0gEdTQLMINKfRS"/>
+        <column name="us_is_active" type="boolean" value="true"/>
+        <column name="us_username" type="varchar(255)" value="hr2"/>
+        <column name="us_first_name" type="varchar(255)" value="Vanya"/>
+        <column name="us_last_name" type="varchar(255)" value="Ivanov"/>
+        <column name="us_position" type="varchar(255)" value="hr"/>
+        <column name="us_department" type="varchar(255)" value="human resources"/>
+        <column name="us_phone" type="varchar(255)" value="+375294597105"/>
+        <column name="us_skype" type="varchar(255)" value="hr2"/>
+        <column name="us_location" type="varchar(255)" value="Belarus, Grodno"/>
+        <column name="us_img" type="varchar(255)" value="https://lofrev.net/wp-content/photos/2017/03/user_blue_logo.png"/>
+    </insert>
+    </changeSet>
+</databaseChangeLog>

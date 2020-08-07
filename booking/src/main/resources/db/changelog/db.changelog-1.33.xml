@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="nastia" id="20200807.crete-table-for-hr-logic">
+        <createTable tableName="mapping_user_table">
+            <column name="parent_user_id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="child_user_id" type="UUID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="nastia" id="20200807.add-fk-user-mapping">
+        <addForeignKeyConstraint
+                constraintName="fk_user2mapping_user_table" referencedTableName="users"
+                referencedColumnNames="us_id" baseColumnNames="parent_user_id"
+                baseTableName="mapping_user_table"/>
+        <addForeignKeyConstraint
+                constraintName="fk_mapping2mapping_user_table" referencedTableName="users"
+                referencedColumnNames="us_id" baseColumnNames="child_user_id"
+                baseTableName="mapping_user_table"/>
+    </changeSet>
+</databaseChangeLog>

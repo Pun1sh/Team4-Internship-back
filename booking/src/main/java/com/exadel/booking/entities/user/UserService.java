@@ -21,7 +21,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userDao;
+    private final UserRepository userRepository;
     private final RoleService roleService;
     private final AMapper<User, UserDto> userMapper;
     private final AMapper<Role, RoleDto> roleMapper;
@@ -36,21 +36,26 @@ public class UserService {
     }
 
     public User findUserByUsername(String username) {
-        return userDao.findUserByUsername(username);
+        return userRepository.findUserByUsername(username);
     }
 
 
     public List<UserDto> findUserByWord(String word) {
         List<User> usersFromDB = new ArrayList<>();
-        usersFromDB.add(userDao.findUserByEmail(word));
-        usersFromDB.add(userDao.findUserByUsername(word));
-        usersFromDB.addAll(userDao.findUserByLastName(word));
-        usersFromDB.addAll(userDao.findUserByFirstName(word));
+        usersFromDB.add(userRepository.findUserByEmail(word));
+        usersFromDB.add(userRepository.findUserByUsername(word));
+        usersFromDB.addAll(userRepository.findUserByLastName(word));
+        usersFromDB.addAll(userRepository.findUserByFirstName(word));
         return userMapper.toListDto(usersFromDB);
     }
 
+    public List<UserDto> getAllHrUsers(UUID hrId) {
+        User us = userRepository.findUserById(hrId);
+        return userMapper.toListDto(us.getChildUsers());
+    }
+
     public Page<UserDto> getAllUsers(Pageable pageable) {
-        Page<User> users = userDao.findAll(pageable);
+        Page<User> users = userRepository.findAll(pageable);
         return users.map(x -> userMapper.toDto(x));
     }
 
@@ -59,29 +64,29 @@ public class UserService {
         if (StringUtils.isNotBlank(userDto.getEmail())) {
             userInDB.setEmail(userDto.getEmail());
         }
-        return userMapper.toDto(userDao.save(userInDB));
+        return userMapper.toDto(userRepository.save(userInDB));
     }
 
     public UserDto editUsersRole(UUID id, RoleDto roleDto) {
         User userInBD = findUserById(id);
         userInBD.setRoles(
                 Collections.singletonList(roleService.getRoleByName(roleDto.getName())));
-        return userMapper.toDto(userDao.save(userInBD));
+        return userMapper.toDto(userRepository.save(userInBD));
     }
 
     public User findUserById(UUID id) {
-        return Optional.ofNullable(userDao.findUserById(id))
+        return Optional.ofNullable(userRepository.findUserById(id))
                 .orElseThrow(() -> new EntityNotFoundException("there is no such user with id:" + id));
     }
 
     public User findUserByEmail(String email) {
-        return Optional.ofNullable(userDao.findUserByEmail(email))
+        return Optional.ofNullable(userRepository.findUserByEmail(email))
                 .orElseThrow(() -> new EntityNotFoundException("there is no such user with email:" + email));
     }
 
     public UserDto checkUserCredentialsAndGetInfo(AuthenticationRequestDto requestDto) {
         String email = requestDto.getEmail();
-        User user = userDao.findUserByEmail(email);
+        User user = userRepository.findUserByEmail(email);
         if (user != null) {
             return userMapper.toDto(user);
         }

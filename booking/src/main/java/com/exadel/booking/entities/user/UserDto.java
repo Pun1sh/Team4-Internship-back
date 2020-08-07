@@ -33,6 +33,4 @@ public class UserDto {
     private String phone;
     @NotBlank
     private String skype;
-    @NotBlank
-    private String hr;
 }
