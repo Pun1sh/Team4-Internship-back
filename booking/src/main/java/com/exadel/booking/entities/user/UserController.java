@@ -47,7 +47,7 @@ public class UserController {
     }
 
 
-    @PostMapping("myedit/{id}")
+    @PostMapping("/{id}/img")
     public UserDto createOrUpdateUserAvatar(UserDto userdto, @RequestParam(value = "file", required = false) MultipartFile file) {
         return imgFileUploader.createOrUpdateAvatar(userdto, file);
     }
