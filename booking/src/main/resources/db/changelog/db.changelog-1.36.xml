@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="gleb" id="20200807.add-tempId-to-place-table">
+        <addColumn
+                schemaName="public"
+                tableName="place">
+            <column name="pl_temp_id"
+                    type="varchar(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gleb" id="20200807.add-values-to-place-table">
+        <update
+                schemaName="public"
+                tableName="place">
+            <column name="pl_temp_id" value="78327" type="varchar"/>
+            <where>pl_temp_id is null</where>
+        </update>
+    </changeSet>
+    <changeSet author="gleb" id="20200807.add-not-null-constraint-to-place-tempId">
+        <addNotNullConstraint
+                columnDataType="varchar"
+                columnName="pl_temp_id"
+                schemaName="public"
+                tableName="place"/>
+    </changeSet>
+</databaseChangeLog>

@@ -49,4 +49,8 @@ public class Place {
     @Max(value = 25)
     @Min(value = 1)
     private Integer maxQuantity;
+
+    @Column(name = "pl_temp_id")
+    @NonNull
+    private String tempId;
 }

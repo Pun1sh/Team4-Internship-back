@@ -147,7 +147,7 @@ public class BookingServiceTest {
     }
 
     private Place createPlace() {
-        Place place = new Place(5, ID, PlaceType.CONFROOM,2);
+        Place place = new Place(5, ID, PlaceType.CONFROOM,2,getRandomPrefix());
         place.setId(ID);
         return place;
     }

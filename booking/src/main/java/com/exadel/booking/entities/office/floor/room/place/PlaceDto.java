@@ -23,4 +23,7 @@ public class PlaceDto {
     @Max(value = 25)
     @Min(value = 1)
     private int maxQuantity = 1;
+    @NonNull
+    private String tempId;
+
 }
