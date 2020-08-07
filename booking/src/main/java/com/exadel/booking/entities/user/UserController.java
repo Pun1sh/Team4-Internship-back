@@ -34,6 +34,12 @@ public class UserController {
         return userService.getAllUsers(pageable);
     }
 
+    @PreAuthorize("hasAuthority('USER_READ_ALL')")
+    @GetMapping(value = "/{id}/children")
+    public List<UserDto> getAllHrUsersByHrId(@PathVariable UUID id) {
+        return userService.getAllHrUsers(id);
+    }
+
     @PreAuthorize("hasAuthority('USER_WRITE')")
     @PutMapping("/{id}/role")
     public UserDto editUsersRole(@PathVariable("id") UUID userId, @Valid @RequestBody RoleDto roleDto) {

@@ -7,7 +7,6 @@ import com.exadel.booking.entities.user.role.RoleService;
 import com.exadel.booking.security.dto.AuthenticationRequestDto;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,13 +41,13 @@ public class UserService {
 
     public List<UserDto> findUserByWord(String word) {
         List<User> usersFromDB = new ArrayList<>();
-        if (userRepository.findUserByEmail(word).isPresent()) {
-            usersFromDB.add(userRepository.findUserByEmail(word).get());
-        }
-        usersFromDB.add(userRepository.findUserByUsername(word));
-        usersFromDB.addAll(userRepository.findUserByLastName(word));
-        usersFromDB.addAll(userRepository.findUserByFirstName(word));
+        usersFromDB.addAll(userRepository.findListUsersByCustomWord(word));
         return userMapper.toListDto(usersFromDB);
+    }
+
+    public List<UserDto> getAllHrUsers(UUID hrId) {
+        User us = userRepository.findUserById(hrId);
+        return userMapper.toListDto(us.getChildUsers());
     }
 
     public Page<UserDto> getAllUsers(Pageable pageable) {
@@ -58,9 +57,7 @@ public class UserService {
 
     public UserDto updateUser(UUID id, UserDto userDto) {
         User userInDB = findUserById(id);
-        if (StringUtils.isNotBlank(userDto.getEmail())) {
-            userInDB.setEmail(userDto.getEmail());
-        }
+        findUserById(id).setEmail(userDto.getEmail());
         return userMapper.toDto(userRepository.save(userInDB));
     }
 
