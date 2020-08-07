@@ -82,9 +82,13 @@ public class BookingService {
                 new EntityNotFoundException("no booking with id" + id)));
     }
 
-    public List<BookingDto> getAllBookingsByUserId(UUID id) throws EntityNotFoundException {
-        return bookingMapper.toListDto(Optional.ofNullable(bookingRepository.findListBookingsByUserId(id))
-                .orElseThrow(() -> new EntityNotFoundException("user with such id" + id + "has no orders")));
+    public List<BookingDto> getAllBookingsByUserId(UUID userId) throws EntityNotFoundException {
+        return bookingMapper.toListDto(Optional.ofNullable(bookingRepository.findListBookingsByUserId(userId))
+                .orElseThrow(() -> new EntityNotFoundException("user with such id" + userId + "has no orders")));
+    }
+
+    public List<BookingDto> getAllBookingsByRoomId(UUID roomId, LocalDateTime start, LocalDateTime end) throws EntityNotFoundException {
+        return bookingMapper.toListDto(bookingRepository.findListBookingsByRoomIdAndTime(roomId, start, end));
     }
 
     public Page<BookingDto> getAllActiveBookingsByUserId(UUID id, LocalDateTime now, Pageable pageable) throws EntityNotFoundException {

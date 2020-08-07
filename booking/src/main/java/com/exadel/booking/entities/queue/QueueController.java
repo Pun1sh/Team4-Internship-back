@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/queue/")
+@RequestMapping("/queue")
 @RequiredArgsConstructor
 public class QueueController {
 
@@ -26,7 +26,7 @@ public class QueueController {
     }
 
     @PreAuthorize("hasAuthority('QUEUE_READ')")
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public QueueDto getQueueDtoById(@PathVariable UUID queueId) {
         return queueService.getQueueById(queueId);
     }
@@ -38,7 +38,7 @@ public class QueueController {
     }
 
     @PreAuthorize("hasAuthority('QUEUE_DELETE')")
-    @DeleteMapping(value = "delete")
+    @DeleteMapping
     public void deleteQueueById(UUID queueId) {
         queueService.deleteQueueById(queueId);
     }
