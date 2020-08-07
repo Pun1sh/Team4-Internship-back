@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -37,6 +38,12 @@ public class PlaceController {
     @DeleteMapping(value = "/{id}")
     public void deletePlaceById(@PathVariable UUID id) {
         placeService.deletePlaceById(id);
+    }
+
+    @PreAuthorize("hasAuthority('PLACE_WRITE')")
+    @PostMapping(value = "/places")
+    public List<PlaceDto> saveAllPlaces(@RequestBody @Valid List<PlaceDto> placeDtoList) {
+        return placeService.saveAllPlaces(placeDtoList);
     }
 
 }

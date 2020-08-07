@@ -99,7 +99,7 @@ public abstract class AbstractTest {
 
     protected Place createPlace() {
         Room room = createRoom();
-        Place place = new Place(5, room.getId(), PlaceType.COWORK, 1);
+        Place place = new Place(5, room.getId(), PlaceType.COWORK, 1, getRandomPrefix());
         return placeRepository.save(place);
     }
 

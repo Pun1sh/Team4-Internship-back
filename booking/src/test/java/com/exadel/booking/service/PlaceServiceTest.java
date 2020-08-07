@@ -76,7 +76,7 @@ public class PlaceServiceTest extends AbstractTest {
     }
 
     private PlaceDto toDto(Place place) {
-        PlaceDto dto = new PlaceDto(getRandomObjectsCount(), ID, PlaceType.COWORK);
+        PlaceDto dto = new PlaceDto(getRandomObjectsCount(), ID, PlaceType.COWORK,getRandomPrefix());
         dto.setId(place.getId());
         return dto;
     }
