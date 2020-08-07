@@ -69,21 +69,26 @@ public class UserService {
     }
 
     public User findUserById(UUID id) {
-        return Optional.ofNullable(userRepository.findUserById(id))
-                .orElseThrow(() -> new EntityNotFoundException("there is no such user with id:" + id));
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("there is no such user with id:" + id));
     }
 
     public User findUserByEmail(String email) {
-        return Optional.ofNullable(userRepository.findUserByEmail(email))
-                .orElseThrow(() -> new EntityNotFoundException("there is no such user with email:" + email));
+        return userRepository.findUserByEmail(email).orElseThrow(() -> new EntityNotFoundException("there is no such user with email:" + email));
     }
 
     public UserDto checkUserCredentialsAndGetInfo(AuthenticationRequestDto requestDto) {
         String email = requestDto.getEmail();
-        User user = userRepository.findUserByEmail(email);
-        if (user != null) {
-            return userMapper.toDto(user);
+        Optional<User> user = userRepository.findUserByEmail(email);
+        if (user.isPresent()) {
+            return userMapper.toDto(user.get());
         }
         return null;
+    }
+
+    public UserDto setOrUpdateUserAvatar(UUID userId, String url) {
+        User existingUser = findUserById(userId);
+        existingUser.setImg(url);
+        userRepository.saveAndFlush(existingUser);
+        return userMapper.toDto(existingUser);
     }
 }
