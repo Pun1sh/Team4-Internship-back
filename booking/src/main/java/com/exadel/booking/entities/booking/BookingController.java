@@ -26,13 +26,13 @@ public class BookingController {
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @GetMapping(params = "userId" )
+    @GetMapping(params = "/userId" )
     public Page<BookingDto> getAllActiveBookingsByUserId(UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return bookingService.getAllActiveBookingsByUserId(userId, now, pageable);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public BookingDto getBookingById(@PathVariable UUID bookindId) {
         return bookingService.getBookingDtoById(bookindId);
     }
