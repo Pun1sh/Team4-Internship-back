@@ -23,8 +23,7 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
     @Query("SELECT b FROM Booking b WHERE b_user_id =:us_id AND b.dueDate >= :now")
     public Page<Booking> findListBookingsByUserIdAndBYDueDateFromNow(@Param("us_id") UUID id, @Param("now") LocalDateTime now, Pageable pageReq);
 
-    @Query("SELECT count(*) FROM Booking b WHERE (b_place_id=:placeId) AND (b.bookingDate<:end AND b.dueDate>:start)" +
-            "OR (b_user_id=:userId AND (b.bookingDate<:end AND b.dueDate>:start))")
+    @Query("SELECT count(*) FROM Booking b WHERE (b_place_id=:placeId OR b_user_id=:userId) AND (b.bookingDate<:end AND b.dueDate>:start)")
     public Integer numberOfIntersection(@Param("userId") UUID userId, @Param("placeId") UUID placeId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
     @Query("SELECT count(*) FROM Booking b WHERE (b_place_id=:placeId) AND (b.bookingDate<:end AND b.dueDate>:start)")
