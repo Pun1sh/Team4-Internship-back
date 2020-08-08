@@ -75,7 +75,7 @@ public class FloorServiceTest extends AbstractTest {
     }
 
     private Floor createFloor(Integer number) {
-        Floor floor = new Floor(number, ID);
+        Floor floor = new Floor(number, ID,getRandomPrefix());
         return floor;
     }
 
