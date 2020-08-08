@@ -9,7 +9,6 @@
                    tableName="floor">
             <column name="fl_map"
                     type="jsonb">
-                <constraints nullable="false"/>
             </column>
         </addColumn>
     </changeSet>

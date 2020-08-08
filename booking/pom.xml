@@ -30,7 +30,6 @@
         <version.io.jsonwebtoken>0.9.1</version.io.jsonwebtoken>
         <version.junit>4.12</version.junit>
         <version.com.h2database>1.4.200</version.com.h2database>
-        <hibernate-types.version>2.9.12</hibernate-types.version>
         <version.javax.mail>1.6.2</version.javax.mail>
         <version.org.apache.velocity>1.7</version.org.apache.velocity>
     </properties>
@@ -133,11 +132,6 @@
             <artifactId>h2</artifactId>
             <version>${version.com.h2database}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vladmihalcea</groupId>
-            <artifactId>hibernate-types-52</artifactId>
-            <version>${hibernate-types.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -87,7 +87,7 @@ public abstract class AbstractTest {
 
     protected Floor createFloor() {
         Office office = createOffice();
-        Floor floor = new Floor(getRandomObjectsCount(), office.getId());
+        Floor floor = new Floor(getRandomObjectsCount(), office.getId(), getRandomPrefix());
         return floorRepository.save(floor);
     }
 
