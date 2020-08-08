@@ -39,7 +39,6 @@ public class UserServiceTest {
         assertThat(userDao).isNotNull();
         assertThat(roleService).isNotNull();
         assertThat(userMapper).isNotNull();
-
     }
 
     @Test
@@ -67,7 +66,7 @@ public class UserServiceTest {
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
         when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
-        User userFromService = userService.getUserById(ID);
+        User userFromService = userService.findUserById(ID);
         assertThat(userFromService.getEmail() == "testName").isTrue();
     }
 

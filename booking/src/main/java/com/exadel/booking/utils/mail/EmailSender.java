@@ -68,7 +68,7 @@ public class EmailSender {
     public void sendEmailsFromAdminAboutYourPlaceIsFree(Queue queue, UUID userId) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        User user = userService.getUserById(userId);
+        User user = userService.findUserById(userId);
         String text = prepareActivateRequestEmail_AboutYourPlaceIsFree(queue, "mailtemplates/PlaceIsFree.vm.vm", user);
         configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "Place is free!");
         mailSender.send(message);
@@ -85,7 +85,7 @@ public class EmailSender {
     public void sendEmailsFromAdminAboutSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        User user = userService.getUserById(userId);
+        User user = userService.findUserById(userId);
         String text = prepareActivateRequestEmail_AboutSubcribingPlace(queue, "mailtemplates/AboutSubcribingPlace.vm", user);
         configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "Subcribing Place!");
         mailSender.send(message);
@@ -102,7 +102,7 @@ public class EmailSender {
     public void sendEmailsFromAdminAboutUnSubcribingPlace(Queue queue, UUID userId) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        User user = userService.getUserById(userId);
+        User user = userService.findUserById(userId);
         String text = prepareActivateRequestEmail_AboutUnSubcribingPlace(queue, "mailtemplates/AboutUnSubcribingPlace.vm", user);
         configureMimeMessageHelper(helper, adminEmail, user.getEmail(), text, "Unsubcribing Place!");
         mailSender.send(message);

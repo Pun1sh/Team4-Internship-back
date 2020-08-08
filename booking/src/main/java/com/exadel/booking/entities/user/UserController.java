@@ -52,7 +52,7 @@ public class UserController {
         return userService.findUserByWord(word);
     }
 
-
+    @PreAuthorize("hasAuthority('USER_WRITE')")
     @PostMapping("/{id}/img")
     public UserDto createOrUpdateUserAvatar(UserDto userdto, @RequestParam(value = "file", required = false) MultipartFile file) {
         return imgFileUploader.createOrUpdateAvatar(userdto, file);

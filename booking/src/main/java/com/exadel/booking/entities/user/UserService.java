@@ -1,7 +1,6 @@
 package com.exadel.booking.entities.user;
 
 
-import com.exadel.booking.entities.user.role.Role;
 import com.exadel.booking.entities.user.role.RoleDto;
 import com.exadel.booking.entities.user.role.RoleService;
 import com.exadel.booking.security.dto.AuthenticationRequestDto;
@@ -23,21 +22,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final AMapper<User, UserDto> userMapper;
-    private final AMapper<Role, RoleDto> roleMapper;
-
 
     public UserDto getUserDtoById(UUID id) {
         return userMapper.toDto(findUserById(id));
     }
 
-    public User getUserById(UUID id) {
-        return findUserById(id);
-    }
-
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
-
 
     public List<UserDto> findUserByWord(String word) {
         List<User> usersFromDB = new ArrayList<>();
@@ -87,8 +79,7 @@ public class UserService {
 
     public UserDto setOrUpdateUserAvatar(UUID userId, String url) {
         User existingUser = findUserById(userId);
-        existingUser.setImg(url);
-        userRepository.saveAndFlush(existingUser);
+        userRepository.save(existingUser.setImg(url));
         return userMapper.toDto(existingUser);
     }
 }

@@ -118,7 +118,7 @@ public class BookingServiceTest {
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
         when(bookingMapper.toDto(booking)).thenReturn(toDto(booking));
         when(placeService.getPlaceById(any(UUID.class))).thenReturn(place);
-        when(userService.getUserById(any(UUID.class))).thenReturn(user);
+        when(userService.findUserById(any(UUID.class))).thenReturn(user);
         doNothing().when(emailSender).sendEmailsFromAdminAboutNewBooking(any(Booking.class));
         BookingDto bookingDto = bookingService.createBooking(place.getId(), user.getId(), LocalDateTime.now(), LocalDateTime.now().plusDays(3));
         assertThat(bookingDto.getId() == booking.getId()).isTrue();
@@ -128,8 +128,8 @@ public class BookingServiceTest {
     public void checkDateTimeIsFreeTest() {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now(), user);
-        bookingService.checkDateTimeIsFree(booking.getPlace().getId(), booking.getBookingDate(), booking.getDueDate());
-        verify(bookingRepository, times(1)).numberOfIntersection(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
+        bookingService.checkDateTimeIsFreeWithoutUser(booking.getPlace().getId(), booking.getBookingDate(), booking.getDueDate());
+        verify(bookingRepository, times(1)).numberOfIntersectionWithoutUser(any(UUID.class), any(LocalDateTime.class), any(LocalDateTime.class));
     }
 
     private BookingDto toDto(Booking booking) {

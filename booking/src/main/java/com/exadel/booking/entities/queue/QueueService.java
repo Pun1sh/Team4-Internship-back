@@ -46,7 +46,7 @@ public class QueueService {
     public void sendEmail(Queue queue, UUID userId) {
         List<User> usersFromQueue = queue.getUsers();
         try {
-            if (usersFromQueue.contains(userService.getUserById(userId))) {
+            if (usersFromQueue.contains(userService.findUserById(userId))) {
                 emailSender.sendEmailsFromAdminAboutSubcribingPlace(queue, userId);
             } else {
                 emailSender.sendEmailsFromAdminAboutUnSubcribingPlace(queue, userId);
@@ -73,7 +73,7 @@ public class QueueService {
     }
 
     private Queue createQueue(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
-        Queue queue = Queue.builder().users(Arrays.asList(userService.getUserById(userId)))
+        Queue queue = Queue.builder().users(Arrays.asList(userService.findUserById(userId)))
                 .place(placeService.getPlaceById(placeId)).requestedStart(start).requestedEnd(end).build();
         return queueRepository.save(queue);
     }
@@ -84,10 +84,10 @@ public class QueueService {
 
     private Queue updateQueue(Queue queueFromDB, UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
         List<User> usersFromQueue = queueFromDB.getUsers();
-        if (usersFromQueue.contains(userService.getUserById(userId))) {
+        if (usersFromQueue.contains(userService.findUserById(userId))) {
             usersFromQueue.removeIf(x -> x.getId().equals(userId));
         } else {
-            usersFromQueue.add(userService.getUserById(userId));
+            usersFromQueue.add(userService.findUserById(userId));
         }
         return queueFromDB;
     }

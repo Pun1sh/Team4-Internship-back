@@ -21,13 +21,13 @@ public class QueueController {
 
     @PreAuthorize("hasAuthority('QUEUE_READ')")
     @GetMapping
-    public List<QueueDto> getAllQueueDto() {
+    public List<QueueDto> getAllQueue() {
         return queueService.getAllQueue();
     }
 
     @PreAuthorize("hasAuthority('QUEUE_READ')")
     @GetMapping("/{id}")
-    public QueueDto getQueueDtoById(@PathVariable UUID queueId) {
+    public QueueDto getQueueById(@PathVariable UUID queueId) {
         return queueService.getQueueById(queueId);
     }
 
