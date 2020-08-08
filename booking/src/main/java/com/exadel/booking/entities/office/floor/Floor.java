@@ -33,7 +33,7 @@ public class Floor {
     private UUID id;
 
     @OneToMany(mappedBy = "floorId", cascade = CascadeType.REMOVE,
-            orphanRemoval = true, fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY)
     private List<Room> room;
 
     @Column(name = "fl_number")
