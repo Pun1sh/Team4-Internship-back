@@ -21,13 +21,13 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping
-    public List<BookingDto> getAllBookingsByUserId(UUID userId) {
+    public List<BookingDto> getAllBookingsByUserId(@PathVariable UUID userId) {
         return bookingService.getAllBookingsByUserId(userId);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "/userId")
-    public Page<BookingDto> getAllActiveBookingsByUserId(UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
+    public Page<BookingDto> getAllActiveBookingsByUserId(@PathVariable UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return bookingService.getAllActiveBookingsByUserId(userId, now, pageable);
     }
 
@@ -39,31 +39,31 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
-    public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public BookingDto createBooking(@PathVariable UUID placeId,@PathVariable UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PutMapping
-    public BookingDto updateBooking(UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public BookingDto updateBooking(@PathVariable UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_DELETE')")
     @DeleteMapping
-    public void deleteBooking(UUID bookindId) {
+    public void deleteBooking(@PathVariable UUID bookindId) {
         bookingService.deleteBookingById(bookindId);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "placeId")
-    public Boolean IsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public Boolean IsFree(@PathVariable UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.checkDateTimeIsFreeWithoutUser(placeId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "roomId")
-    public List<BookingDto> getAllBookingsByRoomIdOnDate(UUID roomId, LocalDateTime start, LocalDateTime end) {
+    public List<BookingDto> getAllBookingsByRoomIdOnDate(@PathVariable UUID roomId, LocalDateTime start, LocalDateTime end) {
         return bookingService.getAllBookingsByRoomId(roomId, start, end);
     }
 }
