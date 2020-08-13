@@ -1,5 +1,3 @@
-/*
-
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
@@ -65,7 +63,7 @@ public class BookingRepositoryTest extends AbstractTest {
     public void whenNumberofIntersection_thenReturn1Bookings() {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now().minusDays(2), user);
-        Integer found = bookingRepository.numberOfIntersection(booking.getPlace().getId(), LocalDateTime.now().minusDays(1), LocalDateTime.now());
+        Integer found = bookingRepository.numberOfIntersectionWithoutUser(booking.getPlace().getId(), LocalDateTime.now().minusDays(1), LocalDateTime.now());
         assertThat((found == 1));
     }
 
@@ -73,8 +71,7 @@ public class BookingRepositoryTest extends AbstractTest {
     public void whenNumberofIntersection_thenReturn0Bookings() {
         User user = createUser();
         Booking booking = createBooking(LocalDateTime.now().minusDays(3), user);
-        Integer found = bookingRepository.numberOfIntersection(booking.getPlace().getId(), LocalDateTime.now(), LocalDateTime.now());
+        Integer found = bookingRepository.numberOfIntersectionWithoutUser(booking.getPlace().getId(), LocalDateTime.now(), LocalDateTime.now());
         assertThat((found == 0));
     }
 }
-*/

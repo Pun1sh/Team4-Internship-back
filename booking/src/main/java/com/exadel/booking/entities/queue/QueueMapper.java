@@ -18,7 +18,7 @@ public class QueueMapper extends AMapper<Queue, QueueDto> {
 
     public QueueMapper(ModelMapper mapper, UserService userService) {
         super(Queue.class, QueueDto.class);
-        this.userService=userService;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
@@ -41,6 +41,6 @@ public class QueueMapper extends AMapper<Queue, QueueDto> {
 
     @Override
     public void mapSpecificFieldsToEntityConverter(QueueDto source, Queue destination) {
-        destination.setUsers(source.getListusersId().stream().map(x -> userService.getUserById(x)).collect(Collectors.toList()));
+        destination.setUsers(source.getListusersId().stream().map(x -> userService.findUserById(x)).collect(Collectors.toList()));
     }
 }

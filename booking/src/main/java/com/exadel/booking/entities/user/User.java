@@ -26,64 +26,64 @@ public class User {
     @Column(name = "us_id", unique = true)
     private UUID id;
 
-    @NotBlank
     @Column(name = "us_email")
+    @NotBlank(message = "Email may not be blank")
     private String email;
 
     @Column(name = "us_img")
     private String img;
 
-    @NotBlank
     @Column(name = "us_password")
+    @NotBlank(message = "Password may not be blank")
     private String password;
 
-    @NotNull
     @Column(name = "us_is_active")
-    private Boolean isActive;
+    @NotNull
+    private Boolean isActive=true;
 
-    @NotBlank
     @Column(name = "us_username")
+    @NotBlank(message = "Username may not be blank")
     private String username;
 
-    @NotBlank
+
     @Column(name = "us_first_name")
+    @NotBlank(message = "FirstName may not be blank")
     private String firstName;
 
-    @NotBlank
+
     @Column(name = "us_last_name")
+    @NotBlank(message = "LastName may not be blank")
     private String lastName;
 
-    @NotBlank
     @Column(name = "us_position")
+    @NotBlank(message = "Position may not be blank")
     private String position;
 
-    @NotBlank
     @Column(name = "us_department")
+    @NotBlank(message = "Department may not be blank")
     private String department;
 
-    @NotBlank
     @Column(name = "us_location")
+    @NotBlank(message = "Location may not be blank")
     private String location;
 
-    @NotBlank
     @Column(name = "us_phone")
+    @NotBlank(message = "Phone may not be blank")
     private String phone;
 
-    @NotBlank
     @Column(name = "us_skype")
+    @NotBlank(message = "Skype may not be blank")
     private String skype;
 
     @ManyToMany
-    @JoinTable(name = "mapping_user_table", joinColumns =
-    @JoinColumn(name = "parent_user_id"), inverseJoinColumns = @JoinColumn(name = "child_user_id"))
-    List<User> childUsers;
+    @JoinTable(name = "mapping_user_table", joinColumns =@JoinColumn(name = "parent_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_user_id"))
+    private List<User> childUsers;
 
-    @NotNull
     @CreatedDate
     @Column(name = "us_created")
     private Date created;
 
-    @NotNull
     @LastModifiedDate
     @Column(name = "us_updated")
     private Date updated;
@@ -97,7 +97,7 @@ public class User {
     private List<Booking> bookings;
 
     @ManyToMany
-    @JoinTable(name = "user_queue", joinColumns =
-    @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "queue_id"))
+    @JoinTable(name = "user_queue", joinColumns =@JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "queue_id"))
     private List<Queue> queues;
 }

@@ -69,7 +69,7 @@ public abstract class AbstractTest {
 
     protected User createUser() {
         User user = new User();
-        user.setEmail("user@mail.ru").setUsername("user").setFirstName("fname").setLastName("lname");
+        user.setEmail("user@mail.ru").setUsername("user").setFirstName("fname").setLastName("lname").setPassword("test").setSkype("test").setPhone("test").setDepartment("test").setPosition("test").setLocation("test");
         userRepository.save(user);
         return user;
     }
