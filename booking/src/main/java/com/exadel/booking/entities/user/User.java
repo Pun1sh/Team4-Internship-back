@@ -37,11 +37,9 @@ public class User {
     @NotBlank(message = "Password may not be blank")
     private String password;
 
-
     @Column(name = "us_is_active")
     @NotNull
     private Boolean isActive=true;
-
 
     @Column(name = "us_username")
     @NotBlank(message = "Username may not be blank")
@@ -60,7 +58,6 @@ public class User {
     @Column(name = "us_position")
     @NotBlank(message = "Position may not be blank")
     private String position;
-
 
     @Column(name = "us_department")
     @NotBlank(message = "Department may not be blank")

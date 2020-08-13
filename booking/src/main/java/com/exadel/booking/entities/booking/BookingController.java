@@ -27,7 +27,7 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "userId", path = "/active")
-    public Page<BookingDto> getAllActiveBookingsByUserId(@RequestParam("userId")  UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
+    public Page<BookingDto> getAllActiveBookingsByUserId(@RequestParam("userId") UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return bookingService.getAllActiveBookingsByUserId(userId, now, pageable);
     }
 
@@ -57,13 +57,13 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "placeId", path = "byplace")
-    public Boolean IsFree( @RequestParam("placeId") UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public Boolean IsFree(@RequestParam("placeId") UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         return bookingService.checkDateTimeIsFreeWithoutUser(placeId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "roomId", path = "byroom")
-    public List<BookingDto> getAllBookingsByRoomIdOnDate( @RequestParam("roomId")  UUID roomId, LocalDateTime start, LocalDateTime end) {
+    public List<BookingDto> getAllBookingsByRoomIdOnDate(@RequestParam("roomId") UUID roomId, LocalDateTime start, LocalDateTime end) {
         return bookingService.getAllBookingsByRoomId(roomId, start, end);
     }
 }
