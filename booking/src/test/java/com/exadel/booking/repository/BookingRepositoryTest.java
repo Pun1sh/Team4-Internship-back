@@ -1,4 +1,5 @@
 /*
+
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
@@ -75,4 +76,5 @@ public class BookingRepositoryTest extends AbstractTest {
         Integer found = bookingRepository.numberOfIntersection(booking.getPlace().getId(), LocalDateTime.now(), LocalDateTime.now());
         assertThat((found == 0));
     }
-}*/
+}
+*/

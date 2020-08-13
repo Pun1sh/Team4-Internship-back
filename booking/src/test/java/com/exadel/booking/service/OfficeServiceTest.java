@@ -12,8 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,14 +38,14 @@ public class OfficeServiceTest extends AbstractTest {
         assertThat(officeMapper).isNotNull();
     }
 
-/*    @Test
+    @Test
     public void getOfficeByIdTest() throws EntityNotFoundException {
         Office office = createOffice(1);
-        when(officeRepository.findById(ID).get()).thenReturn(office);
+        when(officeRepository.findById(ID)).thenReturn(Optional.ofNullable(office));
         when(officeMapper.toDto(office)).thenReturn(toDto(office));
         OfficeDto off = officeService.getOfficeById(ID);
         assertThat(off.getNumber() == 1).isTrue();
-    }*/
+    }
 
     @Test
     public void getAllOfficesTest() {
