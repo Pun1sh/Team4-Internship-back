@@ -12,8 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,14 +39,14 @@ public class FloorServiceTest extends AbstractTest {
         assertThat(floorMapper).isNotNull();
     }
 
-/*   @Test
+    @Test
     public void getFloorByIdTest() throws EntityNotFoundException {
         Floor floor = createFloor(5);
-        when(floorRepository.findById(ID).get()).thenReturn(floor);
+        when(floorRepository.findById(ID)).thenReturn(Optional.ofNullable(floor));
         when(floorMapper.toDto(floor)).thenReturn(toDto(floor));
         FloorDto fl = floorService.getFloorById(ID);
         assertThat(fl.getNumber() == 5).isTrue();
-    }*/
+    }
 
 
     @Test
@@ -59,22 +61,21 @@ public class FloorServiceTest extends AbstractTest {
         assertThat(floorDtos.size() == floorList.size()).isTrue();
     }
 
- /*   @Test
+    @Test
     public void getAllFloorsByOfficeIdTest() {
         List<Floor> floorList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Floor floor = createFloor(5);
-            floor.setOfficeId(ID);
             floorList.add(floor);
         }
         when(floorRepository.findAllFloorsByOfficeId(ID)).thenReturn(floorList);
         when(floorMapper.toListDto(floorList)).thenReturn(toListDto(floorList));
         List<FloorDto> floorDtos = floorService.getAllFloorsByOfficeId(ID);
         assertThat(floorDtos.size() == floorList.size()).isTrue();
-    }*/
+    }
 
     private Floor createFloor(Integer number) {
-        Floor floor = new Floor(number, ID);
+        Floor floor = new Floor(number, ID,getRandomPrefix());
         return floor;
     }
 

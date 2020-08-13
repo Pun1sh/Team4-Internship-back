@@ -158,7 +158,7 @@ public class BookingServiceTest {
     }
 
     private Floor createFloor() {
-        Floor floor = new Floor(getRandomObjectsCount(), ID);
+        Floor floor = new Floor(getRandomObjectsCount(), ID,getRandomPrefix());
         return floor;
     }
 
