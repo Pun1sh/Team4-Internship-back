@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-/*
-
->>>>>>> 321eda8605cf98a568d46b875f538dffe31d3ae8
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
@@ -80,7 +75,3 @@ public class BookingRepositoryTest extends AbstractTest {
         assertThat((found == 0));
     }
 }
-<<<<<<< HEAD
-=======
-*/
->>>>>>> 321eda8605cf98a568d46b875f538dffe31d3ae8
