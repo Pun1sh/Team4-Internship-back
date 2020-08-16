@@ -28,7 +28,9 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "userId", path = "/active")
-    public Page<BookingDto> getAllActiveBookingsByUserId(@RequestParam("userId") UUID userId, LocalDateTime now, @PageableDefault(sort = {"lastName"}) Pageable pageable) {
+    public Page<BookingDto> getAllActiveBookingsByUserId(@RequestParam("userId") UUID userId,
+                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime now,
+                                                         @PageableDefault(sort = {"lastName"}) Pageable pageable) {
         return bookingService.getAllActiveBookingsByUserId(userId, now, pageable);
     }
 
@@ -40,13 +42,17 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
-    public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public BookingDto createBooking(UUID placeId, UUID userId,
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PutMapping
-    public BookingDto updateBooking(UUID bookingId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public BookingDto updateBooking(UUID bookingId,
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
         return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
     }
 
@@ -58,7 +64,9 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "placeId", path = "byplace")
-    public Boolean IsFree(@RequestParam("placeId") UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+    public Boolean IsFree(@RequestParam("placeId") UUID placeId,
+                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
+                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
         return bookingService.checkDateTimeIsFreeWithoutUser(placeId, bookingDate, dueDate);
     }
 

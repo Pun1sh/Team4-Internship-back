@@ -1,7 +1,7 @@
 package com.exadel.booking.entities.queue;
 
-import com.exadel.booking.entities.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,9 @@ public class QueueController {
 
     @PreAuthorize("hasAuthority('QUEUE_WRITE')")
     @PostMapping
-    public void subscribeOrUnsubcribePlace(UUID userId, UUID placeId, LocalDateTime start, LocalDateTime end) {
+    public void subscribeOrUnsubcribePlace(UUID userId, UUID placeId,
+                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
         queueService.createOrUpdateQueue(userId, placeId, start, end);
     }
 
