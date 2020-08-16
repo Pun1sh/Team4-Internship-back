@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +64,9 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_READ')")
     @GetMapping(params = "roomId", path = "byroom")
-    public List<BookingDto> getAllBookingsByRoomIdOnDate(@RequestParam("roomId") UUID roomId, LocalDateTime start, LocalDateTime end) {
+    public List<BookingDto> getAllBookingsByRoomIdOnDate(@RequestParam("roomId") UUID roomId,
+                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
         return bookingService.getAllBookingsByRoomId(roomId, start, end);
     }
 }
