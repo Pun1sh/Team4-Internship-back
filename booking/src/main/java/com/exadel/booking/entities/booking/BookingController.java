@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
-    public BookingDto createBooking(UUID placeId, UUID userId,
+    public BookingDto createBooking(@Valid UUID placeId, @Valid UUID userId,
                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
         return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
