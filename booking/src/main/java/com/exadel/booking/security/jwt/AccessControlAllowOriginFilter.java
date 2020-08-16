@@ -18,6 +18,10 @@ public class AccessControlAllowOriginFilter implements Filter {
         res.addHeader("Access-Control-Allow-Headers", "Content-Type");
         res.addHeader("Access-Control-Allow-Headers", "Authorization");
         res.addHeader(" Access-Control-Allow-Methods", "POST");
+        res.addHeader(" Access-Control-Allow-Methods", "GET");
+        res.addHeader(" Access-Control-Allow-Methods", "PUT");
+        res.addHeader(" Access-Control-Allow-Methods", "DELETE");
+        res.addHeader(" Access-Control-Allow-Methods", "OPTIONS");
         chain.doFilter(req, res);
     }
 }
