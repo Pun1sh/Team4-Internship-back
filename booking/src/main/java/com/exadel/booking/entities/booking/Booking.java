@@ -2,7 +2,12 @@ package com.exadel.booking.entities.booking;
 
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.user.User;
+<<<<<<< HEAD
 import lombok.*;
+=======
+import lombok.Builder;
+import lombok.Data;
+>>>>>>> parent of df7c960... +
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -12,9 +17,9 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Builder
 @Accessors(fluent = false, chain = true)
 @Table(name = "booking")
-@RequiredArgsConstructor
 public class Booking {
 
     @Id

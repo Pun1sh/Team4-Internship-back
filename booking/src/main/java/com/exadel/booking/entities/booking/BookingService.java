@@ -36,11 +36,7 @@ public class BookingService {
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         if (checkDateTimeIsFree(userId, placeId, bookingDate, dueDate)) {
-            Booking booking = new Booking();
-            booking.setPlace(placeService.getPlaceById(placeId));
-            booking.setUser(userService.findUserById(userId));
-            booking.setBookingDate(bookingDate);
-            booking.setDueDate(dueDate);
+            Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.findUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
             sendEmailsFromAdminAboutNewBooking(booking);
             return bookingMapper.toDto(bookingRepository.save(booking));
         } else {
