@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PlaceMapper extends AMapper<Place, PlaceDto> {
-    public PlaceMapper() {
 
+    public PlaceMapper() {
         super(Place.class, PlaceDto.class);
     }
 }
