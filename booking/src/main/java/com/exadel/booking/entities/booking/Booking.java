@@ -2,10 +2,7 @@ package com.exadel.booking.entities.booking;
 
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.user.User;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -40,6 +37,8 @@ public class Booking {
 
     @NotNull
     @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JoinColumn(name = "b_user_id", referencedColumnName = "us_id")
     private User user;
 }
