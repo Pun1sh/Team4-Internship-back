@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@ToString(exclude = "user")
-@EqualsAndHashCode(exclude = "user")
 @Data
 @Builder
 @Accessors(fluent = false, chain = true)
