@@ -105,7 +105,12 @@ public abstract class AbstractTest {
 
     protected Booking createBooking(LocalDateTime now, User user) {
         Place place = createPlace();
-        Booking booking = Booking.builder().place(place).user(user).bookingDate(now).dueDate(now.plusDays(2)).build();
+        Booking booking = new Booking();
+        booking.setPlace(place);
+        booking.setUser(user);
+        booking.setBookingDate(now);
+        booking.setDueDate(now.plusDays(2));
+        booking.setId(ID);
         return bookingRepository.save(booking);
     }
 
@@ -116,6 +121,4 @@ public abstract class AbstractTest {
                 .requestedStart(LocalDateTime.now().minusDays(2)).requestedEnd(LocalDateTime.now()).build();
         return queueRepository.save(queue);
     }
-
-
 }

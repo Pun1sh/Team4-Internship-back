@@ -174,7 +174,12 @@ public class BookingServiceTest {
 
     private Booking createBooking(LocalDateTime now, User user) {
         Place place = createPlace();
-        Booking booking = Booking.builder().place(place).user(user).bookingDate(now).dueDate(now.plusDays(2)).id(ID).build();
+        Booking booking = new Booking();
+        booking.setPlace(place);
+        booking.setUser(user);
+        booking.setBookingDate(now);
+        booking.setDueDate(now.plusDays(2));
+        booking.setId(ID);
         return booking;
     }
 
