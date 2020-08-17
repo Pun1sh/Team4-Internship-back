@@ -1,6 +1,5 @@
 package com.exadel.booking.entities.booking;
 
-import com.exadel.booking.entities.office.floor.FloorDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,16 +43,14 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
-    public BookingDto createBooking(@RequestBody @Valid BookingDto bookingDto) {
-        return bookingService.createBooking(bookingDto.getPlaceId(), bookingDto.getUserDto().getId(), bookingDto.getBookingDate(), bookingDto.getDueDate());
+    public BookingDto createBooking(@RequestBody @Valid BookingDto newbookingDto) {
+        return bookingService.createBooking(newbookingDto.getUserDto().getId(), newbookingDto.getPlaceId(), newbookingDto.getBookingDate(), newbookingDto.getDueDate());
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PutMapping
-    public BookingDto updateBooking(UUID bookingId,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
-        return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
+    public BookingDto updateBooking(@RequestParam("bookingId")  UUID bookingID, @RequestBody @Valid BookingDto newbookingDto) {
+        return bookingService.updateBookingTime(bookingID, newbookingDto);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_DELETE')")

@@ -45,11 +45,11 @@ public class BookingService {
         return null;
     }
 
-    public BookingDto updateBookingTime(UUID bookingId, LocalDateTime start, LocalDateTime end) {
+    public BookingDto updateBookingTime(UUID bookingId, BookingDto bookingDto) {
         BookingDto bookingdto = getBookingDtoById(bookingId);
         Booking booking = bookingRepository.findBookingById(bookingId);
-        if (checkDateTimeIsFree(booking.getUser().getId(), booking.getPlace().getId(), start, end)) {
-            booking.setBookingDate(start).setDueDate(end);
+        if (checkDateTimeIsFree(booking.getUser().getId(), booking.getPlace().getId(), bookingDto.getBookingDate(), bookingDto.getDueDate())) {
+            booking.setBookingDate(bookingDto.getBookingDate()).setDueDate(bookingDto.getDueDate());
             sendEmailsFromAdminAboutNewBooking(booking);
             BookingDto newBookingDto = bookingMapper.toDto(bookingRepository.save(booking));
             checkIfSomeOneNeedThisPlace(bookingdto);
