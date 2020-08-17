@@ -33,4 +33,5 @@ public class UserDto {
     private String phone;
     @NotBlank(message = "Skype may not be blank")
     private String skype;
+    private String img;
 }
