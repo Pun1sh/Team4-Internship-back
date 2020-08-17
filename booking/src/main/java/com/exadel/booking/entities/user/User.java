@@ -98,7 +98,7 @@ public class User {
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Booking> bookings;
+    private List<Booking> bookings;
 
     @ManyToMany
     @JoinTable(name = "user_queue", joinColumns =@JoinColumn(name = "user_id"),
