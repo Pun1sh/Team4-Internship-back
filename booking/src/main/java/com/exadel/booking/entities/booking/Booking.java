@@ -4,8 +4,6 @@ import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.user.User;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
