@@ -44,7 +44,7 @@ public class BookingController {
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
     public BookingDto createBooking(@RequestBody @Valid BookingDto newbookingDto) {
-        return bookingService.createBooking(newbookingDto.getUserDto().getId(), newbookingDto.getPlaceId(), newbookingDto.getBookingDate(), newbookingDto.getDueDate());
+        return bookingService.createBooking(newbookingDto.getPlaceId(), newbookingDto.getUserDto().getId(), newbookingDto.getBookingDate(), newbookingDto.getDueDate());
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
