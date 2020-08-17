@@ -18,8 +18,6 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     public List<Booking> findListBookingsByUserId(UUID id);
 
-    public List<Booking> findListBookingsByPlaceId(UUID id);
-
     @Query("SELECT b FROM Booking b WHERE b.user.id =:us_id AND b.dueDate >= :now")
     public Page<Booking> findListBookingsByUserIdAndBYDueDateFromNow(@Param("us_id") UUID id, @Param("now") LocalDateTime now, Pageable pageReq);
 
