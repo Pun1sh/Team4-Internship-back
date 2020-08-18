@@ -75,7 +75,7 @@ public class UserServiceTest {
         User user = createUser("testName");
         when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         User userToUpdate = createUser("newTest");
-        when(userDao.save(userToUpdate)).thenReturn(userToUpdate);
+        when(userDao.save(any(User.class))).thenReturn(userToUpdate);
         UserDto userFromService = userService.updateUser(ID, toDto(userToUpdate));
         verify(userDao, times(1)).save(user);
     }
