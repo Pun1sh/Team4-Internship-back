@@ -21,6 +21,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "bookings")
 @Accessors(fluent = false, chain = true)
 @Table(name = "users")
 public class User {
