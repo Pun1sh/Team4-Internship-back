@@ -1,6 +1,7 @@
 package com.exadel.booking.entities.office;
 
 import com.exadel.booking.entities.office.floor.Floor;
+import com.exadel.booking.entities.office.floor.FloorDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -18,5 +19,5 @@ public class OfficeDto {
     private Integer number;
     @NonNull
     private UUID addressId;
-    private List<Floor> floor;
+    private List<FloorDto> floor;
 }

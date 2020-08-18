@@ -1,6 +1,7 @@
 package com.exadel.booking.entities.office.floor;
 
 import com.exadel.booking.entities.office.floor.room.Room;
+import com.exadel.booking.entities.office.floor.room.RoomDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -21,5 +22,5 @@ public class FloorDto {
     private UUID officeId;
     @NonNull
     private String map;
-    private List<Room> room;
+    private List<RoomDto> room;
 }

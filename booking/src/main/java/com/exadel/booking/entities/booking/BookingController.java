@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -42,18 +43,14 @@ public class BookingController {
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PostMapping
-    public BookingDto createBooking(UUID placeId, UUID userId,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
-        return bookingService.createBooking(placeId, userId, bookingDate, dueDate);
+    public BookingDto createBooking(@RequestBody @Valid BookingDto newbookingDto) {
+        return bookingService.createBooking(newbookingDto.getPlaceId(), newbookingDto.getUserDto().getId(), newbookingDto.getBookingDate(), newbookingDto.getDueDate());
     }
 
     @PreAuthorize("hasAuthority('BOOKING_WRITE')")
     @PutMapping
-    public BookingDto updateBooking(UUID bookingId,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime bookingDate,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDate) {
-        return bookingService.updateBookingTime(bookingId, bookingDate, dueDate);
+    public BookingDto updateBooking(@RequestParam("bookingId")  UUID bookingID, @RequestBody @Valid BookingDto newbookingDto) {
+        return bookingService.updateBookingTime(bookingID, newbookingDto);
     }
 
     @PreAuthorize("hasAuthority('BOOKING_DELETE')")

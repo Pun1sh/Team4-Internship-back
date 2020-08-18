@@ -3,7 +3,7 @@ package com.exadel.booking.entities.user;
 import com.exadel.booking.entities.booking.Booking;
 import com.exadel.booking.entities.queue.Queue;
 import com.exadel.booking.entities.user.role.Role;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,10 +13,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(fluent = false, chain = true)
 @Table(name = "users")
 public class User {

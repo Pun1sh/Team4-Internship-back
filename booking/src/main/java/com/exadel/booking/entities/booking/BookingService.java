@@ -36,7 +36,8 @@ public class BookingService {
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
         if (checkDateTimeIsFree(userId, placeId, bookingDate, dueDate)) {
-            Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.findUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
+            Booking booking = Booking.builder().place(placeService.getPlaceById(placeId))
+                    .user(userService.findUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
             sendEmailsFromAdminAboutNewBooking(booking);
             return bookingMapper.toDto(bookingRepository.save(booking));
         } else {
@@ -45,11 +46,11 @@ public class BookingService {
         return null;
     }
 
-    public BookingDto updateBookingTime(UUID bookingId, LocalDateTime start, LocalDateTime end) {
+    public BookingDto updateBookingTime(UUID bookingId, BookingDto bookingDto) {
         BookingDto bookingdto = getBookingDtoById(bookingId);
         Booking booking = bookingRepository.findBookingById(bookingId);
-        if (checkDateTimeIsFree(booking.getUser().getId(), booking.getPlace().getId(), start, end)) {
-            booking.setBookingDate(start).setDueDate(end);
+        if (checkDateTimeIsFree(booking.getUser().getId(), booking.getPlace().getId(), bookingDto.getBookingDate(), bookingDto.getDueDate())) {
+            booking.setBookingDate(bookingDto.getBookingDate()).setDueDate(bookingDto.getDueDate());
             sendEmailsFromAdminAboutNewBooking(booking);
             BookingDto newBookingDto = bookingMapper.toDto(bookingRepository.save(booking));
             checkIfSomeOneNeedThisPlace(bookingdto);
