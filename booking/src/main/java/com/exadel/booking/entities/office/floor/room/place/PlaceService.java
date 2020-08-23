@@ -1,6 +1,5 @@
 package com.exadel.booking.entities.office.floor.room.place;
 
-import com.exadel.booking.entities.office.floor.room.RoomRepository;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,7 +16,6 @@ import java.util.UUID;
 public class PlaceService {
     private final PlaceRepository placeRepository;
     private final AMapper<Place, PlaceDto> placeMapper;
-    private final RoomRepository roomRepository;
 
     public PlaceDto getPlaceDtoById(UUID id) {
         return placeMapper.toDto(getPlaceById(id));
@@ -27,7 +26,6 @@ public class PlaceService {
     }
 
     public List<PlaceDto> getAllPlacesByRoomId(UUID id) {
-        roomRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("no room with id " + id));
         return placeMapper.toListDto(placeRepository.findAllPlacesByRoomId(id));
     }
 
@@ -38,6 +36,12 @@ public class PlaceService {
 
     public PlaceDto savePlaceFromDto(PlaceDto placeDto) {
         return placeMapper.toDto(placeRepository.save(placeMapper.toEntity(placeDto)));
+    }
+
+    public List<PlaceDto> saveAllPlaces(List<PlaceDto> list) {
+        return placeMapper.toListDto
+                (placeRepository.saveAll(list.stream().map
+                        (placeDto -> placeMapper.toEntity(placeDto)).collect(Collectors.toList())));
     }
 
     public void deletePlaceById(UUID id) {

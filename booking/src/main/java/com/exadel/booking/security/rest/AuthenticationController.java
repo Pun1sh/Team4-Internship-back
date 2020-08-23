@@ -6,6 +6,7 @@ import com.exadel.booking.entities.user.role.Role;
 import com.exadel.booking.security.dto.AuthenticationRequestDto;
 import com.exadel.booking.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Validated
 public class AuthenticationController {
+
+    @Value("${jwt.token.expired}")
+    private long validityInMilliseconds;
 
     private final AuthenticationManager authenticationManager;
 
@@ -50,6 +54,7 @@ public class AuthenticationController {
             Map<Object, Object> response = new HashMap<>();
             response.put("userInfo", userDto);
             response.put("token", token);
+            response.put("expiresIn", validityInMilliseconds);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             return new ResponseEntity<String>("Invalid email or password", HttpStatus.UNAUTHORIZED);

@@ -27,25 +27,17 @@ public class BookingMapper extends AMapper<Booking, BookingDto> {
     public void setupMapper() {
         mapper.createTypeMap(Booking.class, BookingDto.class).addMappings(m -> {
             m.skip(BookingDto::setPlaceId);
-            m.skip(BookingDto::setUserId);
         }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(BookingDto.class, Booking.class).addMappings(m -> {
             m.skip(Booking::setPlace);
-            m.skip(Booking::setUser);
-        })
-                .setPostConverter(toEntityConverter());
+        }).setPostConverter(toEntityConverter());
     }
 
     @Override
     public void mapSpecificFieldsToDtoConverter(Booking source, BookingDto destination) {
-        destination.setUserId(getUserDtoId(source));
         destination.setPlaceId(getPlaceDtoId(source));
     }
 
-    private UUID getUserDtoId(Booking source) {
-        return Objects.isNull(source) || Objects.isNull(source.getId()) ? null
-                : source.getUser().getId();
-    }
 
     private UUID getPlaceDtoId(Booking source) {
         return Objects.isNull(source) || Objects.isNull(source.getId()) ? null
@@ -55,6 +47,5 @@ public class BookingMapper extends AMapper<Booking, BookingDto> {
     @Override
     public void mapSpecificFieldsToEntityConverter(BookingDto source, Booking destination) {
         destination.setPlace(placeRepository.getOne(source.getPlaceId()));
-        destination.setUser(userRepository.findUserById(source.getUserId()));
     }
 }

@@ -1,7 +1,6 @@
 package com.exadel.booking.service;
 
 import com.exadel.booking.AbstractTest;
-import com.exadel.booking.entities.office.floor.FloorRepository;
 import com.exadel.booking.entities.office.floor.room.Room;
 import com.exadel.booking.entities.office.floor.room.RoomDto;
 import com.exadel.booking.entities.office.floor.room.RoomRepository;
@@ -16,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,8 +29,6 @@ public class RoomServiceTest extends AbstractTest {
     @Mock
     RoomRepository roomRepository;
     @Mock
-    FloorRepository floorRepository;
-    @Mock
     AMapper roomMapper;
 
 
@@ -40,14 +38,14 @@ public class RoomServiceTest extends AbstractTest {
         assertThat(roomMapper).isNotNull();
     }
 
-/*    @Test
+    @Test
     public void getRoomByIdTest() throws EntityNotFoundException {
         Room room = createRoom(5);
-        when(roomRepository.findById(ID).get()).thenReturn(room);
+        when(roomRepository.findById(ID)).thenReturn(Optional.ofNullable(room));
         when(roomMapper.toDto(room)).thenReturn(toDto(room));
         RoomDto dto = roomService.getRoomById(ID);
         assertThat(dto.getNumber() == 5).isTrue();
-    }*/
+    }
 
 
     @Test
@@ -62,7 +60,7 @@ public class RoomServiceTest extends AbstractTest {
         assertThat(roomDtos.size() == roomList.size()).isTrue();
     }
 
-/*    @Test
+    @Test
     public void getAllRoomsByFloorIdTest() {
         List<Room> roomList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -73,7 +71,7 @@ public class RoomServiceTest extends AbstractTest {
         when(roomMapper.toListDto(roomList)).thenReturn(toListDto(roomList));
         List<RoomDto> roomDtos = roomService.getAllRoomsByFloorId(ID);
         assertThat(roomDtos.size() == roomList.size()).isTrue();
-    }*/
+    }
 
     private Room createRoom(Integer number) {
         Room room = new Room(number, ID);
@@ -81,9 +79,8 @@ public class RoomServiceTest extends AbstractTest {
     }
 
     private RoomDto toDto(Room room) {
-        RoomDto dto = new RoomDto(getRandomObjectsCount(), ID);
+        RoomDto dto = new RoomDto(room.getNumber(), ID);
         dto.setId(room.getId());
-        dto.setNumber(room.getNumber());
         return dto;
     }
 

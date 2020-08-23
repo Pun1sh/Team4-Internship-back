@@ -4,6 +4,7 @@ import com.exadel.booking.entities.user.User;
 import com.exadel.booking.entities.user.authority.Authority;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "role")
+@Accessors(fluent = false, chain = true)
 @NoArgsConstructor
 public class Role {
 
@@ -32,6 +34,4 @@ public class Role {
     @JoinTable(name = "role_authority", joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private List<Authority> authorities;
-
-
 }

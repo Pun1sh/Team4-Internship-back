@@ -39,7 +39,6 @@ public class UserServiceTest {
         assertThat(userDao).isNotNull();
         assertThat(roleService).isNotNull();
         assertThat(userMapper).isNotNull();
-
     }
 
     @Test
@@ -57,7 +56,7 @@ public class UserServiceTest {
     @Test
     public void getUserDtoByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         when(userMapper.toDto(user)).thenReturn(toDto(user));
         UserDto userFromService = userService.getUserDtoById(ID);
         assertThat(userFromService.getId() == ID).isTrue();
@@ -66,17 +65,17 @@ public class UserServiceTest {
     @Test
     public void getUserByIdTest() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
-        User userFromService = userService.getUserById(ID);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
+        User userFromService = userService.findUserById(ID);
         assertThat(userFromService.getEmail() == "testName").isTrue();
     }
 
     @Test
     public void updateUser() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         User userToUpdate = createUser("newTest");
-        when(userDao.save(userToUpdate)).thenReturn(userToUpdate);
+        when(userDao.save(any(User.class))).thenReturn(userToUpdate);
         UserDto userFromService = userService.updateUser(ID, toDto(userToUpdate));
         verify(userDao, times(1)).save(user);
     }
@@ -84,7 +83,7 @@ public class UserServiceTest {
     @Test
     public void editUsersRole() throws EntityNotFoundException {
         User user = createUser("testName");
-        when(userDao.findUserById(ID)).thenReturn(user);
+        when(userDao.findById(ID)).thenReturn(Optional.ofNullable(user));
         Role roleToUpdate = createRole("newTest");
         roleToUpdate.setName("newTest");
         when(roleService.getRoleByName("newTest")).thenReturn(roleToUpdate);

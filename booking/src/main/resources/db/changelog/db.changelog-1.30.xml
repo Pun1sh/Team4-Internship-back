@@ -4,11 +4,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="gleb" id="20200723.add-column-map-to-floor-table">
-        <addColumn schemaName="public"
-                   tableName="floor">
-            <column name="fl_map"
-                    type="jsonb">
+    <changeSet author="nastia" id="20200806.add-column-img">
+        <addColumn
+                schemaName="public"
+                tableName="users">
+            <column name="us_img"
+                    type="varchar(255)">
             </column>
         </addColumn>
     </changeSet>

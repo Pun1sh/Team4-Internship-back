@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,13 +39,13 @@ public class AddressServiceTest extends AbstractTest {
         assertThat(addressMapper).isNotNull();
     }
 
-/*    @Test
+    @Test
     public void getAddressByIdTest() throws EntityNotFoundException {
         Address address = createAddress("US");
-        when(addressRepository.findById(ID).get()).thenReturn(address);
+        when(addressRepository.findById(ID)).thenReturn(Optional.ofNullable((address)));
         AddressDto addressDto = addressService.getAddressById(ID);
         assertThat(address.getCountryName() == "US").isTrue();
-    }*/
+    }
 
     @Test
     public void getAllAddressesTest() {

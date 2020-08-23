@@ -1,4 +1,3 @@
-/*
 package com.exadel.booking.repository;
 
 import com.exadel.booking.AbstractTest;
@@ -31,9 +30,9 @@ public class QueueRepositoryTest extends AbstractTest {
     public void whenFindQueueByPlaceIdAndStartEndTime_thenReturnQueue() {
         Queue queue = createQueue();
         Queue found = queueRepository.findQueueByPlaceIdAndStartEndTime(queue.getPlace().getId(), queue.getRequestedStart(), queue.getRequestedEnd());
-        UUID idd=found.getId();
-        UUID iddd=queue.getId();
+        UUID idd = found.getId();
+        UUID iddd = queue.getId();
         assertThat(found.getId()).isEqualTo(queue.getId());
     }
 }
-*/
+

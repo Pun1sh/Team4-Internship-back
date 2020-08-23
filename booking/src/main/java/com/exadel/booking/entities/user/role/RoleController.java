@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "role")
+@RequestMapping(value = "/role")
 public class RoleController {
 
     private final RoleService roleService;
@@ -22,7 +22,7 @@ public class RoleController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_READ')")
-    @GetMapping("/")
+    @GetMapping
     public List<RoleDto> getAllRoles() {
         return roleService.getAllRoles();
     }

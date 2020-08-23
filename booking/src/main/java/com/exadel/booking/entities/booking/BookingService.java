@@ -35,13 +35,10 @@ public class BookingService {
     private final QueueService queueService;
 
     public BookingDto createBooking(UUID placeId, UUID userId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        if (checkDateTimeIsFree(placeId, bookingDate, dueDate)) {
-            Booking booking = Booking.builder().place(placeService.getPlaceById(placeId)).user(userService.getUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
-            try {
-                emailSender.sendEmailsFromAdminAboutNewBooking(booking);
-            } catch (MessagingException e) {
-                log.info("Mailing error", e);
-            }
+        if (checkDateTimeIsFree(userId, placeId, bookingDate, dueDate)) {
+            Booking booking = Booking.builder().place(placeService.getPlaceById(placeId))
+                    .user(userService.findUserById(userId)).bookingDate(bookingDate).dueDate(dueDate).build();
+            sendEmailsFromAdminAboutNewBooking(booking);
             return bookingMapper.toDto(bookingRepository.save(booking));
         } else {
             new IllegalArgumentException("sorry time is busy");
@@ -49,12 +46,11 @@ public class BookingService {
         return null;
     }
 
-    public BookingDto updateBookingTime(UUID bookingId, LocalDateTime start, LocalDateTime end) {
+    public BookingDto updateBookingTime(UUID bookingId, BookingDto bookingDto) {
         BookingDto bookingdto = getBookingDtoById(bookingId);
         Booking booking = bookingRepository.findBookingById(bookingId);
-        if (checkDateTimeIsFree(booking.getPlace().getId(), start, end)) {
-            booking.setBookingDate(start);
-            booking.setDueDate(end);
+        if (checkDateTimeIsFree(booking.getUser().getId(), booking.getPlace().getId(), bookingDto.getBookingDate(), bookingDto.getDueDate())) {
+            booking.setBookingDate(bookingDto.getBookingDate()).setDueDate(bookingDto.getDueDate());
             sendEmailsFromAdminAboutNewBooking(booking);
             BookingDto newBookingDto = bookingMapper.toDto(bookingRepository.save(booking));
             checkIfSomeOneNeedThisPlace(bookingdto);
@@ -65,16 +61,12 @@ public class BookingService {
         return null;
     }
 
-    private void sendEmailsFromAdminAboutNewBooking(Booking booking) {
-        try {
-            emailSender.sendEmailsFromAdminAboutNewBooking(booking);
-        } catch (MessagingException e) {
-            log.info("Mailing error", e);
-        }
+    public Boolean checkDateTimeIsFreeWithoutUser(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+        return bookingRepository.numberOfIntersectionWithoutUser(placeId, bookingDate, dueDate) == 0 ? true : false;
     }
 
-    public Boolean checkDateTimeIsFree(UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
-        return bookingRepository.numberOfIntersection(placeId, bookingDate, dueDate) == 0 ? true : false;
+    public Boolean checkDateTimeIsFree(UUID userId, UUID placeId, LocalDateTime bookingDate, LocalDateTime dueDate) {
+        return bookingRepository.numberOfIntersection(userId, placeId, bookingDate, dueDate) == 0 ? true : false;
     }
 
     public BookingDto getBookingDtoById(UUID id) {
@@ -82,9 +74,13 @@ public class BookingService {
                 new EntityNotFoundException("no booking with id" + id)));
     }
 
-    public List<BookingDto> getAllBookingsByUserId(UUID id) throws EntityNotFoundException {
-        return bookingMapper.toListDto(Optional.ofNullable(bookingRepository.findListBookingsByUserId(id))
-                .orElseThrow(() -> new EntityNotFoundException("user with such id" + id + "has no orders")));
+    public List<BookingDto> getAllBookingsByUserId(UUID userId) throws EntityNotFoundException {
+        return bookingMapper.toListDto(Optional.ofNullable(bookingRepository.findListBookingsByUserId(userId))
+                .orElseThrow(() -> new EntityNotFoundException("user with such id" + userId + "has no orders")));
+    }
+
+    public List<BookingDto> getAllBookingsByRoomId(UUID roomId, LocalDateTime start, LocalDateTime end) throws EntityNotFoundException {
+        return bookingMapper.toListDto(bookingRepository.findListBookingsByRoomIdAndTime(roomId, start, end));
     }
 
     public Page<BookingDto> getAllActiveBookingsByUserId(UUID id, LocalDateTime now, Pageable pageable) throws EntityNotFoundException {
@@ -98,14 +94,25 @@ public class BookingService {
         checkIfSomeOneNeedThisPlace(bookingdto);
     }
 
-    public void checkIfThisPlace(BookingDto bookingdto) {
+    private void checkIfSomeOneNeedThisPlace(BookingDto bookingdto) {
         List<Queue> queueList = queueService.findQueueThatIntersectByPlaceAndTimeWithBooking(bookingdto);
         checkIfQueuesOverlapWithOtherBookings(queueList);
     }
 
-    private void checkIfSomeOneNeedThisPlace(BookingDto bookingdto) {
-        List<Queue> queueList = queueService.findQueueThatIntersectByPlaceAndTimeWithBooking(bookingdto);
-        checkIfQueuesOverlapWithOtherBookings(queueList);
+    private void sendEmailsFromAdminAboutNewBooking(Booking booking) {
+        try {
+            emailSender.sendEmailsFromAdminAboutNewBooking(booking);
+        } catch (MessagingException e) {
+            log.info("Mailing error", e);
+        }
+    }
+
+    private void checkIfQueuesOverlapWithOtherBookings(List<Queue> queueList) {
+        for (Queue queue : queueList) {
+            if (checkDateTimeIsFreeWithoutUser(queue.getPlace().getId(), queue.getRequestedStart(), queue.getRequestedEnd())) {
+                sendEmailsFromAdminAboutYourPlaceIsFree(queue);
+            }
+        }
     }
 
     private void sendEmailsFromAdminAboutYourPlaceIsFree(Queue queue) {
@@ -114,15 +121,6 @@ public class BookingService {
                 emailSender.sendEmailsFromAdminAboutYourPlaceIsFree(queue, user.getId());
             } catch (MessagingException e) {
                 log.info("Mailing error", e);
-            }
-        }
-    }
-
-    private void checkIfQueuesOverlapWithOtherBookings(List<Queue> queueList) {
-        for (Queue queue : queueList) {
-            Integer num = bookingRepository.numberOfIntersection(queue.getPlace().getId(), queue.getRequestedStart(), queue.getRequestedEnd());
-            if (num == 0) {
-                sendEmailsFromAdminAboutYourPlaceIsFree(queue);
             }
         }
     }

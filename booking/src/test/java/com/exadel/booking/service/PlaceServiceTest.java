@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,13 +37,14 @@ public class PlaceServiceTest extends AbstractTest {
     }
 
 
-/*    @Test
+    @Test
     public void getPlaceByIdTest() throws EntityNotFoundException {
         Place place = createPlace(5);
-        when(placeRepository.findById(ID).get()).thenReturn(place);
+        when(placeRepository.findById(ID)).thenReturn(Optional.ofNullable(place));
+        when(placeMapper.toDto(place)).thenReturn(toDto(place));
         PlaceDto found = placeService.getPlaceDtoById(ID);
         assertThat(found.getNumber() == 5).isTrue();
-    }*/
+    }
 
 
     @Test
@@ -57,7 +59,7 @@ public class PlaceServiceTest extends AbstractTest {
         assertThat(placeDtos.size() == placeList.size()).isTrue();
     }
 
-/*    @Test
+    @Test
     public void getAllPlacesByRoomIdTest() {
         List<Place> placeList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -69,15 +71,16 @@ public class PlaceServiceTest extends AbstractTest {
         when(placeMapper.toListDto(placeList)).thenReturn(toListDto(placeList));
         List<PlaceDto> placeDtos = placeService.getAllPlacesByRoomId(ID);
         assertThat(placeDtos.size() == placeList.size()).isTrue();
-    }*/
+    }
 
     private Place createPlace(Integer number) {
         Place place = new Place();
+        place.setNumber(number);
         return place;
     }
 
     private PlaceDto toDto(Place place) {
-        PlaceDto dto = new PlaceDto(getRandomObjectsCount(), ID, PlaceType.COWORK);
+        PlaceDto dto = new PlaceDto(place.getNumber(), ID, PlaceType.COWORK, getRandomPrefix());
         dto.setId(place.getId());
         return dto;
     }

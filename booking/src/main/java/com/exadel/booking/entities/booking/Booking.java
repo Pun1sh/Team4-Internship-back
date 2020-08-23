@@ -2,8 +2,7 @@ package com.exadel.booking.entities.booking;
 
 import com.exadel.booking.entities.office.floor.room.place.Place;
 import com.exadel.booking.entities.user.User;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -12,6 +11,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "user")
+@EqualsAndHashCode(exclude = "user")
 @Data
 @Builder
 @Accessors(fluent = false, chain = true)
@@ -40,5 +43,4 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "b_user_id", referencedColumnName = "us_id")
     private User user;
-
 }

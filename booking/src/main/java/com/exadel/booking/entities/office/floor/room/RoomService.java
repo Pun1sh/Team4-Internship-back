@@ -1,6 +1,5 @@
 package com.exadel.booking.entities.office.floor.room;
 
-import com.exadel.booking.entities.office.floor.FloorRepository;
 import com.exadel.booking.utils.modelmapper.AMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class RoomService {
     private final RoomRepository roomRepository;
     private final AMapper<Room, RoomDto> roomMapper;
-    private final FloorRepository floorRepository;
 
 
     public RoomDto getRoomById(UUID id) {
@@ -28,8 +26,6 @@ public class RoomService {
     }
 
     public List<RoomDto> getAllRoomsByFloorId(UUID id) {
-        floorRepository.findById(id).
-                orElseThrow(() -> new EntityNotFoundException("no floor with id " + id));
         return roomMapper.toListDto(roomRepository.findAllRoomsByFloorId(id));
     }
 

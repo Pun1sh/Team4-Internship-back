@@ -69,7 +69,7 @@ public abstract class AbstractTest {
 
     protected User createUser() {
         User user = new User();
-        user.setEmail("user@mail.ru").setUsername("user").setFirstName("fname").setLastName("lname");
+        user.setEmail("user@mail.ru").setUsername("user").setFirstName("fname").setLastName("lname").setPassword("test").setSkype("test").setPhone("test").setDepartment("test").setPosition("test").setLocation("test");
         userRepository.save(user);
         return user;
     }
@@ -87,7 +87,7 @@ public abstract class AbstractTest {
 
     protected Floor createFloor() {
         Office office = createOffice();
-        Floor floor = new Floor(getRandomObjectsCount(), office.getId());
+        Floor floor = new Floor(getRandomObjectsCount(), office.getId(), getRandomPrefix());
         return floorRepository.save(floor);
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractTest {
 
     protected Place createPlace() {
         Room room = createRoom();
-        Place place = new Place(5, room.getId(), PlaceType.COWORK, 1);
+        Place place = new Place(5, room.getId(), PlaceType.COWORK, 1, getRandomPrefix());
         return placeRepository.save(place);
     }
 

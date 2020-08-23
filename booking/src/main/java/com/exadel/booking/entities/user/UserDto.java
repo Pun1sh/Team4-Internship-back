@@ -11,28 +11,27 @@ import java.util.UUID;
 public class UserDto {
 
     private UUID id;
-    @NotBlank
+    @NotBlank(message = "Email may not be blank")
     private String email;
-    @NotBlank
+    @NotBlank(message = "Username may not be blank")
     private String username;
-    @NotBlank
+    @NotBlank(message = "FirstName may not be blank")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "LastName may not be blank")
     private String lastName;
     @NotNull
     private Boolean isActive;
     @NotNull
     private List<String> roleNames;
-    @NotBlank
+    @NotBlank(message = "Position may not be blank")
     private String position;
-    @NotBlank
+    @NotBlank(message = "Department may not be blank")
     private String department;
-    @NotBlank
+    @NotBlank(message = "Location may not be blank")
     private String location;
-    @NotBlank
+    @NotBlank(message = "Phone may not be blank")
     private String phone;
-    @NotBlank
+    @NotBlank(message = "Skype may not be blank")
     private String skype;
-    @NotBlank
-    private String hr;
+    private String img;
 }
